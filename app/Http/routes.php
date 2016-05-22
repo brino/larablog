@@ -11,9 +11,7 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome',['icon'=>'signal']);
-//});
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::auth();
 
@@ -31,22 +29,18 @@ Route::get('/photo/{photoSlug}','PhotosController@show')->name('photo');
 
 Route::get('/about','AboutController@index')->name('about');
 
-Route::get('/', 'HomeController@index')->name('home');
-
 Route::group(['namespace' => 'Admin'], function() {
-    Route::get('/admin', 'DashboardController@index')->name('admin');
-    Route::resource('admin/article','ArticleController');
-    Route::resource('admin/photo', 'PhotoController');
-    Route::resource('admin/category','CategoryController');
-    Route::resource('admin/tag','TagController');
-    Route::resource('admin/user','UserController');
-});
 
-//if(env('APP_REGISTER',false)==false){
-//
-//    Route::get('register', function () {
-//        return redirect('/')->withErrors(['User Registration Disabled']);
-//    });
-//    
-//    redirect('/')->withErrors(['User Registration Disabled']);
-//}
+    Route::get('/admin', 'DashboardController@index')->name('admin');
+
+    Route::resource('admin/article','ArticleController');
+
+    Route::resource('admin/photo', 'PhotoController');
+
+    Route::resource('admin/category','CategoryController');
+
+    Route::resource('admin/tag','TagController');
+
+    Route::resource('admin/user','UserController');
+    
+});

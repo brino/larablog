@@ -27,7 +27,6 @@ class TagController extends Controller
     public function index()
     {
         //show list of articles (to edit)
-//        return redirect()->route('tags');
 
         $info = false;
 

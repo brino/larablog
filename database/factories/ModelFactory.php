@@ -33,8 +33,6 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
 
     $category = App\Category::orderBy(\DB::raw('RAND()'))->first();
 
-    //$photo = App\Photo::orderBy(\DB::raw('RAND()'))->first()->url;
-
     $days = rand(1,10);
 
     $created = $faker->dateTimeThisMonth();

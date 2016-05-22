@@ -22,13 +22,10 @@ class TagsTableSeeder extends Seeder
 
         $this->tags = App\Tag::pluck('id','id');
 
-//        dd($this->tags->random(3)->all());
-
         App\Article::all()->each(function($item){
             $item->tags()->attach($this->tags->random(3)->all());
         });
 
-//        App\Article::reindex();
         App\Article::addAllToIndex();
     }
 }

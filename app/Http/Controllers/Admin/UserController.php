@@ -22,7 +22,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //TODO: list users
         $info = false;
 
         if(Session::has('info'))
@@ -36,12 +35,11 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        //TODO: show 
+        return redirect()->route('admin.user.edit',[$user]);
     }
     
     public function create(User $user)
     {
-        //TODO: show create form
 
         if (Gate::denies('create-user')) {
             return redirect()->route('admin')->withErrors(['User does not have permission to create users.']);
@@ -53,8 +51,6 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        //TODO: save db record
-
 
         if (Gate::denies('create-user')) {
             abort(403);
@@ -71,7 +67,6 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        //TODO: show edit form
         if (Gate::denies('update-user',$user)) {
             return redirect()->route('admin')->withErrors(['User does not have permission to edit this user.']);
         }
@@ -81,7 +76,6 @@ class UserController extends Controller
 
     public function update(User $user, UserRequest $request)
     {
-        //TODO update db record
         if (Gate::denies('update-user',$user)) {
             abort(403);
         }
@@ -105,7 +99,6 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        //TODO delete db record
 
         if (Gate::denies('update-user',$user)) {
             abort(403);

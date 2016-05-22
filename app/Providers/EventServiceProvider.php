@@ -49,10 +49,6 @@ class EventServiceProvider extends ServiceProvider
 
         });
 
-//        Photo::saved(function($photo){
-//
-//        });
-
         Photo::deleted(function($photo){
             if(Storage::disk('public')->exists($photo->url)){
                 Storage::disk('public')->delete($photo->url);

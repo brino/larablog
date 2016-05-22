@@ -39,9 +39,8 @@
                         <th></th>
                         <th>Title</th>
                         <th>Category</th>
-                        <th>Banner</th>
+                        <th>Tags</th>
                         <th>Slug</th>
-                        {{--<th>Thumbnail</th>--}}
                         <th>Published</th>
                         <th>Created</th>
                     </tr>
@@ -61,7 +60,14 @@
                                 {{ $article->category->name }}
                             </td>
                             <td>
-                                {{ $article->banner }}
+                                <p>
+                                    @foreach($article->tags as $tag)
+                                        <a class="badge" href="{{ route('tag',[$tag->slug]) }}">
+                                            <i class="fa fa-tag"></i>
+                                            {{ $tag->name }}
+                                        </a>
+                                    @endforeach
+                                </p>
                             </td>
                             <td>
                                 {{ str_limit($article->slug,25) }}
