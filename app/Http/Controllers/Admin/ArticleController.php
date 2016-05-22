@@ -110,7 +110,7 @@ class ArticleController extends Controller
             abort(403);
         }
         
-        if($article = Auth::user()->articles()->create($request->all())){
+        if($article = Auth::user()->articles()->create($request->except('tag_list'))){
 
             $article->tags()->attach($request->input('tag_list'));
 

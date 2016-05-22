@@ -37,9 +37,11 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
+           @unless(empty($article->banner))
             <p>
                 <img src="{{ asset('storage/'.$article->banner) }}" class="img-responsive img-rounded" id="img-article" />
             </p>
+            @endunless
             <p>
                 {!! $article->body !!}
             </p>

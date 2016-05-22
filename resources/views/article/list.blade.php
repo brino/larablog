@@ -13,12 +13,14 @@
         </div>
     </div>
     <div class="row">
+        @unless(empty($article->thumbnail))
         <div class="col-xs-3">
             <a href="{{ route('article',[$article->slug]) }}">
                 <img src="{{ asset('storage/'.$article->thumbnail) }}" class="img-thumbnail img-article-list" />
             </a>
         </div>
-        <div class="col-xs-9">
+        @endunless
+        <div class="col-xs-{{ empty($article->thumbnail)?12:9 }}">
             <div class="text-muted">
                 <p>
                     <small>@include('partials.signature',['thing'=>$article])</small>

@@ -29,8 +29,8 @@ class ArticleRequest extends Request
     {
         return [
             'title' => 'required',
-            'banner' => 'required',
-            'thumbnail' => 'required',
+//            'banner' => 'required',
+//            'thumbnail' => 'required',
             'summary' => 'required',
             'category_id' => 'required',
             'slug' => 'required',
