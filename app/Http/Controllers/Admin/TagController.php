@@ -118,7 +118,7 @@ class TagController extends Controller
 
         if($tag->update($request->all())){
 
-            return redirect()->route('admin')->with('info','Saved Tag Successfully!');
+            return redirect()->route('admin.tag.list')->with('info','Saved Tag Successfully!');
 
         } else {
 
