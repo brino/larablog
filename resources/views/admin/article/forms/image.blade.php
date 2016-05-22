@@ -14,8 +14,10 @@
     </div>
     <div class="panel-body">
         @unless(empty($article->banner))
-            <img src="{{ asset('storage/'.$article->banner) }}" class="img-responsive" id="img-article" style="margin-bottom:10px;">
-            {!! Form::submit('',['name'=>'banner','class'=>'btn btn-danger btn-block btn-xs']) !!}
+            <p>
+                <img src="{{ asset('storage/'.$article->banner) }}" class="img-responsive" id="img-article" style="margin-bottom:10px;">
+                {!! Form::button('Delete',['name'=>'banner','class'=>'btn btn-danger btn-block btn-xs','type'=>'submit']) !!}
+            </p>
         @endunless
         <div class="form-group">
 
@@ -34,8 +36,10 @@
         <hr>
 
         @unless(empty($article->thumbnail))
-            <img src="{{ asset('storage/'.$article->thumbnail) }}" class="img-responsive" style="margin-bottom:10px;">
-                {!! Form::submit('',['name'=>'thumbnail','class'=>'btn btn-danger btn-block btn-xs']) !!}
+            <p class="text-center">
+                <img src="{{ asset('storage/'.$article->thumbnail) }}" align="center" style="margin-bottom:10px;">
+                <div class="text-center">{!! Form::button('Delete',['name'=>'thumbnail','class'=>'btn btn-danger btn-xs','type'=>'submit']) !!}</div>
+            </p>
         @endunless
 
         <div class="form-group">
