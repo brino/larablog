@@ -21,7 +21,12 @@ class HomeController extends Controller
     {
 
         $articles = $article->latest('published_at')->published()->limit(5)->get();
-        
-        return view('home',compact('articles'));
+
+        if($articles->count()){
+            return view('home',compact('articles'));
+        }
+
+        return view('about');
+
     }
 }
