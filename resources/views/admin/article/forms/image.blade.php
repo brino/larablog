@@ -47,9 +47,6 @@
             <div class="form-group{{ $errors->has('thumbnail') ? ' has-error' : '' }}">
                 {!! Form::label('thumbnail','Thumbnail') !!}
                 {!! Form::file('thumbnail') !!}
-                @if(!empty($article->banner))
-                    {!! Form::hidden('thumbnail') !!}
-                @endif
                 <p class="help-block">Photo must be a .jpg or .phg less than 2MB and will be resized to 200x200</p>
                 @if ($errors->has('thumbnail'))
                     <span class="help-block">
