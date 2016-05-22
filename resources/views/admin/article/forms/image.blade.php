@@ -13,18 +13,16 @@
         </div>
     </div>
     <div class="panel-body">
-        @if(!empty($article->banner))
-            <img src="{{ asset('storage/'.$article->banner) }}" class="img-responsive" id="img-article">
-            {{--{!! Html::link_to_route('image.delete') !!}--}}
-        @endif
+        @unless(empty($article->banner))
+            <img src="{{ asset('storage/'.$article->banner) }}" class="img-responsive" id="img-article" style="margin-bottom:10px;">
+            {!! Form::submit('',['name'=>'banner','class'=>'btn btn-danger btn-block btn-xs']) !!}
+        @endunless
         <div class="form-group">
 
             <div class="form-group{{ $errors->has('banner') ? ' has-error' : '' }}">
                 {!! Form::label('banner','Banner') !!}
                 {!! Form::file('banner') !!}
-                @if(!empty($article->banner))
-                    {!! Form::hidden('banner') !!}
-                @endif
+
                 <p class="help-block">1024x250 .jpg or .png</p>
                 @if ($errors->has('banner'))
                     <span class="help-block">
@@ -35,10 +33,10 @@
         </div>
         <hr>
 
-        @if(!empty($article->thumbnail))
-            <img src="{{ asset('storage/'.$article->thumbnail) }}" class="img-responsive">
-            {{--{!! Html::link_to_route('image.delete') !!}--}}
-        @endif
+        @unless(empty($article->thumbnail))
+            <img src="{{ asset('storage/'.$article->thumbnail) }}" class="img-responsive" style="margin-bottom:10px;">
+                {!! Form::submit('',['name'=>'thumbnail','class'=>'btn btn-danger btn-block btn-xs']) !!}
+        @endunless
 
         <div class="form-group">
 

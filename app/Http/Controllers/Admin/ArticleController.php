@@ -159,7 +159,7 @@ class ArticleController extends Controller
         if (Gate::denies('update-article',$article)) {
             abort(403);
         }
-
+        
         if($article->update($request->all())){
             
             return redirect()->route('admin.article.index')->with('info','Saved Article Successfully!');
