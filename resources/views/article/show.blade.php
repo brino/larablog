@@ -24,14 +24,14 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <p class="text-muted">
-                @include('partials.signature',['thing'=>$article])
-                on {{ $article->published_at->toFormattedDateString() }}
-            </p>
-            <p>
+            <p class="pull-right">
                 @foreach($article->tags as $tag)
                     <span class="badge">{{ $tag->name }}</span>
                 @endforeach
+            </p>
+            <p class="text-muted">
+                @include('partials.signature',['thing'=>$article])
+                on {{ $article->published_at->toFormattedDateString() }}
             </p>
         </div>
     </div>
