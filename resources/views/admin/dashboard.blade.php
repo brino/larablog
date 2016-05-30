@@ -82,8 +82,9 @@
                                     <p><strong><a href="{{ route('admin.photo.edit',[$photo]) }}">{{ $photo->title }}</a></strong></p>
                                     <p>
                                         {{ str_limit($photo->description,25) }}
-                                        <br>
-                                        <small class="text-muted">{{ $photo->published_at->diffForHumans() }}</small>
+                                    </p>
+                                    <p>
+                                        @include('partials.signature',['thing'=>$photo])
                                     </p>
 
                                 </div>

@@ -6,16 +6,17 @@
  * Time: 11:28 AM
  */
 ?>
-@if(!empty($article))
+
+@if(get_class($thing) == 'App\Article')
 @can('update-article',$article)<a href="{{ route('admin.article.edit',[$article]) }}">@endcan<i class="fa fa-pencil"></i>@can('update-article',$article)</a>@endcan
 @endif
 
-@if(!empty($photo))
-@can('update-photo',$photo)<a href="{{ route('admin.photo.edit',[$photo]) }}">@endcan<i class="fa fa-camera"></i>@can('update-article',$photo)</a>@endcan
+@if(get_class($thing) == 'App\Photo')
+@can('update-photo',$photo)<a href="{{ route('admin.photo.edit',[$photo]) }}">@endcan<i class="fa fa-camera"></i>@can('update-photo',$photo)</a>@endcan
 @endif
 
 <a href="#">{{ $thing->user->name }}</a>
-{{--{{ dd($thing->published_at) }}--}}
+
 @if(isset($thing->published_at))
     <span
     @if($thing->published_at->gt(\Carbon\Carbon::now()) && Route::is('admin'))
