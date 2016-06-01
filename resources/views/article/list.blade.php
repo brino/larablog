@@ -26,7 +26,9 @@
                     <small>@include('partials.signature',['thing'=>$article])</small>
                 </p>
             </div>
-            <div class="article-body"><p>{!! $article->summary !!}</p></div>
+            <div class="article-body">
+                <p>{!! $article->summary !!} {!! link_to_route('article','more...',[$article->slug]) !!}</p>
+            </div>
 
             <div class="article-tags">
                 <p>
