@@ -33,7 +33,7 @@
         <div class="col-md-9">
             @include('article.list')
         </div>
-        <div class="col-md-3 col-md-pull-3">
+        <div class="col-md-3">
             @include('category.list')
         </div>
     </div>

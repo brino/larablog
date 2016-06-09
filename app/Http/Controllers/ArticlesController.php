@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Elastic\ArticleQuery;
 use App\Category;
+use ElasticBuilder\Eb;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use App\Http\Requests;
-use Carbon\Carbon;
 use App\Tag;
+use Carbon\Carbon;
 
 /**
  * Class ArticlesController
@@ -21,91 +22,69 @@ class ArticlesController extends Controller
      * @var
      */
     protected $categories;
+    
+    protected $request;
 
     /**
      * ArticlesController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-
+        $this->request = $request;
         $this->categories = Category::all();
-
     }
 
     /**
      * @param Article $article
-     * @param Request $request
+     * @param ArticleQuery $query
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Article $article,Request $request){
-        $perPage = 10;
+    public function index(Article $article,ArticleQuery $query){
         $search = [];
-        $categoryFilterID = false;
-
-        $aggregations =
-            [
-                'categories' => [
-                    'terms' => [
-                        'field' => 'category_id'
-                    ]
-                ]
-            ];
-
-        $sort =
-            [
-                '_score',
-                [ 'published_at'=>'desc'],
-                [ 'updated_at'=>'desc'],
-                [ 'created_at'=>'desc'],
-            ];
-
-        if($request->has('search')){
-            $search['string'] = $request->get('search');
-
-            $match = [
-                'multi_match'=>[
-                    'query' => $search['string'],
-                    'fields' => ['title^3','summary^1','body','userName^2','categoryName^2','tag_string^1'],
-                    'type' => 'cross_fields',
-                    'operator' => 'and'
-                ]
-            ];
-
-        } else {
-
-            $match = [
-                'match_all' => []
-            ];
-        }
-
-        $query =
-            [
-                'bool' =>[
-                    'must' => $match,
-                    'filter' => [
-                        'range' => [
-                            'published_at' => [
-                                'lte' => Carbon::now()->toIso8601String()
-                            ]
-                        ]
-                    ]
-                ]
-            ];
-
-
-        if(!empty($request->get('category'))){
-            $categoryFilterID  = $request->get('category');
-
+        $size=10;
+        $categoryFilterID = $this->request->get('category',false);
+        $search['string'] = $this->request->get('search');
+        
+        if($categoryFilterID){
             $categoryFilter = Category::findOrFail($categoryFilterID)->name;
-
-            $query['bool']['filter']['category']['term'] = ['category_id' => $categoryFilterID];
         }
 
-        $offset = ($request->get('page',1)-1)*$perPage;
-        $results = $article->searchByQuery($query,$aggregations,$source=null,$perPage,$offset,$sort);
+
+        /**
+         * 
+         * EXAMPLES
+         * 
+         */
+        
+//        $query = Eb::boolean()
+//            ->must(Eb::term('category_id',1))
+//            ->filter(Eb::range('published_at',['lte' => Carbon::now()->toIso8601String(),'gte' => Carbon::now()->subDay(10)->toIso8601String()]));
+//
+//        $match = \Eb::multi_match(['title^3','summary^1','body','userName^2','categoryName^2','tag_string^1'],'lorim ipsum','and','cross_fields');
+//        
+//        $query = Article::boolean()
+//            ->must(Eb::term('category_id',1))
+//            ->aggregate(Eb::agg()->terms('categories','category_id'));
+//
+//        $query = Article::agg()
+//            ->terms('categories','category_id');
+//
+//        dd($query);
+
+        /**
+         * 
+         * END EXAMPLES
+         * 
+         */
+        
+
+        //perform elasticsearch query
+        $results = $article->searchByQuery($query->get(),$query->aggregations(),$source=null,$query->size(),$query->offset(),$query->sort());
 
         $search['took'] = $results->took();
         $search['hits'] = $results->totalHits();
+        
         if(isset($results->getAggregations()['categories'])){
             $this->aggs = collect($results->getAggregations()['categories']['buckets']);
         }
@@ -122,8 +101,10 @@ class ArticlesController extends Controller
             return true;
         });
 
-        $articles = $results->paginate($perPage);
-        $page = $request->get('search');
+        $articles = $results->paginate($size);
+        
+        $page = $this->request->get('page');
+        
         $search = collect($search); //make search a collection
 
         $article->load('user');
@@ -138,14 +119,14 @@ class ArticlesController extends Controller
      * @param Article $article
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function category(Category $category, Article $article, Request $request){
+    public function category(Category $category, Article $article){
 
         $categories = $this->categories;
 
         $search = collect([]);
         $categoryFilterID = false;
 
-        $page = $request->get('search');
+        $page = $this->request->get('search');
 
         $perPage = 10;
         $article->load('user');
@@ -157,13 +138,18 @@ class ArticlesController extends Controller
         return view('category',compact('articles','category','categories','search','page','categoryFilterID'));
     }
 
-    public function tag(Tag $tag, Article $article, Request $request){
+    /**
+     * @param Tag $tag
+     * @param Article $article
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function tag(Tag $tag, Article $article){
 
         $categories = $this->categories;
         $search = collect([]);
         $categoryFilterID = false;
 
-        $page = $request->get('search');
+        $page = $this->request->get('search');
 
         $perPage = 10;
         $article->load('user');

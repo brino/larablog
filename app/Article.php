@@ -2,6 +2,7 @@
 
 namespace App;
 
+use ElasticBuilder\ElasticBuilderTrait;
 use Elasticquent\ElasticquentTrait;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\File;
 class Article extends Model
 {
     use ElasticquentTrait;
+    use ElasticBuilderTrait;
     /**
      * @var array
      */

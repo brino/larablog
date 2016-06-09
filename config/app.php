@@ -147,17 +147,18 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-        Elasticquent\ElasticquentServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
+        Collective\Html\HtmlServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Elasticquent\ElasticquentServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        ElasticBuilder\ElasticBuilderServiceProvider::class
 
     ],
 
@@ -208,6 +209,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
+        'Eb' => ElasticBuilder\Eb::class,
+        //'Agg' => ElasticBuilder\ElasticAggBuilderFacade::class,
 
     ],
 
