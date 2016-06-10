@@ -10,6 +10,7 @@ namespace App\Elastic;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use ElasticBuilder\Eb;
 use ElasticBuilder\Query\Boolean;
 
 /**
@@ -46,10 +47,10 @@ class ArticleQuery extends Boolean
         if($this->request->has('search')){
             $search = $this->request->get('search');
             
-            $match = \Eb::multi_match(['title^3','summary^1','body','userName^2','categoryName^2','tag_string^1'],$search,'and','cross_fields');
+            $match = Eb::multi_match(['title^3','summary^1','body','userName^2','categoryName^2','tag_string^1'],$search,'and','cross_fields');
 
         } else {
-            $match = \Eb::match_all();
+            $match = Eb::match_all();
         }
 
         $this->must($match);
@@ -63,7 +64,7 @@ class ArticleQuery extends Boolean
         if(!empty($this->request->get('category'))){
             $categoryFilterID  = $this->request->get('category');
             
-            $filter = \Eb::term('category_id',$categoryFilterID);
+            $filter = Eb::term('category_id',$categoryFilterID);
 
             $this->filter($filter);
         }
@@ -74,7 +75,7 @@ class ArticleQuery extends Boolean
      */
     private function published()
     {
-        $filter = \Eb::range('published_at',['lte' => Carbon::now()->toIso8601String()]);
+        $filter = Eb::range('published_at',['lte' => Carbon::now()->toIso8601String()]);
         
         $this->filter($filter);
     }
@@ -84,7 +85,7 @@ class ArticleQuery extends Boolean
      */
     private function categoryAgg()
     {
-        $aggregation = \Eb::agg()->terms('categories','category_id');
+        $aggregation = Eb::agg()->terms('categories','category_id');
         $this->aggregate($aggregation);
     }
 }
