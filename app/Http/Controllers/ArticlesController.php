@@ -22,7 +22,10 @@ class ArticlesController extends Controller
      * @var
      */
     protected $categories;
-    
+
+    /**
+     * @var Request
+     */
     protected $request;
 
     /**
