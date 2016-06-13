@@ -43,7 +43,8 @@
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize",
-            "touch resources/views/about/me.blade.php"
+            "touch resources/views/about/me.blade.php",
+            "cp .env.example .env"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
@@ -52,7 +53,6 @@
     },
     "config": {
         "preferred-install": "dist",
-        "secure-http": false,
         "prefer-stable": true
     }
 }
