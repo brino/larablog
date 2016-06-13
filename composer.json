@@ -44,7 +44,8 @@
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize",
             "touch resources/views/about/me.blade.php",
-            "cp .env.example .env"
+            "cp .env.example .env",
+            "ln -s public/storage storage/app/public"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
