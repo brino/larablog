@@ -8,7 +8,7 @@ Larablog is released under the MIT Open Source License, <https://opensource.org/
 
 ## Copyright
 
-LaraBlog &copy; 2015 Brian Mix
+LaraBlog &copy; 2016 Brian Mix
 
 ## Installation
 
