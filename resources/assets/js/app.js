@@ -6,10 +6,13 @@ window.$ = window.jQuery = require('jquery');
 var bootstrapjs = window.bootstrapjs = require('bootstrap-sass');
 var d3 = window.d3 = require('d3');
 var c3 = window.c3 = require('c3');
-var CodeMirror = window.codemirror = require('codemirror');
+var CodeMirror = window.CodeMirror = require('codemirror');
 require('bootstrap-multiselect/dist/js/bootstrap-multiselect');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/htmlmixed/htmlmixed');
+require('codemirror/addon/mode/overlay');
+require('codemirror-spell-checker/dist/spell-checker.min');
+
 
 $( document ).ready(function() {
     $(function () {
@@ -35,7 +38,7 @@ $( document ).ready(function() {
     // });
 
     $('textarea.editor-html').each(function(index,value){
-        var editor = CodeMirror.fromTextArea(value,{mode: 'htmlmixed'})
+        var editor = CodeMirror.fromTextArea(value,{mode: 'spell-checker', backdrop: 'htmlmixed'})
     });
 
     $('textarea.editor-script').each(function(index,value){

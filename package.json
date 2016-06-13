@@ -15,6 +15,7 @@
     "codemirror": "^5.0.0",
     "d3":"^3.0.0",
     "bootstrap-multiselect": "*",
-    "c3": "*"
+    "c3": "*",
+    "codemirror-spell-checker": "^1.0.0"
   }
 }
