@@ -26,8 +26,9 @@ To display content on the "about" page, create a template at /resources/views/ab
 
 Set `APP_REGISTER=true` in your **.env** file to enable user registration.
 
-This blog uses the Filesystem/Cloud storage component of Laravel, as such you need to set up the symlink for the photos to work.
+## Filesystem Cloud Storage Symlink
 
+This project uses the Filesystem/Cloud storage component of Laravel, as such you need to set up the symlink for the photos to be publicly available.
 
 > The public disk is meant for files that are going to be publicly accessible. By default, the public disk uses the local 
 > driver and stores these files in **storage/app/public**. To make them accessible from the web, you should create a symbolic 
