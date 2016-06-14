@@ -43575,7 +43575,7 @@ $(document).ready(function () {
 
         var editor = CodeMirror(function (elt) {
             element.parentNode.replaceChild(elt, element);
-        }, { mode: 'php', value: '<?' + $(element).html(), 'readOnly': "nocursor", lineNumbers: true, matchBrackets: true, viewportMargin: Infinity, autofocus: true });
+        }, { mode: 'text/x-php', value: $(element).html(), 'readOnly': "nocursor", lineNumbers: true, matchBrackets: true, viewportMargin: Infinity, autofocus: true });
     });
 
     $('code.javascript').each(function (index, element) {
