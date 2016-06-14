@@ -50,7 +50,7 @@ $( document ).ready(function() {
 
         var editor = CodeMirror(function(elt) {
             element.parentNode.replaceChild(elt, element);
-        }, {mode: 'text/x-php',value: $(element).html(),'readOnly': "nocursor",lineNumbers: true,matchBrackets:true,viewportMargin:Infinity,autofocus:true});
+        }, {mode: 'text/x-php',value: $(element).text(),'readOnly': "nocursor",lineNumbers: true,matchBrackets:true,viewportMargin:Infinity,autofocus:true});
 
     });
 
@@ -58,7 +58,7 @@ $( document ).ready(function() {
 
         var editor = CodeMirror(function(elt) {
             element.parentNode.replaceChild(elt, element);
-        }, {mode: 'javascript',value: $(element).html(),'readOnly': "nocursor",lineNumbers: true,matchBrackets:true,viewportMargin:Infinity,autofocus:true});
+        }, {mode: 'javascript',value: $(element).text(),'readOnly': "nocursor",lineNumbers: true,matchBrackets:true,viewportMargin:Infinity,autofocus:true});
 
     });
 
