@@ -10,6 +10,7 @@ var CodeMirror = window.CodeMirror = require('codemirror');
 require('bootstrap-multiselect/dist/js/bootstrap-multiselect');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/htmlmixed/htmlmixed');
+require('codemirror/mode/php/php');
 require('codemirror/addon/mode/overlay');
 require('codemirror-spell-checker/dist/spell-checker.min');
 
@@ -43,6 +44,30 @@ $( document ).ready(function() {
 
     $('textarea.editor-script').each(function(index,value){
         var editor = CodeMirror.fromTextArea(value,{mode: 'javascript'})
+    });
+
+    $('code.php').each(function(index,element){
+
+        var editor = CodeMirror(function(elt) {
+            element.parentNode.replaceChild(elt, element);
+        }, {mode: 'php',value: '<?'+$(element).html(),'readOnly': "nocursor",lineNumbers: true,matchBrackets:true,viewportMargin:Infinity,autofocus:true});
+
+    });
+
+    $('code.javascript').each(function(index,element){
+
+        var editor = CodeMirror(function(elt) {
+            element.parentNode.replaceChild(elt, element);
+        }, {mode: 'javascript',value: $(element).html(),'readOnly': "nocursor",lineNumbers: true,matchBrackets:true,viewportMargin:Infinity,autofocus:true});
+
+    });
+
+    $('code.html').each(function(index,element){
+
+        var editor = CodeMirror(function(elt) {
+            element.parentNode.replaceChild(elt, element);
+        }, {mode: 'htmlmixed',value: $(element).html(),'readOnly': "nocursor",lineNumbers: true,matchBrackets:true,viewportMargin:Infinity,autofocus:true});
+
     });
     
     // $('a.category').click(function(el){
