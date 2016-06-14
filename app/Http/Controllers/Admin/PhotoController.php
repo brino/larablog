@@ -144,7 +144,7 @@ class PhotoController extends Controller
                 }
             }
 
-            return redirect()->route('admin.photo.list')->with('info','Saved Photo Successfully!');
+            return redirect()->route('admin.photo.index')->with('info','Saved Photo Successfully!');
             
         } else {
             
