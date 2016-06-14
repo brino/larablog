@@ -46,9 +46,7 @@ class DashboardController extends Controller
         } else {
             return redirect()->route('home');
         }
-
-
-
+        
         if(Session::has('info'))
             $info = Session::get('info');
 

@@ -27,6 +27,9 @@ class ArticleController extends Controller
      */
     protected $categories = [];
 
+    /**
+     * @var array
+     */
     protected $tags = [];
 
     /**

@@ -40,7 +40,10 @@ class Category extends Model
     {
         return $this->belongsTo(Photo::class);
     }
-    
+
+    /**
+     * @param $count
+     */
     public function setCountAttribute($count)
     {
         $this->attributes['count'] = $count;

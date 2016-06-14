@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name','slug'
     ];
@@ -41,6 +44,9 @@ class Tag extends Model
 
     }
 
+    /**
+     * @param $name
+     */
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = strtolower($name);

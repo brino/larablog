@@ -43,6 +43,9 @@ class Photo extends Model
         $this->attributes['published_at'] = Carbon::parse($date);
     }
 
+    /**
+     * @param $string
+     */
     public function setSlugAttribute($string)
     {
         $this->attributes['slug'] = str_slug(strtolower($string)); // Replaces multiple hyphens with single one.

@@ -10,6 +10,10 @@ use App\Tag;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\TagRequest;
 
+/**
+ * Class TagController
+ * @package App\Http\Controllers\Admin
+ */
 class TagController extends Controller
 {
     /**

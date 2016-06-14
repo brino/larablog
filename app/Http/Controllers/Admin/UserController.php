@@ -33,11 +33,19 @@ class UserController extends Controller
         return view('admin.users',compact('users','info'));
     }
 
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function show(User $user)
     {
         return redirect()->route('admin.user.edit',[$user]);
     }
-    
+
+    /**
+     * @param User $user
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create(User $user)
     {
 
@@ -49,6 +57,10 @@ class UserController extends Controller
         
     }
 
+    /**
+     * @param UserRequest $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function store(UserRequest $request)
     {
 
@@ -65,6 +77,10 @@ class UserController extends Controller
         return back()->withErrors(['Failed to Create User']);
     }
 
+    /**
+     * @param User $user
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(User $user)
     {
         if (Gate::denies('update-user',$user)) {
@@ -74,6 +90,11 @@ class UserController extends Controller
         return view('admin.user.edit',compact('user'));
     }
 
+    /**
+     * @param User $user
+     * @param UserRequest $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function update(User $user, UserRequest $request)
     {
         if (Gate::denies('update-user',$user)) {
@@ -97,6 +118,11 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function destroy(User $user)
     {
 

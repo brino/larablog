@@ -25,6 +25,9 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $info = false;
@@ -38,12 +41,18 @@ class CategoryController extends Controller
         return view('admin.categories',compact('categories','info'));
     }
 
+    /**
+     * @param Category $category
+     */
     public function show(Category $category)
     {
         //show a single category
         dd($category);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         //show the creation form and post to store()
@@ -53,6 +62,10 @@ class CategoryController extends Controller
         return view('admin.category.create',compact('info'));
     }
 
+    /**
+     * @param CategoryRequest $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function store(CategoryRequest $request)
     {
         //process the create form ... and store in db
@@ -70,6 +83,10 @@ class CategoryController extends Controller
         return back()->withErrors(['Failed to Create Article']);
     }
 
+    /**
+     * @param Category $category
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(Category $category)
     {
         $info = false;
@@ -78,6 +95,11 @@ class CategoryController extends Controller
         return view('admin.category.edit',compact('info','category'));
     }
 
+    /**
+     * @param Category $category
+     * @param CategoryRequest $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function update(Category $category, CategoryRequest $request)
     {
         //process edit form ... and update db
@@ -98,6 +120,11 @@ class CategoryController extends Controller
 
     }
 
+    /**
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function destroy(Category $category)
     {
         //nuke the model
