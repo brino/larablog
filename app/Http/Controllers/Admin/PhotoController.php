@@ -95,13 +95,6 @@ class PhotoController extends Controller
 
         if($photo = Photo::create(array_merge($request->all(),['user_id'=>Auth::user()->id]))){
 
-//            if ($request->hasFile('url') && $request->file('url')->isValid()) {
-//
-//                $photo->url = $this->uploadImage($request->file('url'));
-//
-//                $photo->save();
-//            }
-
             return redirect()->route('admin')->with('info','Photo Created');
 
         }
@@ -176,28 +169,5 @@ class PhotoController extends Controller
 
         return redirect()->route('admin.photo.index')->with('info','Photo Deleted!');
     }
-
-//    /**
-//     * @param $image
-//     * @param string $dir
-//     * @param int $width
-//     * @param int $height
-//     * @return mixed
-//     */
-//    private function uploadImage($image,$dir='photos',$width=1920,$height=1200){
-//
-//        $filename = '';
-//        if($image->isValid()){
-//            //$filename  = $image->getClientOriginalName();
-//            $filename = time().str_random(25).'.'.$image->getClientOriginalExtension();
-//
-//            //manipulate the uploaded image ... resize and overwrite
-//            Image::make($image->getRealPath())->fit($width,$height)->save($image->getRealPath());
-//
-//            Storage::disk('public')->put($dir.'/'.$filename,File::get($image));
-//        }
-//
-//        return $filename;
-//    }
 
 }

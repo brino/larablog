@@ -18,6 +18,10 @@ LaraBlog &copy; 2016 Brian Mix
 3. run npm `npm install` to install js packages
 4. run gulp `gulp` to build assets
 
+## About Me Page
+
+To display content on the "about" page, create a template at /resources/views/about/me.blade.php. Or, you can use the following command from the project root `touch resources/views/about/me.blade.php`
+
 ## Registration
 
 Set `APP_REGISTER=true` in your **.env** file to enable user registration.
