@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Larablog by brino</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Larablog</h1>
+        <h2>Simple CMS/blog/gallery with Laravel 5, Elasticsearch, and d3</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/brino/larablog/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/brino/larablog/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/brino/larablog" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="larablog---simple-laravel-blog" class="anchor" href="#larablog---simple-laravel-blog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LaraBlog - Simple Laravel Blog</h1>
+
+<p>LaraBlog is a simple blog application for posting articles and photos! It can be used as a personal site, or with multiple contributors</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Larablog is released under the MIT Open Source License, <a href="https://opensource.org/licenses/MIT">https://opensource.org/licenses/MIT</a></p>
+
+<h2>
+<a id="copyright" class="anchor" href="#copyright" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Copyright</h2>
+
+<p>LaraBlog © 2016 Brian Mix</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<ol>
+<li>clone repository <code>git clone https://github.com/brino/larablog.git blog</code>
+</li>
+<li>change directory into blog <code>cd blog</code>
+</li>
+<li>run composer <code>composer install</code> to install php packages</li>
+<li>run npm <code>npm install</code> to install js packages</li>
+<li>run gulp <code>gulp</code> to build assets</li>
+</ol>
+
+<h2>
+<a id="about-me-page" class="anchor" href="#about-me-page" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About Me Page</h2>
+
+<p>To display content on the "about" page, create a template at /resources/views/about/me.blade.php. Or, you can use the following command from the project root <code>touch resources/views/about/me.blade.php</code></p>
+
+<h2>
+<a id="registration" class="anchor" href="#registration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Registration</h2>
+
+<p>Set <code>APP_REGISTER=true</code> in your <strong>.env</strong> file to enable user registration.</p>
+
+<h2>
+<a id="filesystem-cloud-storage-symlink" class="anchor" href="#filesystem-cloud-storage-symlink" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Filesystem Cloud Storage Symlink</h2>
+
+<p>This project uses the Filesystem/Cloud storage component of Laravel, as such you need to set up the symlink for the photos to be publicly available.</p>
+
+<blockquote>
+<p>The public disk is meant for files that are going to be publicly accessible. By default, the public disk uses the local 
+driver and stores these files in <strong>storage/app/public</strong>. To make them accessible from the web, you should create a symbolic 
+link from <strong>public/storage</strong> to <strong>storage/app/public</strong>.</p>
+</blockquote>
+
+<p>So, like this ... starting from the <strong>/blog/public</strong> directory<code>ln -s ../storage/app/public storage</code></p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
