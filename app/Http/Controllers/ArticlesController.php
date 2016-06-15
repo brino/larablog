@@ -59,30 +59,33 @@ class ArticlesController extends Controller
          * EXAMPLES
          * 
          */
-        
-//        $query = Eb::boolean()
+
+//        $temp = Eb::boolean()
 //            ->must(Eb::term('category_id',1))
-//            ->filter(Eb::range('published_at',['lte' => Carbon::now()->toIso8601String(),'gte' => Carbon::now()->subDay(10)->toIso8601String()]));
+//            ->filter(Eb::range('published_at',['lte' => Carbon::now()->toIso8601String(),'gte' => Carbon::now()->subDay(10)->toIso8601String()]))->get();
 
 //        $query = $query->get();
 
 //        $match = \Eb::multi_match(['title^3','summary^1','body','userName^2','categoryName^2','tag_string^1'],'lorim ipsum','and','cross_fields');
         
-//        $query = Article::boolean()
-//            ->must(Eb::term('category_id',1))
-//            ->aggregate(Eb::agg()->terms('categories','category_id'));
+//        $temp = $article->boolean()
+//            ->must(Eb::match('body','keyword search string'))
+//            ->aggregate(Eb::agg()->terms('categories','category_id'))->get();
 
 //        $query = Article::agg()
 //            ->terms('categories','category_id');
 
-//        dd($query);
+//        dump($temp);
+
+//        $mysql = $article->where('user_id',11)->paginate();
+//
+//        dump($mysql);
 
         /**
          * 
          * END EXAMPLES
          * 
          */
-        
 
         //perform elasticsearch query
         $results = $article->searchByQuery($query->get(),$query->aggregations(),$source=null,$query->size(),$query->offset(),$query->sort());
