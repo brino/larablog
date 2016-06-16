@@ -22,7 +22,7 @@ class SiteMapsController extends Controller
         Sitemap::addSitemap(route('sitemaps.photos'));
 
         // Return the sitemap to the client.
-        return Sitemap::index()->header('Content-Type','text/xml');
+        return Sitemap::index()->header('Content-Type','application/xml');
     }
 
     public function general()
@@ -41,7 +41,7 @@ class SiteMapsController extends Controller
             Sitemap::addTag(route('article', $article->slug), $article, 'never', '0.7');
         }
 
-        return Sitemap::render()->header('Content-Type','text/xml');
+        return Sitemap::render()->header('Content-Type','application/xml');
     }
 
     public function photos()
@@ -52,7 +52,7 @@ class SiteMapsController extends Controller
             Sitemap::addTag(route('photo', $photo->slug), $photo, 'never', '0.7');
         }
 
-        return Sitemap::render()->header('Content-Type','text/xml');
+        return Sitemap::render()->header('Content-Type','application/xml');
     }
 
 }
