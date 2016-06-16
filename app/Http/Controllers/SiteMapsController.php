@@ -9,12 +9,20 @@ use Watson\Sitemap\Facades\Sitemap;
 
 use App\Http\Requests;
 
+/**
+ * Class SiteMapController
+ * @package App\Http\Controllers
+ */
 class SiteMapsController extends Controller
 {
+
+    /**
+     * @return mixed
+     */
     public function index()
     {
         // Get a general sitemap.
-        Sitemap::addSitemap('/sitemaps');
+        //Sitemap::addSitemap('/sitemaps');
 
         // You can use the route helpers too.
         Sitemap::addSitemap(route('sitemaps.general'));
