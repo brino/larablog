@@ -29,14 +29,6 @@ Route::get('/photo/{photoSlug}','PhotosController@show')->name('photo');
 
 Route::get('/about','AboutController@index')->name('about');
 
-Route::get('/sitemaps','SiteMapsController@index')->name('sitemaps');
-
-Route::get('/sitemaps/articles','SiteMapsController@articles')->name('sitemaps.articles');
-
-Route::get('/sitemaps/photos','SiteMapsController@photos')->name('sitemaps.photos');
-
-Route::get('/sitemaps/general','SiteMapsController@general')->name('sitemaps.general');
-
 Route::group(['namespace' => 'Admin'], function() {
 
     Route::get('/admin', 'DashboardController@index')->name('admin');
@@ -51,4 +43,14 @@ Route::group(['namespace' => 'Admin'], function() {
 
     Route::resource('admin/user','UserController');
     
+});
+
+Route::group(['middleware' => 'api'], function () {
+    Route::get('/sitemaps','SiteMapsController@index')->name('sitemaps');
+
+    Route::get('/sitemaps/articles','SiteMapsController@articles')->name('sitemaps.articles');
+
+    Route::get('/sitemaps/photos','SiteMapsController@photos')->name('sitemaps.photos');
+
+    Route::get('/sitemaps/general','SiteMapsController@general')->name('sitemaps.general');
 });
