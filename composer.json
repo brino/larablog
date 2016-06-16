@@ -11,7 +11,8 @@
         "laravelcollective/html": "^5.2",
         "intervention/image": "^2.0",
         "predis/predis": "~1.0",
-        "brokerexchange/elasticbuilder": "^1.0.0"
+        "brokerexchange/elasticbuilder": "^1.0.0",
+        "watson/sitemap": "^2.0.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -24,8 +25,7 @@
             "database"
         ],
         "psr-4": {
-            "App\\": "app/",
-            "ElasticBuilder\\": "workbench/ben/elasticbuilder/src"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {

@@ -158,7 +158,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        ElasticBuilder\ElasticBuilderServiceProvider::class
+        ElasticBuilder\ElasticBuilderServiceProvider::class,
+        Watson\Sitemap\SitemapServiceProvider::class
 
     ],
 
