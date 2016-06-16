@@ -11,46 +11,38 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
 
-Route::auth();
+    Route::get('/', 'HomeController@index')->name('home');
 
-Route::any('/articles','ArticlesController@index')->name('articles');
+    Route::auth();
 
-Route::get('/category/{categorySlug}','ArticlesController@category')->name('category');
+    Route::any('/articles', 'ArticlesController@index')->name('articles');
 
-Route::get('/tag/{tagSlug}','ArticlesController@tag')->name('tag');
+    Route::get('/category/{categorySlug}', 'ArticlesController@category')->name('category');
 
-Route::get('/article/{articleSlug}','ArticlesController@show')->name('article');
+    Route::get('/tag/{tagSlug}', 'ArticlesController@tag')->name('tag');
 
-Route::get('/photos','PhotosController@index')->name('photos');
+    Route::get('/article/{articleSlug}', 'ArticlesController@show')->name('article');
 
-Route::get('/photo/{photoSlug}','PhotosController@show')->name('photo');
+    Route::get('/photos', 'PhotosController@index')->name('photos');
 
-Route::get('/about','AboutController@index')->name('about'); 
+    Route::get('/photo/{photoSlug}', 'PhotosController@show')->name('photo');
 
-Route::group(['namespace' => 'Admin'], function() {
+    Route::get('/about', 'AboutController@index')->name('about');
 
-    Route::get('/admin', 'DashboardController@index')->name('admin');
+    Route::group(['namespace' => 'Admin'], function () {
 
-    Route::resource('admin/article','ArticleController');
+        Route::get('/admin', 'DashboardController@index')->name('admin');
 
-    Route::resource('admin/photo', 'PhotoController');
+        Route::resource('admin/article', 'ArticleController');
 
-    Route::resource('admin/category','CategoryController');
+        Route::resource('admin/photo', 'PhotoController');
 
-    Route::resource('admin/tag','TagController');
+        Route::resource('admin/category', 'CategoryController');
 
-    Route::resource('admin/user','UserController');
-    
-});
+        Route::resource('admin/tag', 'TagController');
 
-Route::group(['middleware' => 'api'], function () {
-    Route::get('/sitemaps','SiteMapsController@index')->name('sitemaps');
+        Route::resource('admin/user', 'UserController');
 
-    Route::get('/sitemaps/articles','SiteMapsController@articles')->name('sitemaps.articles');
+    });
 
-    Route::get('/sitemaps/photos','SiteMapsController@photos')->name('sitemaps.photos');
-
-    Route::get('/sitemaps/general','SiteMapsController@general')->name('sitemaps.general');
-});
