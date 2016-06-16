@@ -164,7 +164,7 @@ class ArticleController extends Controller
         }
         
         if($article->update($request->all())){
-            
+
             return redirect()->route('admin.article.index')->with('info','Saved Article Successfully!');
 
         } else {

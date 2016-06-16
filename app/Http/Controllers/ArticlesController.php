@@ -176,6 +176,8 @@ class ArticlesController extends Controller
     public function show(Article $article)
     {
 
+        $article->viewed();
+
         return view('article.show',compact('article'));
     }
 }

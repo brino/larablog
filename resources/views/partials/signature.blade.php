@@ -33,3 +33,9 @@ in
 <a href="{{ route('category',[$thing->category->slug]) }}">
     {{ $thing->category->name }}
 </a>
+
+@if($thing->views)
+<span class="text-muted">
+    <i class="fa fa-eye"></i> {{ number_format($thing->views) }}
+</span>
+@endif

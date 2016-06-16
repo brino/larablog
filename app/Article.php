@@ -65,6 +65,9 @@ class Article extends Model
             'thumbnail' => [
                 'type' => 'string'
             ],
+            'views' => [
+                'type' => 'long'
+            ],
             'published_at' => [
                 'type' => 'date'
             ],
@@ -103,6 +106,7 @@ class Article extends Model
             'categoryName' => $this->category->name,
             'banner' => str_replace('banners/','',$this->banner),
             'thumbnail' => str_replace('thumbnails/','',$this->thumbnail),
+            'views' => $this->views,
             'published_at' => $this->published_at->toIso8601String(),
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String()
@@ -195,6 +199,11 @@ class Article extends Model
         $this->attributes['thumbnail'] = $thumbnail;
     }
 
+    public function setCategoryIdAttribute($id)
+    {
+        $this->attributes['category_id'] = (Int) $id;
+    }
+
     /**
      * @param $image
      * @param string $dir
@@ -260,6 +269,16 @@ class Article extends Model
      */
     public function setTagListAttribute($tag_list){
         $this->tags()->sync($tag_list);
+    }
+
+    /**
+     * 
+     */
+    public function viewed()
+    {
+        $this->increment('views');
+        $this->updateIndex();
+        
     }
 
 }

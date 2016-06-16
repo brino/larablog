@@ -41,6 +41,7 @@
                         <th>Category</th>
                         <th>Tags</th>
                         <th>Slug</th>
+                        <th>Views</th>
                         <th>Published</th>
                         <th>Created</th>
                     </tr>
@@ -71,6 +72,9 @@
                             </td>
                             <td>
                                 {{ str_limit($article->slug,25) }}
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($article->views) }}
                             </td>
                             <td>
 

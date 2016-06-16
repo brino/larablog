@@ -43,6 +43,7 @@
                         <th>Description</th>
                         {{--<th>Url</th>--}}
                         <th>Slug</th>
+                        <th>Views</th>
                         <th>Created</th>
                     </tr>
                     </thead>
@@ -71,6 +72,9 @@
                             {{--</td>--}}
                             <td>
                                 {{ str_limit($photo->slug,25) }}
+                            </td>
+                            <td>
+                                {{ number_format($photo->views) }}
                             </td>
                             <td>
                                 {{ $photo->created_at->toFormattedDateString() }}

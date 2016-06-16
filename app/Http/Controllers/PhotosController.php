@@ -31,6 +31,7 @@ class PhotosController extends Controller
      */
     public function show(Photo $photo)
     {
+        $photo->viewed();
         return view('photo.show',compact('photo'));
     }
 }
