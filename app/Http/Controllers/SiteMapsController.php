@@ -46,7 +46,7 @@ class SiteMapsController extends Controller
         $articles = Article::all();
 
         foreach ($articles as $article) {
-            Sitemap::addTag(route('article', $article->slug), $article, 'never', '0.7');
+            Sitemap::addTag(route('article', $article->slug), $article, 'monthly', '0.7');
         }
 
         return Sitemap::render();
@@ -57,7 +57,7 @@ class SiteMapsController extends Controller
         $photos = Photo::all();
 
         foreach ($photos as $photo) {
-            Sitemap::addTag(route('photo', $photo->slug), $photo, 'never', '0.7');
+            Sitemap::addTag(route('photo', $photo->slug), $photo, 'monthly', '0.7');
         }
 
         return Sitemap::render();

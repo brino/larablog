@@ -1,6 +1,8 @@
 # LaraBlog - Simple Laravel Blog
 
-LaraBlog is a simple blog application for posting articles and photos! It can be used as a personal site, or with multiple contributors
+LaraBlog is a simple blog application for posting articles and photos! It can be used as a personal site, or with multiple contributors.
+It uses the Filesystem/Cloud storage layer in laravel to store the images and photos. Elasticsearch is used for searching articles. D3 is bundled in with jquery,bootstrap and 
+other js libs with Elixir. Also includes an xml sitemap generator.
 
 ## License
 
