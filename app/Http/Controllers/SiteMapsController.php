@@ -49,7 +49,7 @@ class SiteMapsController extends Controller
             Sitemap::addTag(route('article', $article->slug), $article, 'never', '0.7');
         }
 
-        return Sitemap::render()->header('Content-Type','application/xml');
+        return Sitemap::render();
     }
 
     public function photos()
@@ -60,7 +60,7 @@ class SiteMapsController extends Controller
             Sitemap::addTag(route('photo', $photo->slug), $photo, 'never', '0.7');
         }
 
-        return Sitemap::render()->header('Content-Type','application/xml');
+        return Sitemap::render();
     }
 
 }

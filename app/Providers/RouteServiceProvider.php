@@ -28,7 +28,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
 
         parent::boot($router);
 
@@ -47,6 +46,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->bind('tagSlug', function($value) {
             return Tag::where('slug',$value)->first();
         });
+        
     }
 
     /**
@@ -59,8 +59,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapWebRoutes($router);
         $this->mapApiRoutes($router);
-        
-        
+
     }
 
     /**
@@ -80,6 +79,9 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @param Router $router
+     */
     protected function mapApiRoutes(Router $router)
     {
         $router->group([
