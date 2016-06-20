@@ -16,6 +16,7 @@
     <meta property="og:image:type" content="image/jpg">
     <meta property="og:image:width" content="400">
     <meta property="og:image:height" content="325">
+    <meta name="description" content="{{ $photo->description }}"/>
 @stop
 
 @section('title')

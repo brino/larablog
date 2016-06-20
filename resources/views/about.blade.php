@@ -9,6 +9,9 @@
 
 @extends('layouts.app')
 
+@section('meta')
+    @include('about.meta')
+@stop
 
 @section('title')
     About
