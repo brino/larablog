@@ -37,6 +37,7 @@
 
         </script>
     @endif
+    <link rel="canonical" href="{{ str_replace('www.','',url()->current()) }}" />
 </head>
 <body>
 
