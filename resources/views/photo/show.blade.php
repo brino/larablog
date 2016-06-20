@@ -9,6 +9,14 @@
 
 @extends('layouts.app')
 
+@section('meta')
+    <meta property="og:title" content="{{ $photo->title }}">
+    <meta property="og:description" content="{{ $photo->description }}">
+    <meta property="og:image" content="{{ asset('storage/'.$photo->url) }}">
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="325">
+@stop
 
 @section('title')
     {{ $photo->title }}
