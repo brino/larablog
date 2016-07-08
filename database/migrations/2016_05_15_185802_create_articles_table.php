@@ -25,7 +25,7 @@ class CreateArticlesTable extends Migration
             $table->text('summary');
             $table->longText('body');
             $table->string('slug')->unique();
-            $table->timestamp('published_at');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
 

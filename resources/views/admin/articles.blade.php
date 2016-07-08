@@ -44,13 +44,14 @@
                         <th>Views</th>
                         <th>Published</th>
                         <th>Created</th>
+                        <th>Updated</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($articles as $article)
                         <tr>
                             <td>
-                                {!! Form::model($article, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\ArticleController@destroy',$article]]) !!}
+                                {!! Form::model($article, ['id'=>'delete-form','method' => 'DELETE', 'action' => ['Admin\ArticleController@destroy',$article]]) !!}
                                 {!! Form::submit('x',['class'=>'btn btn-danger btn-xs']) !!}
                                 {!! Form::close() !!}
                             </td>
@@ -91,6 +92,9 @@
                             </td>
                             <td>
                                 {{ $article->created_at->toFormattedDateString() }}
+                            <td>
+                                {{ $article->updated_at->toFormattedDateString() }}
+                            </td>
                             </td>
                         </tr>
                     @endforeach
