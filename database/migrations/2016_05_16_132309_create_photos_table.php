@@ -21,7 +21,7 @@ class CreatePhotosTable extends Migration
             $table->integer('category_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
             $table->string('url')->indexed();
-            $table->timestamp('published_at');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
 
