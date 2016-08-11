@@ -12,6 +12,7 @@ require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/htmlmixed/htmlmixed');
 require('codemirror/mode/php/php');
 require('codemirror/addon/mode/overlay');
+require('codemirror/addon/edit/matchbrackets');
 require('codemirror-spell-checker/dist/spell-checker.min');
 
 
