@@ -16,7 +16,7 @@
 
 
 @section('heading')
-    <i class="fa fa-list-alt"></i> Articles {{ link_to_route('admin.article.create','Create Article',[],['class'=>'btn btn-primary pull-right']) }}
+    <i class="fa fa-list-alt"></i> Articles {{ link_to_route('article.create','Create Article',[],['class'=>'btn btn-primary pull-right']) }}
 @stop
 
 
@@ -56,7 +56,7 @@
                                 {!! Form::close() !!}
                             </td>
                             <td>
-                                {{ link_to_route('admin.article.edit',str_limit($article->title,25),[$article]) }}
+                                {{ link_to_route('article.edit',str_limit($article->title,25),[$article]) }}
                             </td>
                             <td>
                                 {{ $article->category->name }}
@@ -64,7 +64,7 @@
                             <td>
                                 <p>
                                     @foreach($article->tags as $tag)
-                                        <a class="badge" href="{{ route('tag',[$tag->slug]) }}">
+                                        <a class="badge" href="{{ route('articles',[null,'query'=>$tag->slug]) }}">
                                             <i class="fa fa-tag"></i>
                                             {{ $tag->name }}
                                         </a>

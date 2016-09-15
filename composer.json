@@ -5,27 +5,29 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.5.9",
-        "laravel/framework": "5.2.*",
-        "elasticquent/elasticquent": "dev-master",
-        "laravelcollective/html": "^5.2",
+        "php": ">=5.6.4",
+        "laravel/framework": "5.3.*",
+        "laravelcollective/html": "^5.0",
         "intervention/image": "^2.0",
         "predis/predis": "~1.0",
-        "brokerexchange/elasticbuilder": "^1.0.0",
-        "watson/sitemap": "^2.0.0"
+        "watson/sitemap": "^2.0.0",
+        "laravel/scout": "^1.1",
+        "elasticsearch/elasticsearch": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*"
+        "phpunit/phpunit": "~5.0",
+        "symfony/css-selector": "3.1.*",
+        "symfony/dom-crawler": "3.1.*"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Laravel\\Scout\\": "workbench/scout/src/"
         }
     },
     "autoload-dev": {
@@ -34,12 +36,6 @@
         ]
     },
     "scripts": {
-        "post-root-package-install": [
-            "php -r \"copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "php artisan key:generate"
-        ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize",

@@ -14,19 +14,17 @@
 
     Route::get('/', 'HomeController@index')->name('home');
 
+    Route::get('/logout', 'Auth\LoginController@logout');
+
     Route::auth();
 
-    Route::any('/articles', 'ArticlesController@index')->name('articles');
+    Route::get('/articles/{categorySlug?}', 'SearchController@index')->name('articles');
 
-    Route::get('/category/{categorySlug}', 'ArticlesController@category')->name('category');
+    Route::get('/article/{articleSlug}', 'ArticleController@show')->name('article');
 
-    Route::get('/tag/{tagSlug}', 'ArticlesController@tag')->name('tag');
+    Route::get('/photo', 'PhotoController@index')->name('photos');
 
-    Route::get('/article/{articleSlug}', 'ArticlesController@show')->name('article');
-
-    Route::get('/photos', 'PhotosController@index')->name('photos');
-
-    Route::get('/photo/{photoSlug}', 'PhotosController@show')->name('photo');
+    Route::get('/photo/{photoSlug}', 'PhotoController@show')->name('photo');
 
     Route::get('/about', 'AboutController@index')->name('about');
 

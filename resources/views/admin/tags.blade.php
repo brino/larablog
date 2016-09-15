@@ -24,7 +24,7 @@
 
 
 @section('heading')
-    <i class="fa fa-list-alt"></i> Tags {{ link_to_route('admin.tag.create','Create Tag',[],['class'=>'btn btn-primary pull-right']) }}
+    <i class="fa fa-list-alt"></i> Tags {{ link_to_route('tag.create','Create Tag',[],['class'=>'btn btn-primary pull-right']) }}
 @stop
 
 
@@ -47,6 +47,7 @@
                         <th></th>
                         <th>Name</th>
                         <th>Slug</th>
+                        <th>Articles</th>
                         <th>Created</th>
                     </tr>
                     </thead>
@@ -59,10 +60,13 @@
                                 {!! Form::close() !!}
                             </td>
                             <td>
-                                {{ link_to_route('admin.tag.edit',$tag->name,[$tag]) }}
+                                {{ link_to_route('tag.edit',$tag->name,[$tag]) }}
                             </td>
                             <td>
                                 {{ $tag->slug }}
+                            </td>
+                            <td>
+                                {{ $tag->articles->count() }}
                             </td>
                             <td>
                                 {{ $tag->created_at->toFormattedDateString() }}

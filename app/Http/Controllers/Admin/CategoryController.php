@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
-use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
@@ -37,6 +35,8 @@ class CategoryController extends Controller
 
         //show list of categories
         $categories = Category::orderBy('created_at','asc')->paginate();
+
+        $categories->load('articles','photos');
 
         return view('admin.categories',compact('categories','info'));
     }
@@ -76,7 +76,7 @@ class CategoryController extends Controller
 
         if($article = Category::create($request->all())){
 
-            return redirect()->route('admin.category.index')->with('info','Category Created');
+            return redirect()->route('category.index')->with('info','Category Created');
 
         }
 
@@ -110,7 +110,7 @@ class CategoryController extends Controller
 
         if($category->update($request->all())){
 
-            return redirect()->route('admin.category.index')->with('info','Saved Category Successfully!');
+            return redirect()->route('category.index')->with('info','Saved Category Successfully!');
 
         } else {
 
@@ -134,6 +134,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('admin.category.index')->with('info','Category Deleted!');
+        return redirect()->route('category.index')->with('info','Category Deleted!');
     }
 }

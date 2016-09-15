@@ -16,7 +16,7 @@
 
 
 @section('heading')
-    <i class="fa fa-list-alt"></i> Categories {{ link_to_route('admin.category.create','Create Category',[],['class'=>'btn btn-primary pull-right']) }}
+    <i class="fa fa-list-alt"></i> Categories {{ link_to_route('category.create','Create Category',[],['class'=>'btn btn-primary pull-right']) }}
 @stop
 
 
@@ -39,6 +39,8 @@
                             <th></th>
                             <th>Name</th>
                             <th>Slug</th>
+                            <th>Articles</th>
+                            <th>Photos</th>
                             <th>Created</th>
                         </tr>
                     </thead>
@@ -51,10 +53,16 @@
                                     {!! Form::close() !!}
                                 </td>
                                 <td>
-                                    {{ link_to_route('admin.category.edit',$category->name,[$category]) }}
+                                    {{ link_to_route('category.edit',$category->name,[$category]) }}
                                 </td>
                                 <td>
                                     {{ $category->slug }}
+                                </td>
+                                <td>
+                                    {{ $category->articles->count() }}
+                                </td>
+                                <td>
+                                    {{ $category->photos->count() }}
                                 </td>
                                 <td>
                                     {{ $category->created_at->toFormattedDateString() }}

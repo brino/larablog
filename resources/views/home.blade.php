@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Latest Articles
+    Latest
 @stop
 
 @section('meta')
@@ -15,12 +15,19 @@
 @stop
 
 @section('heading')
-    <span class="fa fa-feed"></span> Latest Articles
+    <span class="fa fa-feed"></span> Latest
 @stop
 
 
 @section('content')
 
-    @include('article.list')
+    <div class="row">
+        <div class="col-md-9">
+            @include('article.list')
+        </div>
+        <div class="cold-md-3">
+            @include('photo.list')
+        </div>
+    </div>
 
 @endsection

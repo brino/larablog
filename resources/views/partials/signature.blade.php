@@ -8,14 +8,14 @@
 ?>
 
 @if(get_class($thing) == 'App\Article')
-@can('update-article',$article)<a href="{{ route('admin.article.edit',[$article]) }}">@endcan<i class="fa fa-pencil"></i>@can('update-article',$article)</a>@endcan
+@can('update-article',$article)<a href="{{ route('article.edit',[$article]) }}">@endcan<i class="fa fa-pencil"></i>@can('update-article',$article)</a>@endcan
 @endif
 
 @if(get_class($thing) == 'App\Photo')
-@can('update-photo',$photo)<a href="{{ route('admin.photo.edit',[$photo]) }}">@endcan<i class="fa fa-camera"></i>@can('update-photo',$photo)</a>@endcan
+@can('update-photo',$photo)<a href="{{ route('photo.edit',[$photo]) }}">@endcan<i class="fa fa-camera"></i>@can('update-photo',$photo)</a>@endcan
 @endif
 
-<a href="#">{{ $thing->user->name }}</a>
+<a href="{{ route('articles',[null,'query'=>$thing->user->name]) }}">{{ $thing->user->name }}</a>
 
 @if(isset($thing->published_at))
     <span
@@ -30,7 +30,7 @@
     </span>
 in
 @endif
-<a href="{{ route('category',[$thing->category->slug]) }}">
+<a href="{{ route('articles',[$thing->category->slug]) }}">
     {{ $thing->category->name }}
 </a>
 

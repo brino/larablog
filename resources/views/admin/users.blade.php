@@ -33,7 +33,7 @@
 
 
 @section('heading')
-    <i class="fa fa-users"></i> Users {{ link_to_route('admin.user.create','Create User',[],['class'=>'btn btn-primary pull-right']) }}
+    <i class="fa fa-users"></i> Users {{ link_to_route('user.create','Create User',[],['class'=>'btn btn-primary pull-right']) }}
 @stop
 
 
@@ -56,6 +56,8 @@
                         <th></th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Articles</th>
+                        <th>Photos</th>
                         <th>Contributor</th>
                         <th>Super</th>
                         <th>Created</th>
@@ -70,10 +72,16 @@
                                 {!! Form::close() !!}
                             </td>
                             <td>
-                                {{ link_to_route('admin.user.edit',$user->name,[$user]) }}
+                                {{ link_to_route('user.edit',$user->name,[$user]) }}
                             </td>
                             <td>
                                 {{ $user->email }}
+                            </td>
+                            <td>
+                                {{ $user->articles->count() }}
+                            </td>
+                            <td>
+                                {{ $user->photos->count() }}
                             </td>
                             <td>
                                 @if($user->contributor)

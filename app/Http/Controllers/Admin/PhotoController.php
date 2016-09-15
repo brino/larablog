@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Photo;
 use App\Category;
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\PhotoRequest;
@@ -144,7 +142,7 @@ class PhotoController extends Controller
                 }
             }
 
-            return redirect()->route('admin.photo.index')->with('info','Saved Photo Successfully!');
+            return redirect()->route('photo.index')->with('info','Saved Photo Successfully!');
             
         } else {
             
@@ -167,7 +165,7 @@ class PhotoController extends Controller
         
         $photo->delete();
 
-        return redirect()->route('admin.photo.index')->with('info','Photo Deleted!');
+        return redirect()->route('photo.index')->with('info','Photo Deleted!');
     }
 
 }

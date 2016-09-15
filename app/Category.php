@@ -36,9 +36,9 @@ class Category extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function photo()
+    public function photos()
     {
-        return $this->belongsTo(Photo::class);
+        return $this->hasMany(Photo::class);
     }
 
     /**

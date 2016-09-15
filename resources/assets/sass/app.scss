@@ -15,12 +15,22 @@
  }
 
  div.CodeMirror span.CodeMirror-matchingbracket{
-
   background-color:lightgray;
   color: green;
-
  }
 
+ #logo {
+   height: 1em;
+   margin-top: -7px;
+ }
+
+ .photo-list {
+   margin-top: 25px;
+ }
+
+ a.navbar-brand {
+   margin-top: 5px;
+ }
  .icon-brand {
   font-size: 2em;
  }

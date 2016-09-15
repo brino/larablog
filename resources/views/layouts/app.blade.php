@@ -26,7 +26,7 @@
     <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
     @yield('meta')
 
-    <title>@yield('title') :: Brian Mix</title>
+    <title>@yield('title')</title>
 
     @include('partials.head')
     @if(App::environment('production'))
@@ -58,7 +58,7 @@
     @yield('content')
 </div>
 
-<footer class="footer dark">
+<footer class="footer @if(env('APP_DARK',false)){{'dark'}}@endif">
     <div class="container">
             <ul class="list-inline text-center" id="social-icons">
                 <li>

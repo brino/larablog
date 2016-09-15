@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Photo;
 
 /**
  * Class HomeController
@@ -12,18 +11,21 @@ use Illuminate\Http\Request;
  */
 class HomeController extends Controller
 {
-    
+
     /**
      * @param Article $article
+     * @param Photo $photo
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Article $article)
+    public function index(Article $article,Photo $photo)
     {
 
         $articles = $article->latest('published_at')->published()->limit(5)->get();
 
+        $photos = $photo->latest('published_at')->published()->limit(3)->get();
+
         if($articles->count()){
-            return view('home',compact('articles'));
+            return view('home',compact('articles','photos'));
         }
 
         return view('about');

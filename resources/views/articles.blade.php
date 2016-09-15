@@ -10,35 +10,24 @@
 
 
 @section('title')
-    Latest Articles
+    Articles
 @stop
 
 
 @section('heading')
 
     <span class="fa fa-list"></span> Articles
-    @if(!empty($category))
-        :: {{ $category->name }}
-    @endif
-
-    @if($search->has('string'))
-        :: Search
-    @endif
 
 @stop
 
 
 @section('content')
 
-
-    @include('partials.results')
+    @include('partials.total')
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-sm-12">
             @include('article.list')
-        </div>
-        <div class="col-md-3">
-            @include('category.list')
         </div>
     </div>
 

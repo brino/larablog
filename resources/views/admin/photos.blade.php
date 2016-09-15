@@ -16,7 +16,7 @@
 
 
 @section('heading')
-    <i class="fa fa-list-alt"></i> Photos {{ link_to_route('admin.photo.create','Create Photo',[],['class'=>'btn btn-primary pull-right']) }}
+    <i class="fa fa-list-alt"></i> Photos {{ link_to_route('photo.create','Create Photo',[],['class'=>'btn btn-primary pull-right']) }}
 @stop
 
 
@@ -59,7 +59,7 @@
                                 <img src="{{ asset('storage/'.$photo->url) }}" class="img-responsive">
                             </td>
                             <td>
-                                {{ link_to_route('admin.photo.edit',str_limit($photo->title,25),[$photo]) }}
+                                {{ link_to_route('photo.edit',str_limit($photo->title,25),[$photo]) }}
                             </td>
                             <td>
                                 {{ $photo->category->name }}

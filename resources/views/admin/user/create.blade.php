@@ -22,7 +22,7 @@
 
 @section('content')
 
-    {!! Form::open(['id'=>'create-form','route' => 'admin.user.store']) !!}
+    {!! Form::open(['id'=>'create-form','route' => 'user.store']) !!}
 
     @include('admin.user.form')
 

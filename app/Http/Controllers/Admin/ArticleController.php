@@ -5,14 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Article;
 use App\Category;
 use App\Http\Requests\ArticleRequest;
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use App\Tag;
 
@@ -117,7 +112,7 @@ class ArticleController extends Controller
 
             $article->tags()->attach($request->input('tag_list'));
 
-            return redirect()->route('admin.article.index')->with('info','Article Created');
+            return redirect()->route('article.index')->with('info','Article Created');
 
         }
 
@@ -165,7 +160,7 @@ class ArticleController extends Controller
         
         if($article->update($request->all())){
 
-            return redirect()->route('admin.article.index')->with('info','Saved Article Successfully!');
+            return redirect()->route('article.index')->with('info','Saved Article Successfully!');
 
         } else {
 
@@ -188,7 +183,7 @@ class ArticleController extends Controller
         
         $article->delete();
 
-        return redirect()->route('admin.article.index')->with('info','Article Deleted!');
+        return redirect()->route('article.index')->with('info','Article Deleted!');
     }
 
 

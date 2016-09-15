@@ -22,7 +22,7 @@
 
 @section('content')
 
-    {!! Form::open(['id'=>'create-form','route' => 'admin.photo.store','files' => true]/*['method' => 'POST', 'action' => ['DatalicensesController@store',$datalicense]]*/) !!}
+    {!! Form::open(['id'=>'create-form','route' => 'photo.store','files' => true]/*['method' => 'POST', 'action' => ['DatalicensesController@store',$datalicense]]*/) !!}
 
     @include('admin.photo.form')
 

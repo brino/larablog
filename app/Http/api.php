@@ -6,10 +6,16 @@
  * Time: 6:03 PM
  */
 
-Route::get('/sitemaps','SiteMapsController@index')->name('sitemaps');
+use Illuminate\Http\Request;
 
-Route::get('/sitemaps/articles','SiteMapsController@articles')->name('sitemaps.articles');
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:api');
 
-Route::get('/sitemaps/photos','SiteMapsController@photos')->name('sitemaps.photos');
+Route::get('/sitemap','SiteMapController@index')->name('sitemap');
 
-Route::get('/sitemaps/general','SiteMapsController@general')->name('sitemaps.general');
+Route::get('/sitemap/articles','SiteMapController@articles')->name('sitemap.articles');
+
+Route::get('/sitemap/photos','SiteMapController@photos')->name('sitemap.photos');
+
+Route::get('/sitemap/general','SiteMapController@general')->name('sitemap.general');

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,15 +19,14 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register any application authentication / authorization services.
      *
-     * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
      * @return void
      */
-    public function boot(GateContract $gate)
+    public function boot()
     {
-        $this->registerPolicies($gate);
+        $this->registerPolicies();
 
         //gates
-        $gate->before(function ($user, $ability) {
+        Gate::before(function ($user, $ability) {
             if($user->super) {
                 return true;
             }
@@ -35,13 +34,13 @@ class AuthServiceProvider extends ServiceProvider
             return null;
         });
 
-        $gate->define('create-article', function ($user) {
+        Gate::define('create-article', function ($user) {
 
             return (bool)$user->contributor;
             
         });
 
-        $gate->define('update-article', function ($user, $article) {
+        Gate::define('update-article', function ($user, $article) {
 
             if(isset($article->user) && $user->id === $article->user->id && $user->contributor){
                 return true;
@@ -50,13 +49,13 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
-        $gate->define('create-photo', function ($user) {
+        Gate::define('create-photo', function ($user) {
 
             return (bool)$user->contributor;
 
         });
 
-        $gate->define('update-photo', function ($user, $photo) {
+        Gate::define('update-photo', function ($user, $photo) {
 
             if(isset($photo->user) && $user->id === $photo->user->id && $user->contributor){
                 return true;
@@ -64,36 +63,36 @@ class AuthServiceProvider extends ServiceProvider
 
             return false;
         });
-        
-        $gate->define('create-category', function ($user) {
+
+        Gate::define('create-category', function ($user) {
 
             return (bool)$user->super;
 
         });
 
-        $gate->define('update-category', function ($user) {
+        Gate::define('update-category', function ($user) {
 
             return (bool)$user->super;
         });
 
-        $gate->define('create-tag', function ($user) {
-
-            return (bool)$user->super;
-
-        });
-
-        $gate->define('update-tag', function ($user) {
-
-            return (bool)$user->super;
-        });
-
-        $gate->define('create-user', function ($user) {
+        Gate::define('create-tag', function ($user) {
 
             return (bool)$user->super;
 
         });
 
-        $gate->define('update-user', function ($user) {
+        Gate::define('update-tag', function ($user) {
+
+            return (bool)$user->super;
+        });
+
+        Gate::define('create-user', function ($user) {
+
+            return (bool)$user->super;
+
+        });
+
+        Gate::define('update-user', function ($user) {
 
             return (bool)$user->super;
         });

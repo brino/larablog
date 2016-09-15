@@ -6,25 +6,16 @@
  * Time: 6:23 AM
  */
 ?>
-<h3><span class="fa fa-th-list"></span> Categories</h3>
+<h3><span class="fa fa-filter"></span> Categories</h3>
 <div class="list-group">
+
     @foreach($categories as $category)
 
-        <a
-            @if(!empty($category->count))
-                href="{{ route('articles',['category'=>$category->id,'search'=>$search->get('string'),'page'=>$page]) }}"
-            @else
-                href="{{ route('category',[$category->slug]) }}"
-            @endif
-            class="category list-group-item @if($category->id == $categoryFilterID){{ ' active' }}@endif"
-        >
+        <a href="{{ route('articles',[$filterCategory->slug==$category->slug?null:$category->slug,'query'=>request('query')]) }}" class="category list-group-item @if(isset($filterCategory)) @if($category->slug == $filterCategory->slug){{'active'}}@endif @endif">
+
             {{ $category->name }}
 
-            @if(!empty($category->count))
-                <span class="badge">{{ $category->count }}</span>
-            @elseif($category->id == $categoryFilterID)
-                <span class="badge">{{ $search->get('hits') }}</span>
-            @endif
+            <span class="badge">{{ $category->count }}</span>
 
         </a>
 

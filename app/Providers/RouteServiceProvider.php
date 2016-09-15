@@ -8,6 +8,7 @@ use App\Photo;
 use App\Tag;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,27 +24,26 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function boot(Router $router)
+    public function boot()
     {
 
-        parent::boot($router);
+        parent::boot();
 
-        $router->bind('articleSlug', function($value) {
+        Route::bind('articleSlug', function($value) {
             return Article::where('slug',$value)->first();
         });
 
-        $router->bind('photoSlug', function($value) {
+        Route::bind('photoSlug', function($value) {
             return Photo::where('slug',$value)->first();
         });
 
-        $router->bind('categorySlug', function($value) {
+        Route::bind('categorySlug', function($value) {
             return Category::where('slug',$value)->first();
         });
 
-        $router->bind('tagSlug', function($value) {
+        Route::bind('tagSlug', function($value) {
             return Tag::where('slug',$value)->first();
         });
         

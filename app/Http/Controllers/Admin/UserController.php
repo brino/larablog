@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\User;
@@ -30,6 +27,8 @@ class UserController extends Controller
         //show list of tags
         $users = User::orderBy('created_at','asc')->paginate();
 
+        $users->load('articles','photos');
+
         return view('admin.users',compact('users','info'));
     }
 
@@ -39,7 +38,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return redirect()->route('admin.user.edit',[$user]);
+        return redirect()->route('user.edit',[$user]);
     }
 
     /**
@@ -70,7 +69,7 @@ class UserController extends Controller
 
         if($user = User::create($request->all())){
 
-            return redirect()->route('admin.user.index')->with('info','User Created');
+            return redirect()->route('user.index')->with('info','User Created');
 
         }
 
@@ -101,15 +100,15 @@ class UserController extends Controller
             abort(403);
         }
 
-        if($request->input('password')->isEmpty()){
-            $requestVars = $request->except('password');
-        } else {
+        if($request->has('password')){
             $requestVars = $request->all();
+        } else {
+            $requestVars = $request->except('password');
         }
 
         if($user->update($requestVars)){
 
-            return redirect()->route('admin.user.index')->with('info','Saved User Successfully!');
+            return redirect()->route('user.index')->with('info','Saved User Successfully!');
 
         } else {
 
@@ -132,7 +131,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('admin.user.index')->with('info','User Deleted!');
+        return redirect()->route('user.index')->with('info','User Deleted!');
     }
 
 }

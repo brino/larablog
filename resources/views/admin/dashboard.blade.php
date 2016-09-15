@@ -36,31 +36,31 @@
 
                 @can('create-article')
                     <li class="list-group-item">
-                        <i class="fa fa-edit"></i> {!! link_to_route('admin.article.create','Create Article') !!}
+                        <i class="fa fa-edit"></i> {!! link_to_route('article.create','Create Article') !!}
                     </li>
                 @endcan
 
                 @can('create-photo')
                     <li class="list-group-item">
-                        <i class="fa fa-camera-retro"></i> {!! link_to_route('admin.photo.create','Create Photo') !!}
+                        <i class="fa fa-camera-retro"></i> {!! link_to_route('photo.create','Create Photo') !!}
                     </li>
                 @endcan
 
                 @can('create-category')
                     <li class="list-group-item">
-                        <i class="fa fa-hashtag"></i> {!! link_to_route('admin.category.create','Create Category') !!}
+                        <i class="fa fa-hashtag"></i> {!! link_to_route('category.create','Create Category') !!}
                     </li>
                 @endcan
 
                 @can('create-tag')
                     <li class="list-group-item">
-                        <i class="fa fa-tag"></i> {!! link_to_route('admin.tag.create','Create Tag') !!}
+                        <i class="fa fa-tag"></i> {!! link_to_route('tag.create','Create Tag') !!}
                     </li>
                 @endcan
 
                 @can('create-user')
                     <li class="list-group-item">
-                        <i class="fa fa-user"></i> {!! link_to_route('admin.user.create','Create User') !!}
+                        <i class="fa fa-user"></i> {!! link_to_route('user.create','Create User') !!}
                     </li>
                 @endcan
 
@@ -74,12 +74,12 @@
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <a href="{{ route('admin.photo.edit',[$photo]) }}">
+                                    <a href="{{ route('photo.edit',[$photo]) }}">
                                         <img src="{{ asset('storage/'.$photo->url) }}" class="img-responsive img-thumbnail">
                                     </a>
                                 </div>
                                 <div class="col-sm-8">
-                                    <p><strong><a href="{{ route('admin.photo.edit',[$photo]) }}">{{ $photo->title }}</a></strong></p>
+                                    <p><strong><a href="{{ route('photo.edit',[$photo]) }}">{{ $photo->title }}</a></strong></p>
                                     <p>
                                         {{ str_limit($photo->description,25) }}
                                     </p>
@@ -101,7 +101,7 @@
                 <ul class="list-group">
                     @foreach($articles as $article)
                         <li class="list-group-item">
-                            <div><i class="fa fa-file-text-o"></i> {!! link_to_route('admin.article.edit',$article->title,[$article]) !!}</div>
+                            <div><i class="fa fa-file-text-o"></i> {!! link_to_route('article.edit',$article->title,[$article]) !!}</div>
                             <div>@include('partials.signature',['thing'=>$article])</div>
                         </li>
                     @endforeach

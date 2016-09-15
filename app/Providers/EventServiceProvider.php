@@ -3,10 +3,14 @@
 namespace App\Providers;
 
 use App\Article;
+use App\Notifications\ContributorCreatedNewArticle;
 use App\Photo;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Notifications\NewUserSignup;
+use App\User;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -24,15 +28,24 @@ class EventServiceProvider extends ServiceProvider
     /**
      * Register any other events for your application.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
      * @return void
      */
-    public function boot(DispatcherContract $events)
+    public function boot()
     {
-        parent::boot($events);
+        parent::boot();
 
-        Article::saved(function($article){
-            $article->addToIndex();
+        User::created(function($user){
+
+            $supers = User::where('super','=',1)->get();
+
+            Notification::send($supers,new NewUserSignup($user));
+
+        });
+
+        Article::created(function($article){
+            $supers = User::where('super','=',1)->get();
+
+            Notification::send($supers,new ContributorCreatedNewArticle($article));
         });
 
         Article::deleted(function($article){
@@ -44,8 +57,6 @@ class EventServiceProvider extends ServiceProvider
             if(Storage::disk('public')->exists($article->thumbnail)){
                 Storage::disk('public')->delete($article->thumbnail);
             }
-
-            $article->removeFromIndex();
 
         });
 

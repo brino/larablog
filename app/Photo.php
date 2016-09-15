@@ -122,13 +122,15 @@ class Photo extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-
     /**
      * 
      */
     public function viewed()
     {
-        $this->increment('views');
+
+        ++$this->attributes['views'];
+
+        $this->save();
 
     }
 }

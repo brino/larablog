@@ -24,7 +24,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('scout:import',['App\Article'])->daily(); //reindex daily so that the published flag gets set soon after the article is available
     }
 }

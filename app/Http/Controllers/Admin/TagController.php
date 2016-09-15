@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Tag;
@@ -39,6 +37,8 @@ class TagController extends Controller
 
         //show list of tags
         $tags = Tag::orderBy('created_at','asc')->paginate();
+
+        $tags->load('articles');
 
         return view('admin.tags',compact('tags','info'));
 
@@ -122,7 +122,7 @@ class TagController extends Controller
 
         if($tag->update($request->all())){
 
-            return redirect()->route('admin.tag.list')->with('info','Saved Tag Successfully!');
+            return redirect()->route('tag.index')->with('info','Saved Tag Successfully!');
 
         } else {
 
@@ -145,7 +145,7 @@ class TagController extends Controller
 
         $tag->delete();
 
-        return redirect()->route('admin.tag.index')->with('info','Tag Deleted!');
+        return redirect()->route('tag.index')->with('info','Tag Deleted!');
     }
 
 }

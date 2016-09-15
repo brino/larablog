@@ -2,14 +2,13 @@
 
 namespace App;
 
-use ElasticBuilder\ElasticBuilderTrait;
-use Elasticquent\ElasticquentTrait;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Laravel\Scout\Searchable;
 
 /**
  * Class Article
@@ -17,8 +16,13 @@ use Illuminate\Support\Facades\File;
  */
 class Article extends Model
 {
-    use ElasticquentTrait;
-    use ElasticBuilderTrait;
+    use Searchable;
+
+    /**
+     * @var array
+     */
+    protected $with = ['user','category','tags'];
+
     /**
      * @var array
      */
@@ -34,93 +38,11 @@ class Article extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $mappingProperties =
-        [
-            'title' => [
-                'type' => 'string'
-            ],
-            'summary' => [
-                'type' => 'string'
-            ],
-            'body' => [
-                'type' => 'string'
-            ],
-            'user_id' => [
-                'type' => 'long'
-            ],
-            'category_id' => [
-                'type' => 'long'
-            ],
-            'userName' => [
-                'type' => 'string'
-            ],
-            'categoryName' => [
-                'type' => 'string'
-            ],
-            'banner' => [
-                'type' => 'string'
-            ],
-            'thumbnail' => [
-                'type' => 'string'
-            ],
-            'views' => [
-                'type' => 'long'
-            ],
-            'published_at' => [
-                'type' => 'date'
-            ],
-            'created_at' => [
-                'type' => 'date'
-            ],
-            'updated_at' => [
-                'type' => 'date'
-            ]
-        ];
-
-    /**
      * @param $query
      */
     public function scopePublished($query)
     {
         $query->where('published_at', '<=', Carbon::now());
-    }
-
-    /**
-     * @return array
-     */
-    function getIndexDocumentData()
-    {
-        $fields = array(
-            'id'      => $this->id,
-            'title'   => $this->title,
-            'summary'  => strip_tags($this->summary),
-            'body' => strip_tags($this->body),
-            'user_id' => $this->user_id,
-            'category_id' => $this->category_id,
-            'userName' => $this->user->name,
-            'slug' => $this->attributes['slug'],
-            'tag_list' => $this->tag_list,
-            'tag_string' => $this->tags->implode('name',' '),
-            'categoryName' => $this->category->name,
-            'banner' => str_replace('banners/','',$this->banner),
-            'thumbnail' => str_replace('thumbnails/','',$this->thumbnail),
-            'views' => $this->views,
-            'published_at' => $this->published_at->toIso8601String(),
-            'created_at' => $this->created_at->toIso8601String(),
-            'updated_at' => $this->updated_at->toIso8601String()
-        );
-
-        return $fields;
-    }
-
-    /**
-     * @param $date
-     */
-    public function setPublishedAtAttribute($date)
-    {
-        $this->attributes['published_at'] = Carbon::parse($date);
     }
 
     /**
@@ -134,17 +56,13 @@ class Article extends Model
         
     }
 
-    /**
-     * @param $published_at
-     * @return static
-     */
-    public function getPublishedAtAttribute($published_at){
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
 
-        if(strstr($published_at,'T')){
-            return Carbon::createFromFormat('Y-m-d\TH:i:sO',$published_at);
-        }
+        $array['published'] = $this->published_at->isPast();
 
-        return Carbon::parse($published_at);
+        return $array;
     }
 
     /**
@@ -277,8 +195,9 @@ class Article extends Model
     public function viewed()
     {
         $this->increment('views');
-        $this->updateIndex();
-        
+
+        $this->save();
+
     }
 
 }

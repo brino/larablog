@@ -33,7 +33,7 @@
             <div class="article-tags">
                 <p>
                     @foreach($article->tags as $tag)
-                        <a class="badge" href="{{ route('tag',[$tag->slug]) }}">
+                        <a class="badge" href="{{ route('articles',[null,'query'=>$tag->slug]) }}">
                             <i class="fa fa-tag"></i>
                             {{ $tag->name }}
                         </a>
@@ -44,7 +44,7 @@
     </div>
 @endforeach
 
-@unless(Route::is('home'))
+@if(method_exists($articles,'render'))
     <div class="row">
         <div class="col-sm-12">
             <div class="text-center">
@@ -52,4 +52,4 @@
             </div>
         </div>
     </div>
-@endunless
+@endif

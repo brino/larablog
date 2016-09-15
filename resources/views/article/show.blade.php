@@ -34,7 +34,7 @@
         <div class="col-sm-12">
             <p class="pull-right">
                 @foreach($article->tags as $tag)
-                    <span class="badge">{{ $tag->name }}</span>
+                    <a class="badge" href="{{ route('articles',[null,'query'=>$tag->name]) }}">{{ $tag->name }}</a>
                 @endforeach
             </p>
             <p class="text-muted">
