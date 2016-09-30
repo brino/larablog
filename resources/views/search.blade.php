@@ -17,7 +17,7 @@
 
 @section('heading')
 
-    <span class="fa fa-search"></span> Articlesf
+    <span class="fa fa-search"></span> Articles
 
 @stop
 
