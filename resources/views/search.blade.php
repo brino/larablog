@@ -11,13 +11,13 @@
 
 
 @section('title')
-    Results {{ $filterCategory->name or '' }} {{ request('query') }}
+    Articles {{ $filterCategory->name or '' }} {{ request('query') }}
 @stop
 
 
 @section('heading')
 
-    <span class="fa fa-search"></span> Results
+    <span class="fa fa-search"></span> Articlesf
 
 @stop
 
