@@ -36,7 +36,7 @@ class SearchController extends Controller
 
         $categories = Category::all();
 
-        return view('search',compact('articles','categories','filterCategory'));
+        return view('articles',compact('articles','categories','filterCategory'));
 
     }
 }
