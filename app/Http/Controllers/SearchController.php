@@ -13,29 +13,25 @@ use Illuminate\Http\Request;
 class SearchController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @param Article $article
+     * @param Category $filterCategory
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request,Article $article,Category $filterCategory)
     {
 
-        $query = $request->input('query');
+        //build query
+        $builder = $article->search($request->input('query'))->where('published',1);
 
-
-        if($request->has('query'))
-        {
-            $builder = $article->search($query)->where('published',1);
-        }
-
-        else
-        {
-            $builder = $article->published();
-        }
-
-
+        //set category filter
         if($filterCategory->exists)
         {
             $builder->where('category_id',$filterCategory->id);
         }
 
-
+        //execute query
         $articles = $builder->paginate();
 
         $categories = Category::all();
