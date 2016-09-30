@@ -22,7 +22,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9" style="min-height: 40em">
             @include('article.list')
         </div>
         <div class="cold-md-3">

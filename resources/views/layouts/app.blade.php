@@ -26,7 +26,7 @@
     <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
     @yield('meta')
 
-    <title>@yield('title')</title>
+    <title>@yield('title') :: {{ env('APP_NAME') }}</title>
 
     @include('partials.head')
     @if(App::environment('production'))
