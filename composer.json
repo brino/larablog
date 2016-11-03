@@ -11,8 +11,7 @@
         "intervention/image": "^2.0",
         "predis/predis": "~1.0",
         "watson/sitemap": "^2.0.0",
-        "laravel/scout": "^1.1",
-        "elasticsearch/elasticsearch": "^2.2"
+        "brokerexchnage/elasticscout": "^0.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

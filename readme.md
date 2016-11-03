@@ -36,5 +36,4 @@ This project uses the Filesystem/Cloud storage component of Laravel, as such you
 > driver and stores these files in **storage/app/public**. To make them accessible from the web, you should create a symbolic 
 > link from **public/storage** to **storage/app/public**.
 
-So, like this ... starting from the **/blog/public** directory`ln -s ../storage/app/public storage`
-
+So, like this ... starting from the **/blog/public** directory `ln -s ../storage/app/public storage`

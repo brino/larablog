@@ -16,9 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        resolve(EngineManager::class)->extend('elastic', function () {
-            return new ElasticEngine(Elasticsearch::fromConfig(config('scout.elasticsearch.config')));
-        });
+        //
     }
 
     /**
