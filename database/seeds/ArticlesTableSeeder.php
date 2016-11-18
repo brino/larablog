@@ -19,9 +19,6 @@ class ArticlesTableSeeder extends Seeder
 
             Storage::disk('public')->put('banners/'.'banner.jpg',File::get(public_path('img/seeder/image.jpg')));
             Storage::disk('public')->put('thumbnails/'.'thumbnail.jpg',File::get(public_path('img/seeder/image.jpg')));
-
-//            App\Article::addAllToIndex();
-            
         }
     }
 }

@@ -25,7 +25,5 @@ class TagsTableSeeder extends Seeder
         App\Article::all()->each(function($item){
             $item->tags()->attach($this->tags->random(3)->all());
         });
-
-        App\Article::addAllToIndex();
     }
 }

@@ -28,10 +28,6 @@ class CreateArticlesTable extends Migration
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
-
-
-        App\Article::createIndex(2,1);
-        App\Article::putMapping(true);
     }
 
     /**
@@ -42,7 +38,6 @@ class CreateArticlesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('articles');
-        App\Article::deleteIndex();
         Storage::disk('public')->deleteDirectory('banners');
         Storage::disk('public')->deleteDirectory('thumbnails');
     }
