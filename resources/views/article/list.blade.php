@@ -9,7 +9,7 @@
 @foreach($articles as $article)
     <article class="media">
         @unless(empty($article->thumbnail))
-        <figure class="media-left">
+        <figure class="media-left is-hidden-mobile">
             <p class="image is-128x128">
                 <a href="{{ route('article',[$article->slug]) }}">
                     <img src="{{ asset('storage/'.$article->thumbnail) }}" class="img-thumbnail img-article-list" />
@@ -19,6 +19,15 @@
         @endunless
         <div class="media-content">
             <div class="content">
+                <p class="is-hidden-desktop">
+                    <figure class="media-left is-hidden-desktop">
+                        <p class="image is-4by3">
+                            <a href="{{ route('article',[$article->slug]) }}">
+                                <img src="{{ asset('storage/'.$article->thumbnail) }}" class="img-thumbnail img-article-list" />
+                            </a>
+                        </p>
+                    </figure>
+                </p>
                 <p>
                     <strong><a href="{{ route('article',[$article->slug]) }}">{{ $article->title }}</a></strong>
                 </p>
@@ -48,11 +57,7 @@
 @endforeach
 
 @if(method_exists($articles,'render'))
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="text-center">
-                {!! $articles->render() !!}
-            </div>
-        </div>
+    <div class="container" style="margin-top: 20px;">
+        {!! $articles->render() !!}
     </div>
 @endif

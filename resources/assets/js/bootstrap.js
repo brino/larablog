@@ -7,7 +7,7 @@ window._ = require('lodash');
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = require('vue');
+window.Vue = require('vue/dist/vue.js');
 require('vue-resource');
 
 /**
@@ -18,8 +18,7 @@ require('vue-resource');
 
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
-
-next();
+    next();
 });
 
 /**

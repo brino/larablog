@@ -1,23 +1,7 @@
-/**
- * Created by bmix on 4/15/16.
- */
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the body of the page. From here, you may begin adding components to
- * the application, or feel free to tweak this setup for your needs.
- */
-
 //Vue.component('example', require('./components/Example.vue'));
-    
+
 var d3 = window.d3 = require('d3');
 var c3 = window.c3 = require('c3');
 var CodeMirror = window.CodeMirror = require('codemirror');
@@ -29,17 +13,17 @@ require('codemirror/addon/mode/overlay');
 require('codemirror/addon/edit/matchbrackets');
 require('codemirror-spell-checker/dist/spell-checker.min');
 
-// const headerNav = new Vue({
-//     el: 'header.nav',
-//     data: {
-//         isActive: false
-//     },
-//     methods: {
-//         toggle () {
-//             return this.isActive = !this.isActive;
-//         }
-//     }
-// });
+const headerNav = new Vue({
+    el: 'header.nav',
+    data: {
+        isActive: false
+    },
+    methods: {
+        toggle () {
+            return this.isActive = !this.isActive;
+        }
+    }
+});
 
 // $( document ).ready(function() {
 //     $(function () {

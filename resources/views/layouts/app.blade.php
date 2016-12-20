@@ -1,20 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/3/16
- * Time: 1:26 PM
- */
-?>
-
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 4/12/16
- * Time: 10:00 AM
- */
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,9 +28,16 @@
 </head>
 <body>
 
-    @include('partials.nav')
+    <section class="hero is-medium is-primary">
+        <div class="hero-head">
+            <div class="container">
+                @include('partials.nav')
+            </div>
+        </div>
+    </section>
+
     @if(Route::is('photos') || Route::is('articles') || Route::is('home'))
-    <nav class="nav has-shadow">
+    <nav class="nav has-shadow" style="z-index:0">
         <div class="container">
             <div class="nav-center">
                 <a href="{{ route('articles') }}" class="nav-item is-tab @if(Route::is('articles')){{'is-active'}}@endif">
@@ -74,6 +64,6 @@
     @include('partials.footer')
 
 </body>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ elixir('js/app.js') }}"></script>
 @yield('last')
 </html>

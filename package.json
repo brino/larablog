@@ -4,7 +4,7 @@
     "prod": "gulp --production",
     "dev": "gulp watch"
   },
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.9.1",
     "bulma": "^0.2.0",
     "font-awesome": "^4.7.0",

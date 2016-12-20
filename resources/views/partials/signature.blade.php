@@ -15,8 +15,8 @@
     @can('update-photo',$photo)<a href="{{ route('photo.edit',[$photo]) }}">@endcan<span class="icon is-small"><i class="fa fa-camera"></i></span>@can('update-photo',$photo)</a>@endcan
 @endif
 
-<a href="{{ route('articles',[null,'query'=>$thing->user->name]) }}">{{ $thing->user->name }}</a>
-
+{{--<a href="{{ route('articles',[null,'query'=>$thing->user->name]) }}">{{ $thing->user->name }}</a>--}}
+<a href="{{ route('profile',$thing->user) }}">{{ $thing->user->name }}</a>
 @if(isset($thing->published_at))
     <span
     @if($thing->published_at->gt(\Carbon\Carbon::now()) && Route::is('admin'))

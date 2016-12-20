@@ -26,7 +26,12 @@
 
     Route::get('/photo/{photoSlug}', 'PhotoController@show')->name('photo');
 
-    Route::get('/about', 'AboutController@index')->name('about');
+//    Route::get('/about', 'AboutController@index')->name('about');
+
+    Route::get('/profile/{user?}', 'ProfileController@show')->name('profile');
+
+//    Route::get('/profile/{user}', 'ProfileController@show')->name('profile');
+
 
     Route::group(['namespace' => 'Admin'], function () {
 

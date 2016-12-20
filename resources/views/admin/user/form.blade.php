@@ -65,6 +65,16 @@
             </span>
             @endif
         </p>
+
+        {!! Form::label('bio','Bio',['class'=>'label']) !!}
+        <p class="control">
+            {!! Form::textarea('bio',null,['class'=>$errors->has('bio')?'textarea is-danger':'textarea','placeholder'=>'My Bio']) !!}
+            @if ($errors->has('bio'))
+                <span class="help is-danger">
+                <strong>{{ $errors->first('bio') }}</strong>
+            </span>
+            @endif
+        </p>
     </div>
 </div>
 
