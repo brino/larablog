@@ -16,12 +16,11 @@
 
 
 @section('heading')
-    <span class="fa fa-pencil-square-o"></span> Create Article
+    <span class="icon is-medium"><i class="fa fa-pencil-square-o"></i></span> Create Article
 @stop
 
 
 @section('content')
-
     {!! Form::open(['id'=>'create-form','route' => 'category.store']) !!}
 
     @include('admin.category.form')

@@ -17,7 +17,7 @@
 
 @section('heading')
 
-    <span class="fa fa-list"></span> Tag
+    <span class="icon is-medium"><i class="fa fa-list"></i></span> Tag
     @if(!empty($tag))
         :: {{ $tag->name }}
     @endif

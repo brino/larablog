@@ -16,7 +16,7 @@
 
 
 @section('heading')
-    <span class="fa fa-pencil-square-o"></span> Create Article
+    <span class="icon is-medium"><i class="fa fa-pencil-square-o"></i></span> Create Article
 @stop
 
 
@@ -29,7 +29,8 @@
         @include('admin.article.forms.body')
 
         @include('admin.article.forms.image')
-        {!! Form::submit('Create',['class'=>'btn btn-primary btn-block btn-lg']) !!}
+
+        {!! Form::submit('Create',['class'=>'button is-primary is-large']) !!}
     {!! Form::close() !!}
 @endsection
 

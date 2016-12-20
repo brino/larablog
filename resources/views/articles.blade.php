@@ -1,12 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 9/11/16
- * Time: 7:12 PM
- */
-?>
-
 @extends('layouts.app')
 
 
@@ -17,7 +8,7 @@
 
 @section('heading')
 
-    <span class="fa fa-search"></span> Articles
+    <span class="icon is-medium"><i class="fa fa-search"></i></span> Articles
 
 @stop
 
@@ -26,11 +17,11 @@
 
     @include('partials.total')
 
-    <div class="row">
-        <div class="col-md-9">
+    <div class="columns">
+        <div class="column is-three-quarters">
             @include('article.list')
         </div>
-        <div class="col-md-3">
+        <div class="column">
             @include('category.list')
         </div>
     </div>

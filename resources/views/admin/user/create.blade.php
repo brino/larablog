@@ -16,7 +16,7 @@
 
 
 @section('heading')
-    <span class="fa fa-pencil-square-o"></span> Create User
+    <span class="icon"><i class="fa fa-pencil-square-o"></i></span> Create User
 @stop
 
 

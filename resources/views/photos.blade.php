@@ -10,12 +10,12 @@
 
 
 @section('title')
-    Latest Photos
+    Photos
 @stop
 
 
 @section('heading')
-    <span class="fa fa-list"></span> Photos
+    <span class="icon is-medium"><i class="fa fa-list"></i></span> Photos
     @if(!empty($category))
         :: {{ $category->name }}
     @endif
@@ -24,12 +24,12 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="columns">
         @include('photo.list')
     </div>
 
-    <div class="text-center">
-        {{--{!! $photos->render() !!}--}}
+    <div class="container has-text-centered">
+        {!! $photos->render() !!}
     </div>
 
 @endsection

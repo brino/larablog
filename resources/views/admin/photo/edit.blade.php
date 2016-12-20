@@ -24,32 +24,30 @@
 
 
 @section('heading')
-    <span class="fa fa-camera-retro"></span> Edit Photo
+    <span class="icon"><i class="fa fa-camera-retro"></i></span> Edit Photo
+    <span class="pull-right">
+        @can('update-photo',$photo)
+            {!! Form::model($photo, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\PhotoController@destroy',$photo]]) !!}
+            {!! Form::submit('Delete',['class'=>'btn btn-danger btn-block btn-lg']) !!}
+            {!! Form::close() !!}
+        @endcan
+    </span>
 @stop
 
 
 @section('content')
 
-    <div class="row">
-        <div class="col-sm-12">
-            {!! Form::model($photo, ['id'=>'edit-form','method' => 'PATCH', 'files' => true, 'action' => ['Admin\PhotoController@update',$photo]]) !!}
+    <div class="container">
+        {!! Form::model($photo, ['id'=>'edit-form','method' => 'PATCH', 'files' => true, 'action' => ['Admin\PhotoController@update',$photo]]) !!}
 
-            @include('admin.photo.form')
+        @include('admin.photo.form')
 
-            {!! Form::submit('Save',['class'=>'btn btn-primary btn-block btn-lg']) !!}
-            {!! Form::close() !!}
-        </div>
+        {!! Form::submit('Save',['class'=>'button is-primary is-large']) !!}
+        <a class="button is-large" href="{{ URL::previous() }}"> Back </a>
+        {!! Form::close() !!}
     </div>
 
-    @can('update-photo')
-    <div class="row" style="margin-top:20px;">
-        <div class="col-sm-12">
-            {!! Form::model($photo, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\PhotoController@destroy',$photo]]) !!}
-            {!! Form::submit('Delete',['class'=>'btn btn-danger btn-block btn-lg']) !!}
-            {!! Form::close() !!}
-        </div>
-    </div>
-    @endcan
+
 
 @endsection
 

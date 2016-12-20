@@ -16,29 +16,25 @@
 
 
 @section('heading')
-    <span class="fa fa-pencil-square-o"></span> Edit User
+    <span class="icon"><i class="fa fa-pencil-square-o"></i></span> Edit User
+    <span class="pull-right">
+        {!! Form::model($user, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\UserController@destroy',$user]]) !!}
+        {!! Form::submit('Delete',['class'=>'button is-danger']) !!}
+        {!! Form::close() !!}
+    </span>
 @stop
 
 
 @section('content')
 
-    <div class="row">
-        <div class="col-sm-12">
-            {!! Form::model($user, ['id'=>'edit-form','method' => 'PATCH', 'files' => true, 'action' => ['Admin\UserController@update',$user]]) !!}
+    <div class="container">
+        {!! Form::model($user, ['id'=>'edit-form','method' => 'PATCH', 'files' => true, 'action' => ['Admin\UserController@update',$user]]) !!}
 
-            @include('admin.user.form')
+        @include('admin.user.form')
 
-            {!! Form::submit('Save',['class'=>'btn btn-primary btn-block btn-lg']) !!}
-            {!! Form::close() !!}
-        </div>
-    </div>
-
-    <div class="row" style="margin-top:20px;">
-        <div class="col-sm-12">
-            {!! Form::model($user, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\UserController@destroy',$user]]) !!}
-            {!! Form::submit('Delete',['class'=>'btn btn-danger btn-block btn-lg']) !!}
-            {!! Form::close() !!}
-        </div>
+        {!! Form::submit('Save',['class'=>'button is-primary is-large']) !!}
+        <a class="button is-large" href="{{ URL::previous() }}"> Back </a>
+        {!! Form::close() !!}
     </div>
 
 @endsection

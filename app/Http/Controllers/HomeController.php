@@ -20,7 +20,7 @@ class HomeController extends Controller
     public function index(Article $article,Photo $photo)
     {
 
-        $articles = $article->latest('published_at')->published()->limit(5)->get();
+        $articles = $article->latest('published_at')->published()->limit(7)->get();
 
         $photos = $photo->latest('published_at')->published()->limit(3)->get();
 

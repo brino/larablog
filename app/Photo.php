@@ -36,6 +36,14 @@ class Photo extends Model
     }
 
     /**
+     * @param $query
+     */
+    public function scopeUnpublished($query)
+    {
+        $query->where('published_at', '>', Carbon::now());
+    }
+
+    /**
      * @param $date
      */
     public function setPublishedAtAttribute($date)

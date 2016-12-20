@@ -24,62 +24,65 @@
 @stop
 
 @section('heading')
-    <span class="fa fa-file-text-o"></span> {{ $article->title }}
+    <span class="icon is-medium"><i class="fa fa-file-text-o"></i></span> {{ $article->title }}
 @stop
 
 
 @section('content')
 
-    <div class="row">
-        <div class="col-sm-12">
-            <p class="pull-right">
-                @foreach($article->tags as $tag)
-                    <a class="badge" href="{{ route('articles',[null,'query'=>$tag->name]) }}">{{ $tag->name }}</a>
-                @endforeach
-            </p>
-            <p class="text-muted">
+    <nav class="level">
+        <div class="level-left">
+            <small>
                 @include('partials.signature',['thing'=>$article])
                 on {{ $article->published_at->toFormattedDateString() }}
-            </p>
+            </small>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-           @unless(empty($article->banner))
-            <p>
-                <img src="{{ asset('storage/'.$article->banner) }}" class="img-responsive img-rounded" id="img-article" />
-            </p>
-            @endunless
+        <div class="level-right">
+            <small>
+                @foreach($article->tags as $tag)
+                    <a class="level-item" href="{{ route('articles',[null,'query'=>$tag->name]) }}">
+                        <span class="icon is-small"><i class="fa fa-tag"></i></span>
+                        {{ $tag->name }}
+                    </a>
+                @endforeach
+            </small>
+        </div>
+    </nav>
+    <div class="container">
+       @unless(empty($article->banner))
+        <figure class="image">
+            <img src="{{ asset('storage/'.$article->banner) }}" class="img-responsive img-rounded" id="img-article" />
+        </figure>
+        @endunless
+        <div class="content">
             <p>
                 {!! $article->body !!}
             </p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div id="disqus_thread"></div>
-            <script>
-                /**
-                 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-                 */
+    <div class="container">
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
 
-                 var disqus_config = function () {
-                 this.page.url = '{{ Request::url() }}';  // Replace PAGE_URL with your page's canonical URL variable
-                 this.page.identifier = '{{ $article->slug }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                 };
+             var disqus_config = function () {
+             this.page.url = '{{ Request::url() }}';  // Replace PAGE_URL with your page's canonical URL variable
+             this.page.identifier = '{{ $article->slug }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+             };
 
-                (function() {  // DON'T EDIT BELOW THIS LINE
-                    var d = document, s = d.createElement('script');
+            (function() {  // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
 
-                    s.src = '//brianmix.disqus.com/embed.js';
+                s.src = '//brianmix.disqus.com/embed.js';
 
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-        </div>
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
     </div>
 
 @endsection

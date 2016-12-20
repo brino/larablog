@@ -45,62 +45,35 @@
 </head>
 <body>
 
-@include('partials.nav')
-
-<div class="container">
-    <div class="page-heading">
-        <h1 class="page-header"> @yield('heading')</h1>
-    </div>
-</div>
-
-<div class="container" id="content-main">
-    @include('errors.list')
-    @yield('content')
-</div>
-
-<footer class="footer @if(env('APP_DARK',false)){{'dark'}}@endif">
-    <div class="container">
-            <ul class="list-inline text-center" id="social-icons">
-                <li>
-                    @if(env('APP_GIT',false))
-                        <a href="https://github.com/{{ env('APP_GIT') }}"><i class="fa fa-3x fa-github-alt" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_FACE',false))
-                        <a href="https://facebook.com/{{ env('APP_FACE') }}"><i class="fa fa-3x fa-facebook" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_TWIT',false))
-                        <a href="https://twitter.com/{{ env('APP_TWIT') }}"><i class="fa fa-3x fa-twitter" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_GPLUS',false))
-                        <a href="https://plus.google.com/+{{ env('APP_GPLUS') }}"><i class="fa fa-3x fa-google-plus" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_UTUBE',false))
-                        <a href="https://youtube.com/channel/{{ env('APP_UTUBE') }}"><i class="fa fa-3x fa-youtube" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_LINKEDIN',false))
-                        <a href="https://www.linkedin.com/in/{{ env('APP_LINKEDIN') }}"><i class="fa fa-3x fa-linkedin" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-            </ul>
-
-            <div class="row">
-                <p class="text-center">Copyright <span class="glyphicon glyphicon-copyright-mark"></span> {{ date('Y') }} {{ env('APP_COPY') }}</p>
+    @include('partials.nav')
+    @if(Route::is('photos') || Route::is('articles') || Route::is('home'))
+    <nav class="nav has-shadow">
+        <div class="container">
+            <div class="nav-center">
+                <a href="{{ route('articles') }}" class="nav-item is-tab @if(Route::is('articles')){{'is-active'}}@endif">
+                    <span class="icon"><i class="fa fa-file-text"></i></span>
+                    <span class="is-hidden-mobile">Articles</span>
+                </a>
+                <a href="{{ route('photos') }}" class="nav-item is-tab @if(Route::is('photos')){{'is-active'}}@endif">
+                    <span class="icon"><i class="fa fa-file-photo-o"></i></span>
+                    <span class="is-hidden-mobile">Photos</span>
+                </a>
             </div>
-    </div>
-</footer>
-<div class="last">
-    <script src="{{ asset('js/app.js') }}"></script>
-    @yield('last')
-</div>
+        </div>
+    </nav>
+    @endif
+
+    <section class="section">
+        <div class="container">
+            @include('errors.list')
+            <h1 class="title"> @yield('heading')</h1>
+            @yield('content')
+        </div>
+    </section>
+
+    @include('partials.footer')
+
 </body>
+<script src="{{ asset('js/app.js') }}"></script>
+@yield('last')
 </html>

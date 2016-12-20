@@ -15,17 +15,15 @@
 @stop
 
 @section('heading')
-    <span class="fa fa-feed"></span> Latest
+    <span class="icon is-medium"><i class="fa fa-feed"></i></span> Latest
 @stop
 
-
 @section('content')
-
-    <div class="row">
-        <div class="col-md-9" style="min-height: 40em">
+    <div class="columns">
+        <div class="column is-three-quarters" style="min-height: 40em">
             @include('article.list')
         </div>
-        <div class="cold-md-3">
+        <div class="column">
             @include('photo.list')
         </div>
     </div>

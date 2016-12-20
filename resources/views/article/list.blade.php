@@ -7,41 +7,44 @@
  */
 ?>
 @foreach($articles as $article)
-    <div class="row">
-        <div class="col-xs-12">
-            <h2 class="article-title"><a href="{{ route('article',[$article->slug]) }}">{{ $article->title }}</a> </h2>
-        </div>
-    </div>
-    <div class="row">
+    <article class="media">
         @unless(empty($article->thumbnail))
-        <div class="col-xs-3">
-            <a href="{{ route('article',[$article->slug]) }}">
-                <img src="{{ asset('storage/'.$article->thumbnail) }}" class="img-thumbnail img-article-list" />
-            </a>
-        </div>
+        <figure class="media-left">
+            <p class="image is-128x128">
+                <a href="{{ route('article',[$article->slug]) }}">
+                    <img src="{{ asset('storage/'.$article->thumbnail) }}" class="img-thumbnail img-article-list" />
+                </a>
+            </p>
+        </figure>
         @endunless
-        <div class="col-xs-{{ empty($article->thumbnail)?12:9 }}">
-            <div class="text-muted">
+        <div class="media-content">
+            <div class="content">
                 <p>
-                    <small>@include('partials.signature',['thing'=>$article])</small>
+                    <strong><a href="{{ route('article',[$article->slug]) }}">{{ $article->title }}</a></strong>
                 </p>
+                {!! $article->summary !!}
             </div>
-            <div class="article-body">
-                <p>{!! $article->summary !!} {!! link_to_route('article','more...',[$article->slug]) !!}</p>
-            </div>
-
-            <div class="article-tags">
-                <p>
+            <nav class="level">
+                <div class="level-left">
+                    <small>@include('partials.signature',['thing'=>$article])</small>
+                </div>
+                <div class="level-right">
+                    <small>
                     @foreach($article->tags as $tag)
-                        <a class="badge" href="{{ route('articles',[null,'query'=>$tag->slug]) }}">
-                            <i class="fa fa-tag"></i>
+                        <a class="level-item" href="{{ route('articles',[null,'query'=>$tag->slug]) }}">
+                            <span class="icon is-small"><i class="fa fa-tag"></i></span>
                             {{ $tag->name }}
                         </a>
                     @endforeach
-                </p>
-            </div>
+                    </small>
+                </div>
+            </nav>
         </div>
-    </div>
+        {{--<div class="media-right">--}}
+            {{--<button class="delete"></button>--}}
+        {{--</div>--}}
+    </article>
+
 @endforeach
 
 @if(method_exists($articles,'render'))

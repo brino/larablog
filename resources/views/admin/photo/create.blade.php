@@ -16,7 +16,7 @@
 
 
 @section('heading')
-    <span class="fa fa-camera-retro"></span> Create Photo
+    <span class="icon is-medium"><i class="fa fa-camera-retro"></i></span> Create Photo
 @stop
 
 

@@ -24,9 +24,9 @@
 
     {!! Form::open(['id'=>'create-form','route' => 'tag.store']) !!}
 
-    @include('admin.tag.form')
+        @include('admin.tag.form')
 
-    {!! Form::submit('Create',['class'=>'btn btn-primary btn-block btn-lg']) !!}
+        {!! Form::submit('Create',['class'=>'button is-primary is-large']) !!}
     {!! Form::close() !!}
 @endsection
 
