@@ -43,18 +43,20 @@
 
         {!! Form::label('category_id','Category',['class'=>'label']) !!}
         <p class="control">
-            {!! Form::date('published_at',!empty($article->published_at)?$article->published_at:\Carbon\Carbon::now(),['class'=>$errors->has('category_id')?'input is-danger':'input']) !!}
-            @if ($errors->has('published_at'))
-                <span class="help is-danger">
-                    <strong>{{ $errors->first('published_at') }}</strong>
+            <span class="select">
+                {!! Form::select('category_id',$categories,null,['class'=>$errors->has('category_id')?'is-danger':'', 'id'=>'category']) !!}
+                @if ($errors->has('category_id'))
+                    <span class="help is-danger">
+                    <strong>{{ $errors->first('category_id') }}</strong>
                 </span>
-            @endif
+                @endif
+            </span>
         </p>
 
         {!! Form::label('tag_list','Tags',['class'=>'label']) !!}
-        <p class="control" style="min-height:100px;">
+        <p class="control" style="min-height:150px;">
             <span class="select">
-                {!! Form::select('tag_list[]',$tags,null,['class'=>$errors->has('tag_list')?'is-danger':'', 'multiple', 'id'=>'tags', 'style' => "min-height:100px;"]) !!}
+                {!! Form::select('tag_list[]',$tags,null,['class'=>$errors->has('tag_list')?'is-danger':'', 'multiple', 'id'=>'tags', 'style' => "min-height:150px;"]) !!}
             </span>
             @if ($errors->has('tag_list'))
                 <span class="help is-danger">
@@ -65,7 +67,7 @@
 
         {!! Form::label('summary','Summary',['class'=>'label']) !!}
         <p class="control">
-            {!! Form::textarea('summary',null,['class'=>$errors->has('summary')?'textarea editor-html is-danger':'textarea editor-html','placeholder'=>'Summary']) !!}
+            {!! Form::textarea('summary',null,['id'=>'article-summary','class'=>$errors->has('summary')?'textarea editor-html is-danger':'textarea editor-html','placeholder'=>'Summary']) !!}
             @if ($errors->has('summary'))
                 <span class="help is-danger">
                     <strong>{{ $errors->first('summary') }}</strong>

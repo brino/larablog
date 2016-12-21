@@ -35,7 +35,5 @@ in
 </a>
 
 @if($thing->views)
-<span class="text-muted">
     <span class="icon is-small"><i class="fa fa-eye"></i></span> {{ number_format($thing->views) }}
-</span>
 @endif

@@ -33,7 +33,10 @@
 
 
 @section('heading')
-    <span class="icon is-medium"><i class="fa fa-users"></i></span> Users {{ link_to_route('user.create','Create User',[],['class'=>'button is-primary pull-right']) }}
+    <span class="icon is-medium"><i class="fa fa-users"></i></span> Users
+    @can('super')
+        {{ link_to_route('user.create','Create User',[],['class'=>'button is-primary pull-right']) }}
+    @endcan
 @stop
 
 

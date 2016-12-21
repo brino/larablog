@@ -27,6 +27,7 @@
         @include('admin.tag.form')
 
         {!! Form::submit('Create',['class'=>'button is-primary is-large']) !!}
+        <a class="button is-large" href="{{ URL::previous() }}"> Back </a>
     {!! Form::close() !!}
 @endsection
 

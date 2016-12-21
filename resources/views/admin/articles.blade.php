@@ -17,7 +17,7 @@
 
 @section('heading')
     <span class="icon"><i class="fa fa-list-alt"></i></span> Articles
-    @can('create-article')
+    @can('contributor')
         {{ link_to_route('article.create','Create Article',[],['class'=>'button is-primary pull-right']) }}
     @endcan
 @stop
@@ -42,6 +42,9 @@
                 <thead>
                     <th></th>
                     <th>Title</th>
+                    @can('super')
+                    <th>Contributor</th>
+                    @endcan
                     <th>Category</th>
                     <th>Tags</th>
                     {{--<th>Slug</th>--}}
@@ -61,6 +64,11 @@
                         <td>
                             {{ link_to_route('article.edit',str_limit($article->title,25),[$article]) }}
                         </td>
+                        @can('super')
+                        <td>
+                            <a href="{{ route('profile',$article->user) }}">{{ $article->user->name }}</a>
+                        </td>
+                        @endcan
                         <td>
                             {{ $article->category->name }}
                         </td>

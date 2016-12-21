@@ -8,11 +8,11 @@
 ?>
 <div class="panel panel-default @if($errors->has('body')){{ 'is-danger' }}@endif">
     <div class="panel-heading">
-        HTML
+        Body (HTML)
     </div>
     <div class="panel-block">
         <p class="control">
-            {!! Form::textarea('body',null,['class'=>'textarea editor-html']) !!}
+            {!! Form::textarea('body',null,['id'=>'article-body','class'=>'textarea editor-html']) !!}
             @if ($errors->has('body'))
                 <span class="help is-danger">
                     <strong>{{ $errors->first('body') }}</strong>
@@ -28,7 +28,7 @@
     </div>
     <div class="panel-block">
         <p class="control">
-            {!! Form::textarea('script',null,['class'=>'textarea editor-script']) !!}
+            {!! Form::textarea('script',null,['id'=>'article-script','class'=>'textarea editor-script']) !!}
             @if ($errors->has('script'))
                 <span class="help is-danger">
                     <strong>{{ $errors->first('script') }}</strong>

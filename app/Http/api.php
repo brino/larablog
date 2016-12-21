@@ -8,9 +8,21 @@
 
 use Illuminate\Http\Request;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+
+Route::group(['namespace' => 'Api','prefix' => 'api','middleware' => ['auth:api','api']], function () {
+
+    Route::get('article', 'ArticleController@index')->name('api.article.index');
+
+    Route::get('article/user','UserArticleController@index')->name('api.article.user.index');
+
+    Route::get('user', function () {
+        return Auth::guard('api')->user();
+    })->name('api.user.show');
+});
+
+
+
+
 
 Route::get('/sitemap','SiteMapController@index')->name('sitemap');
 

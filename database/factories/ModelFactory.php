@@ -16,11 +16,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'bio' => $faker->paragraphs(3,true),
+        'api_token' => str_random(60),
         'super' => false,
         'contributor' => rand(0,1),
-        'password' => bcrypt(str_random(10)),
-        'password' => bcrypt('temp4now'),
-        'remember_token' => str_random(10),
+        'password' => 'temp4now',
     ];
 });
 
@@ -34,10 +33,10 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
 
     $category = App\Category::orderBy(\DB::raw('RAND()'))->first();
 
-    $days = rand(1,10);
+    $days = rand(2,10);
 
     $created = $faker->dateTimeThisMonth();
-    $published = \Carbon\Carbon::instance($created)->addDays($days);
+    $published = \Carbon\Carbon::instance($created)->timezone('America/Chicago')->addDays($days);
 
 
     return [

@@ -13,11 +13,7 @@ class ArticleRequest extends Request
      */
     public function authorize()
     {
-        if(Gate::allows('create-article') || Gate::allows('create-edit')){
-            return true;
-        }
-
-        return false;
+        return Gate::allows('contributor');
     }
 
     /**

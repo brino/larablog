@@ -6,11 +6,11 @@
         </div>
         <div class="level-item">
             <p class="heading has-text-centered">Articles</p>
-            <p class="title has-text-centered">{{$user->articles->count()}}</p>
+            <p class="title has-text-centered">{{$user->articles()->published()->count()}}</p>
         </div>
         <div class="level-item">
             <p class="heading has-text-centered">Photos</p>
-            <p class="title has-text-centered">{{$user->photos->count()}}</p>
+            <p class="title has-text-centered">{{$user->photos()->published()->count()}}</p>
         </div>
     </div>
 </div>
@@ -45,7 +45,7 @@
                 <th>Published</th>
             </thead>
             <tbody>
-            @foreach($user->articles()->latest()->limit(5)->get() as $article)
+            @foreach($user->articles()->published()->latest()->limit(5)->get() as $article)
                 <tr>
                     <td>{{$article->views}}</td>
                     <td>{{$article->title}}</td>
@@ -64,7 +64,7 @@
             <th>Published</th>
             </thead>
             <tbody>
-            @foreach($user->photos()->latest()->limit(5)->get() as $photo)
+            @foreach($user->photos()->published()->latest()->limit(5)->get() as $photo)
                 <tr>
                     <td>{{$photo->views}}</td>
                     <td>{{$photo->title}}</td>
@@ -75,3 +75,14 @@
         </table>
     </div>
 </div>
+
+@can('update-user',$user)
+    <p class="heading">Api Token</p>
+    @if(empty($user->api_token))
+        @can('contributor')
+        <a class="button is-primary is-large" href="{{ route('profile.token') }}">Create Token</a>
+        @endcan
+    @else
+        <p class="title">{{ $user->api_token }}</p>
+    @endif
+@endcan

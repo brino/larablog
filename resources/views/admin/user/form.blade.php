@@ -31,40 +31,41 @@
             </span>
             @endif
         </p>
+        @can('super')
+            {!! Form::label('contributor','Contributor',['class'=>'label']) !!}
+            <p class="control">
+                <span class="select">
+                    {!! Form::select('contributor',['0'=>'No','1'=>'Yes'],$user->contributor) !!}
+                </span>
+                @if ($errors->has('contributor'))
+                    <span class="help is-danger">
+                    <strong>{{ $errors->first('contributor') }}</strong>
+                </span>
+                @endif
+            </p>
 
-        {!! Form::label('contributor','Contributor',['class'=>'label']) !!}
-        <p class="control">
-            <span class="select">
-                {!! Form::select('contributor',['0'=>'No','1'=>'Yes'],$user->contributor) !!}
-            </span>
-            @if ($errors->has('contributor'))
-                <span class="help is-danger">
-                <strong>{{ $errors->first('contributor') }}</strong>
-            </span>
-            @endif
-        </p>
+            {!! Form::label('super','Super',['class'=>'label']) !!}
+            <p class="control">
+                <span class="select">
+                    {!! Form::select('super',['0'=>'No','1'=>'Yes'],$user->super) !!}
+                </span>
+                @if ($errors->has('super'))
+                    <span class="help is-danger">
+                    <strong>{{ $errors->first('super') }}</strong>
+                </span>
+                @endif
+            </p>
 
-        {!! Form::label('super','Super',['class'=>'label']) !!}
-        <p class="control">
-            <span class="select">
-                {!! Form::select('super',['0'=>'No','1'=>'Yes'],$user->super) !!}
-            </span>
-            @if ($errors->has('super'))
-                <span class="help is-danger">
-                <strong>{{ $errors->first('super') }}</strong>
-            </span>
-            @endif
-        </p>
-
-        {!! Form::label('password','Password',['class'=>'label']) !!}
-        <p class="control">
-            {!! Form::text('password',null,['class'=>$errors->has('password')?'input is-danger':'input','placeholder'=>'password']) !!}
-            @if ($errors->has('password'))
-                <span class="help is-danger">
-                <strong>{{ $errors->first('password') }}</strong>
-            </span>
-            @endif
-        </p>
+            {{--{!! Form::label('password','Password',['class'=>'label']) !!}--}}
+            {{--<p class="control">--}}
+                {{--{!! Form::text('password',null,['class'=>$errors->has('password')?'input is-danger':'input','placeholder'=>'password']) !!}--}}
+                {{--@if ($errors->has('password'))--}}
+                    {{--<span class="help is-danger">--}}
+                    {{--<strong>{{ $errors->first('password') }}</strong>--}}
+                {{--</span>--}}
+                {{--@endif--}}
+            {{--</p>--}}
+        @endcan
 
         {!! Form::label('bio','Bio',['class'=>'label']) !!}
         <p class="control">

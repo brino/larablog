@@ -33,6 +33,13 @@ class Article extends Model
     /**
      * @var array
      */
+    protected $hidden =  [
+        'user_id', 'category_id', 'created_at', 'updated_at'
+    ];
+
+    /**
+     * @var array
+     */
     protected $dates = [
         'published_at'
     ];

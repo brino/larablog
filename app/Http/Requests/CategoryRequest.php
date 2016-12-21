@@ -14,11 +14,7 @@ class CategoryRequest extends Request
      */
     public function authorize()
     {
-        if(Gate::allows('create-category') || Gate::allows('edit-category')){
-            return true;
-        }
-
-        return false;
+        return Gate::allows('super');
     }
 
     /**

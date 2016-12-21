@@ -24,7 +24,10 @@
 
 
 @section('heading')
-    <span class="icon is-medium"><i class="fa fa-list-alt"></i></span> Tags {{ link_to_route('tag.create','Create Tag',[],['class'=>'button is-primary pull-right']) }}
+    <span class="icon is-medium"><i class="fa fa-list-alt"></i></span> Tags
+    @can('contributor')
+        {{ link_to_route('tag.create','Create Tag',[],['class'=>'button is-primary pull-right']) }}
+    @endcan
 @stop
 
 
@@ -46,7 +49,9 @@
             <table class="table">
                 <thead>
                 <tr>
+                    @can('super')
                     <th></th>
+                    @endcan
                     <th>Name</th>
                     <th>Slug</th>
                     <th>Articles</th>
@@ -56,11 +61,13 @@
                 <tbody>
                 @foreach($tags as $tag)
                     <tr>
+                        @can('super')
                         <td>
                             {!! Form::model($tag, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\TagController@destroy',$tag]]) !!}
                             {!! Form::submit('x',['class'=>'button is-danger is-small']) !!}
                             {!! Form::close() !!}
                         </td>
+                        @endcan
                         <td>
                             {{ link_to_route('tag.edit',$tag->name,[$tag]) }}
                         </td>

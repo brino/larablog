@@ -19,6 +19,13 @@ class Tag extends Model
     ];
 
     /**
+     * @var array
+     */
+    protected $hidden =  [
+        'id','pivot', 'created_at', 'updated_at'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function articles()

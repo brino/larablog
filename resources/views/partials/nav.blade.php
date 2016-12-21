@@ -29,9 +29,15 @@
                 <span class="icon"><i class="fa fa-user"></i></span>
                 <span>{{ Auth::user()->name }}</span>
             </a>
+            @can('contributor')
             <a class="nav-item @if(Route::is('admin')){{'is-active'}}@endif" href="{{ route('admin') }}">
                 <span class="icon"><i class="fa fa-lock"></i></span>
                 <span>Admin</span>
+            </a>
+            @endcan
+            <a class="nav-item" href="{{ url('/logout') }}">
+                <span class="icon"><i class="fa fa-sign-out"></i></span>
+                Logout
             </a>
         @endif
 

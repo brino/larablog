@@ -14,6 +14,8 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.sass('app.scss')
         .webpack('app.js')
+        .webpack('article-editor.js')
+        .webpack('article.js')
         .copy('node_modules/font-awesome/fonts','public/build/fonts')
-        .version(['js/app.js','css/app.css'])
+        .version(['js/app.js','css/app.css','js/article-editor.js','js/article.js'])
 });

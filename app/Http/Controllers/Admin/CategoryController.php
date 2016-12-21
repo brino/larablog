@@ -51,10 +51,15 @@ class CategoryController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
+
+        if (Gate::denies('super')) {
+            return redirect()->route('category.index')->withErrors(['User does not have permission to create categories.']);
+        }
+
         //show the creation form and post to store()
         
         $info = false;
@@ -70,7 +75,7 @@ class CategoryController extends Controller
     {
         //process the create form ... and store in db
 
-        if (Gate::denies('create-category')) {
+        if (Gate::denies('super')) {
             abort(403);
         }
 
@@ -89,6 +94,11 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+
+        if (Gate::denies('super')) {
+            return redirect()->route('category.index')->withErrors(['User does not have permission to edit categories.']);
+        }
+
         $info = false;
 
         //show edit form and post to update()
@@ -104,7 +114,7 @@ class CategoryController extends Controller
     {
         //process edit form ... and update db
 
-        if (Gate::denies('update-category')) {
+        if (Gate::denies('super')) {
             abort(403);
         }
 
@@ -128,7 +138,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //nuke the model
-        if (Gate::denies('update-category')) {
+        if (Gate::denies('super')) {
             abort(403);
         }
 

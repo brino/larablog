@@ -17,7 +17,7 @@
 
 @section('heading')
     <span class="icon is-medium"><i class="fa fa-list-alt"></i></span> Photos
-    @can('create-photo')
+    @can('contributor')
         {{ link_to_route('photo.create','Create Photo',[],['class'=>'button is-primary pull-right']) }}
     @endcan
 @stop

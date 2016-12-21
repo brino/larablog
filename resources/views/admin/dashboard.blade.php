@@ -39,7 +39,7 @@
                     <div class="tile">
                         <div class="tile is-parent is-vertical">
                             <article class="tile is-child notification">
-                                <p class="title">My Articles</p>
+                                <p class="title">Articles</p>
                                 <p class="subtitle">Stats on my articles</p>
                                 <div class="content">
                                     <div class="level">

@@ -23,6 +23,13 @@ class Photo extends Model
     /**
      * @var array
      */
+    protected $hidden =  [
+        'created_at', 'updated_at', 'category_id', 'user_id'
+    ];
+
+    /**
+     * @var array
+     */
     protected $dates = [
         'published_at'
     ];

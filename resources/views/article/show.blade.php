@@ -54,10 +54,8 @@
             <img src="{{ asset('storage/'.$article->banner) }}" class="img-responsive img-rounded" id="img-article" />
         </figure>
         @endunless
-        <div class="content">
-            <p>
-                {!! $article->body !!}
-            </p>
+        <div class="content" style="margin-top: 20px;margin-bottom:20px;">
+            {!! $article->body !!}
         </div>
     </div>
     <div class="container">
@@ -89,5 +87,6 @@
 
 
 @section('last')
+    <script src="{{ elixir('js/article.js') }}"></script>
     <script id="dsq-count-scr" src="//brianmix.disqus.com/count.js" async></script>
 @stop

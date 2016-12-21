@@ -4,14 +4,6 @@ require('./bootstrap');
 
 var d3 = window.d3 = require('d3');
 var c3 = window.c3 = require('c3');
-var CodeMirror = window.CodeMirror = require('codemirror');
-
-require('codemirror/mode/javascript/javascript');
-require('codemirror/mode/htmlmixed/htmlmixed');
-require('codemirror/mode/php/php');
-require('codemirror/addon/mode/overlay');
-require('codemirror/addon/edit/matchbrackets');
-require('codemirror-spell-checker/dist/spell-checker.min');
 
 const headerNav = new Vue({
     el: 'header.nav',
@@ -24,6 +16,8 @@ const headerNav = new Vue({
         }
     }
 });
+
+
 
 // $( document ).ready(function() {
 //     $(function () {
