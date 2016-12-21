@@ -49,7 +49,7 @@
                 <tr>
                     <td>{{$article->views}}</td>
                     <td>{{$article->title}}</td>
-                    <td>{{ $article->created_at->diffForHumans() }}</td>
+                    <td style="white-space: nowrap">{{ $article->created_at->diffForHumans() }}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -68,7 +68,7 @@
                 <tr>
                     <td>{{$photo->views}}</td>
                     <td>{{$photo->title}}</td>
-                    <td>{{ $photo->created_at->diffForHumans() }}</td>
+                    <td style="white-space: nowrap">{{ $photo->created_at->diffForHumans() }}</td>
                 </tr>
             @endforeach
             </tbody>
