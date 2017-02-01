@@ -5,7 +5,7 @@ It uses the Filesystem/Cloud storage layer in laravel to store the images and ph
 other js libs with Mix. Also includes an xml sitemap generator.
 
 
-## License
+## License 
 
 Larablog is released under the MIT Open Source License, <https://opensource.org/licenses/MIT>.
 
