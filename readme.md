@@ -6,7 +6,7 @@ other js libs with Mix. Also includes an xml sitemap generator.
 
 ## License
 
-Larablog is released under the MIT Open Source License, <https://opensource.org/licenses/MIT>
+Larablog is released under the MIT Open Source License, <https://opensource.org/licenses/MIT>.
 
 ## Installation
 
