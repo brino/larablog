@@ -40,26 +40,24 @@ class ArticleController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Article $article
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Article $article)
     {
-        //show list of articles (to edit)
-//        return redirect()->route('articles');
 
         $info = false;
         $user = Auth::user();
-//        $user->load('articles');
 
         if(Session::has('info'))
             $info = Session::get('info');
 
-        if($user->super) {
+        if($user->super && false) {
             $articles = $article->latest('created_at')->paginate();
         } elseif($user->contributor) {
             $articles = $user->articles()->latest('created_at')->paginate();
         } else {
-            return redirect()->route('home');
+            return redirect()->route('admin')->withErrors(['User does not have permission to view articles']);
         }
 
         return view('admin.articles',compact('articles','info'));
@@ -84,7 +82,7 @@ class ArticleController extends Controller
     public function create(Article $article)
     {
 
-        if (Gate::denies('create-article')) {
+        if (Gate::denies('contributor')) {
             return redirect()->route('admin')->withErrors(['User does not have permission to create articles.']);
         }
         
@@ -104,7 +102,7 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
 
-        if (Gate::denies('create-article')) {
+        if (Gate::denies('contributor')) {
             abort(403);
         }
         

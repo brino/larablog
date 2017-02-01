@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Session;
 use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class UserController
@@ -19,6 +21,11 @@ class UserController extends Controller
      */
     public function index()
     {
+
+        if (Gate::denies('super')) {
+            return redirect()->route('admin')->withErrors(['User does not have permission to list users.']);
+        }
+
         $info = false;
 
         if(Session::has('info'))
@@ -48,7 +55,7 @@ class UserController extends Controller
     public function create(User $user)
     {
 
-        if (Gate::denies('create-user')) {
+        if (Gate::denies('super')) {
             return redirect()->route('admin')->withErrors(['User does not have permission to create users.']);
         }
 
@@ -63,7 +70,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
 
-        if (Gate::denies('create-user')) {
+        if (Gate::denies('super')) {
             abort(403);
         }
 
@@ -82,6 +89,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+//        dd($user);
+
         if (Gate::denies('update-user',$user)) {
             return redirect()->route('admin')->withErrors(['User does not have permission to edit this user.']);
         }
@@ -96,19 +105,34 @@ class UserController extends Controller
      */
     public function update(User $user, UserRequest $request)
     {
+
         if (Gate::denies('update-user',$user)) {
             abort(403);
         }
 
-        if($request->has('password')){
-            $requestVars = $request->all();
-        } else {
+        if(Auth::user()->super) {
             $requestVars = $request->except('password');
+        } else {
+            $requestVars = $request->except(['password','super','contributor']);
         }
+
+
+
+//        if($request->has('password')){
+//            $requestVars = $request->all();
+//        } else {
+//            $requestVars = $request->except('password');
+//        }
 
         if($user->update($requestVars)){
 
-            return redirect()->route('user.index')->with('info','Saved User Successfully!');
+            $route = 'profile';
+
+            if(Auth::user()->super) {
+                $route = 'user.index';
+            }
+
+            return redirect()->route($route)->with('info','Saved User Successfully!');
 
         } else {
 

@@ -16,7 +16,7 @@
 
 
 @section('heading')
-    <span class="fa fa-pencil-square-o"></span> Create User
+    <span class="icon"><i class="fa fa-pencil-square-o"></i></span> Create User
 @stop
 
 
@@ -27,6 +27,7 @@
     @include('admin.user.form')
 
     {!! Form::submit('Create',['class'=>'btn btn-primary btn-block btn-lg']) !!}
+    <a class="button is-large" href="{{ URL::previous() }}"> Back </a>
     {!! Form::close() !!}
 @endsection
 

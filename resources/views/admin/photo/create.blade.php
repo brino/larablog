@@ -16,7 +16,7 @@
 
 
 @section('heading')
-    <span class="fa fa-camera-retro"></span> Create Photo
+    <span class="icon is-medium"><i class="fa fa-camera-retro"></i></span> Create Photo
 @stop
 
 
@@ -26,7 +26,8 @@
 
     @include('admin.photo.form')
 
-    {!! Form::submit('Create',['class'=>'btn btn-primary btn-block btn-lg']) !!}
+    {!! Form::submit('Create',['class'=>'button is-primary is-large']) !!}
+    <a class="button is-large" href="{{ URL::previous() }}"> Back </a>
     {!! Form::close() !!}
 @endsection
 

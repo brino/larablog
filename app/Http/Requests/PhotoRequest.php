@@ -14,11 +14,7 @@ class PhotoRequest extends Request
      */
     public function authorize()
     {
-        if(Gate::allows('create-article')){
-            return true;
-        }
-
-        return false;
+        return Gate::allows('contributor');
     }
 
     /**

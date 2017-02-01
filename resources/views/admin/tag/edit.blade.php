@@ -16,29 +16,33 @@
 
 
 @section('heading')
-    <span class="fa fa-pencil-square-o"></span> Edit Tag
+    <span class="icon is-medium"><i class="fa fa-pencil-square-o"></i></span> Edit Tag
+
+    @can('update-tag')
+        <span class="pull-right">
+            {!! Form::model($tag, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\TagController@destroy',$tag]]) !!}
+            {!! Form::submit('Delete',['class'=>'button is-danger']) !!}
+            {!! Form::close() !!}
+        </span>
+    @endcan
+
 @stop
 
 
 @section('content')
 
-    <div class="row">
-        <div class="col-sm-12">
-            {!! Form::model($tag, ['id'=>'edit-form','method' => 'PATCH', 'files' => true, 'action' => ['Admin\TagController@update',$tag]]) !!}
+    <div class="container">
+        {!! Form::model($tag, ['id'=>'edit-form','method' => 'PATCH', 'files' => true, 'action' => ['Admin\TagController@update',$tag]]) !!}
 
-            @include('admin.tag.form')
+        @include('admin.tag.form')
 
-            {!! Form::submit('Save',['class'=>'btn btn-primary btn-block btn-lg']) !!}
-            {!! Form::close() !!}
-        </div>
+        {!! Form::submit('Save',['class'=>'button is-primary is-large']) !!}
+        <a class="button is-large" href="{{ URL::previous() }}"> Back </a>
+        {!! Form::close() !!}
     </div>
 
-    <div class="row" style="margin-top:20px;">
-        <div class="col-sm-12">
-            {!! Form::model($tag, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\TagController@destroy',$tag]]) !!}
-            {!! Form::submit('Delete',['class'=>'btn btn-danger btn-block btn-lg']) !!}
-            {!! Form::close() !!}
-        </div>
+    <div class="container" style="margin-top:20px;">
+
     </div>
 
 @endsection

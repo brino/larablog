@@ -23,6 +23,13 @@ class Photo extends Model
     /**
      * @var array
      */
+    protected $hidden =  [
+        'created_at', 'updated_at', 'category_id', 'user_id'
+    ];
+
+    /**
+     * @var array
+     */
     protected $dates = [
         'published_at'
     ];
@@ -33,6 +40,14 @@ class Photo extends Model
     public function scopePublished($query)
     {
         $query->where('published_at', '<=', Carbon::now());
+    }
+
+    /**
+     * @param $query
+     */
+    public function scopeUnpublished($query)
+    {
+        $query->where('published_at', '>', Carbon::now());
     }
 
     /**
@@ -74,7 +89,7 @@ class Photo extends Model
      */
     public function getUrlAttribute($url)
     {
-        if(!empty($url)) $url = 'photos/'.$url;
+        if(!empty($url) && !str_contains($url,'placehold.it')) $url = 'photos/'.$url;
 
         return $url;
     }

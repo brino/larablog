@@ -1,16 +1,14 @@
 # LaraBlog - Simple Laravel Blog
 
 LaraBlog is a simple blog application for posting articles and photos! It can be used as a personal site, or with multiple contributors.
-It uses the Filesystem/Cloud storage layer in laravel to store the images and photos. Elasticsearch is used for searching articles. D3 is bundled in with jquery,bootstrap and 
-other js libs with Elixir. Also includes an xml sitemap generator.
+It uses the Filesystem/Cloud storage layer in laravel to store the images and photos. Laravel Scout with Elasticsearch 5.x Engine is used for searching articles. D3 is bundled in with VueJS Bulma and 
+other js libs with Mix. Also includes an xml sitemap generator.
 
-## License
 
-Larablog is released under the MIT Open Source License, <https://opensource.org/licenses/MIT>
+## License 
 
-## Copyright
+Larablog is released under the MIT Open Source License, <https://opensource.org/licenses/MIT>.
 
-LaraBlog &copy; 2016 Brian Mix
 
 ## Installation
 
@@ -18,15 +16,13 @@ LaraBlog &copy; 2016 Brian Mix
 2. change directory into blog `cd blog`
 2. run composer `composer install` to install php packages
 3. run npm `npm install` to install js packages
-4. run gulp `gulp` to build assets
+4. compile assets `npm run dev` to build assets for dev ... run `npm run production` for production
 
-## About Me Page
-
-To display content on the "about" page, create a template at /resources/views/about/me.blade.php. Or, you can use the following command from the project root `touch resources/views/about/me.blade.php`
 
 ## Registration
 
 Set `APP_REGISTER=true` in your **.env** file to enable user registration.
+
 
 ## Filesystem Cloud Storage Symlink
 

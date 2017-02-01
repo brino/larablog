@@ -33,6 +33,13 @@ class Article extends Model
     /**
      * @var array
      */
+    protected $hidden =  [
+        'user_id', 'category_id', 'created_at', 'updated_at'
+    ];
+
+    /**
+     * @var array
+     */
     protected $dates = [
         'published_at'
     ];
@@ -43,6 +50,14 @@ class Article extends Model
     public function scopePublished($query)
     {
         $query->where('published_at', '<=', Carbon::now());
+    }
+
+    /**
+     * @param $query
+     */
+    public function scopeUnpublished($query)
+    {
+        $query->where('published_at', '>', Carbon::now());
     }
 
     /**
@@ -71,7 +86,7 @@ class Article extends Model
      */
     public function getBannerAttribute($banner)
     {
-        if(!empty($banner)) $banner= 'banners/'.$banner;
+        if(!empty($banner) && !str_contains($banner,'placehold.it')) $banner= 'banners/'.$banner;
         return $banner;
     }
 
@@ -81,7 +96,7 @@ class Article extends Model
      */
     public function getThumbnailAttribute($thumbnail)
     {
-        if(!empty($thumbnail)) $thumbnail = 'thumbnails/'.$thumbnail;
+        if(!empty($thumbnail) && !str_contains($thumbnail,'placehold.it')) $thumbnail = 'thumbnails/'.$thumbnail;
         return $thumbnail;
     }
 

@@ -16,100 +16,111 @@
 
 
 @section('heading')
-   <i class="fa fa-dashboard"></i> Dashboard
+   <span class="icon is-medium"><i class="fa fa-dashboard"></i></span> Dashboard
 @stop
 
 
 @section('content')
 
     @if($info)
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong><i class="fa fa-info"></i></strong> {{ $info }}
+        <div class="notification is-success">
+            {{--<button class="delete"></button>--}}
+            <span class="icon"><i class="fa fa-info"></i></span> {{ $info }}
         </div>
     @endif
 
-    <div class="row">
-        <div class="col-md-4 col-md-push-8">
-            <h3>Actions</h3>
-            <ul class="list-group">
-
-                @can('create-article')
-                    <li class="list-group-item">
-                        <i class="fa fa-edit"></i> {!! link_to_route('article.create','Create Article') !!}
-                    </li>
-                @endcan
-
-                @can('create-photo')
-                    <li class="list-group-item">
-                        <i class="fa fa-camera-retro"></i> {!! link_to_route('photo.create','Create Photo') !!}
-                    </li>
-                @endcan
-
-                @can('create-category')
-                    <li class="list-group-item">
-                        <i class="fa fa-hashtag"></i> {!! link_to_route('category.create','Create Category') !!}
-                    </li>
-                @endcan
-
-                @can('create-tag')
-                    <li class="list-group-item">
-                        <i class="fa fa-tag"></i> {!! link_to_route('tag.create','Create Tag') !!}
-                    </li>
-                @endcan
-
-                @can('create-user')
-                    <li class="list-group-item">
-                        <i class="fa fa-user"></i> {!! link_to_route('user.create','Create User') !!}
-                    </li>
-                @endcan
-
-            </ul>
-
-            @if(!empty($photos))
-            <div class="hidden-xs hidden-sm">
-                <h3>Latest Photos</h3>
-                <ul class="list-group">
-                    @foreach($photos as $photo)
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <a href="{{ route('photo.edit',[$photo]) }}">
-                                        <img src="{{ asset('storage/'.$photo->url) }}" class="img-responsive img-thumbnail">
-                                    </a>
+    <div class="columns">
+        <div class="column is-2">
+            @include('partials.admin-nav')
+        </div>
+        <div class="column">
+            <div class="tile is-ancestor">
+                <div class="tile is-vertical">
+                    <div class="tile">
+                        <div class="tile is-parent is-vertical">
+                            <article class="tile is-child notification">
+                                <p class="title">Articles</p>
+                                <p class="subtitle">Stats on my articles</p>
+                                <div class="content">
+                                    <div class="level">
+                                        <div class="level-item has-text-centered">
+                                            <p class="heading">Published</p>
+                                            <p class="title">{{ $articles->published()->count() }}</p>
+                                        </div>
+                                        <div class="level-item has-text-centered">
+                                            <p class="heading">Unpublished</p>
+                                            <p class="title">{{ $articles->unpublished()->count() }}</p>
+                                        </div>
+                                        <div class="level-item has-text-centered">
+                                            <p class="heading">Views</p>
+                                            <p class="title">{{ Auth::user()->articles()->sum('views') }}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-8">
-                                    <p><strong><a href="{{ route('photo.edit',[$photo]) }}">{{ $photo->title }}</a></strong></p>
-                                    <p>
-                                        {{ str_limit($photo->description,25) }}
-                                    </p>
-                                    <p>
-                                        @include('partials.signature',['thing'=>$photo])
-                                    </p>
+                            </article>
+                            <article class="tile is-child notification">
+                                <p class="title">Photos</p>
+                                <p class="subtitle">Stats on my photos</p>
+                                <div class="content">
+                                    <div class="level">
+                                        <div class="level-item has-text-centered">
+                                            <p class="heading">Published</p>
+                                            <p class="title">{{ $photos->published()->count() }}</p>
+                                        </div>
+                                        <div class="level-item has-text-centered">
+                                            <p class="heading">Unpublished</p>
+                                            <p class="title">{{ $photos->unpublished()->count() }}</p>
+                                        </div>
+                                        <div class="level-item has-text-centered">
+                                            <p class="heading">Views</p>
+                                            <p class="title">{{ Auth::user()->photos()->sum('views') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child notification">
+                                <p class="title">Most Popular</p>
+                                <p class="subtitle">View count by article</p>
+                                <div class="container">
+                                    <table class="table">
+                                        <thead>
+                                            <th>Views</th>
+                                            <th>Title</th>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($popular as $article)
+                                            <tr>
+                                                <td class="has-text-centered">{{ $article->views }}</td>
+                                                <td><a href="{{ route('article',$article->slug) }}">{{ $article->title }}</a></td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
 
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child notification">
+                            <p class="title">Categories</p>
+                            <p class="subtitle">Contribution count by category</p>
+                            <div class="content">
+                                <div class="level">
+                                    @foreach($categories as $name=>$category)
+                                        <div class="level-item has-text-centered">
+                                            <p class="heading">{{ $name }}</p>
+                                            <p class="title">{{$category }}</p>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-        </div>
-        <div class="col-md-8 col-md-pull-4">
-            @if(count($articles))
-                <h3>Latest Articles</h3>
-                <ul class="list-group">
-                    @foreach($articles as $article)
-                        <li class="list-group-item">
-                            <div><i class="fa fa-file-text-o"></i> {!! link_to_route('article.edit',$article->title,[$article]) !!}</div>
-                            <div>@include('partials.signature',['thing'=>$article])</div>
-                        </li>
-                    @endforeach
-                </ul>
-                <div class="text-center">
-                    {!! $articles->render() !!}
+                        </article>
+                    </div>
                 </div>
-            @endif
+            </div>
         </div>
     </div>
 

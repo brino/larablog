@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class TagsTableSeeder extends Seeder
 {
@@ -25,5 +26,7 @@ class TagsTableSeeder extends Seeder
         App\Article::all()->each(function($item){
             $item->tags()->attach($this->tags->random(3)->all());
         });
+
+        Artisan::call('scout:import',['model'=>'App\Article']);
     }
 }

@@ -51,7 +51,7 @@ class TagController extends Controller
     public function show(Tag $tag)
     {
         //shows article
-        return redirect()->route('tag',[$tag->slug]);
+        return redirect()->route('tag.show',[$tag->slug]);
     }
 
     /**
@@ -60,8 +60,8 @@ class TagController extends Controller
      */
     public function create(Tag $tag)
     {
-        if (Gate::denies('create-tag')) {
-            return redirect()->route('admin')->withErrors(['User does not have permission to create articles.']);
+        if (Gate::denies('contributor')) {
+            return redirect()->route('tag.index')->withErrors(['User does not have permission to create articles.']);
         }
 
         //shows create form
@@ -77,13 +77,13 @@ class TagController extends Controller
     public function store(TagRequest $request)
     {
 
-        if (Gate::denies('create-tag')) {
+        if (Gate::denies('contributor')) {
             abort(403);
         }
 
         if($tag = Tag::create($request->all())){
 
-            return redirect()->route('admin')->with('info','Tag Created');
+            return redirect()->route('tag.index')->with('info','Tag Created');
 
         }
 
@@ -100,8 +100,8 @@ class TagController extends Controller
         //show filled form for editing existing article
         //submits to update
 
-        if (Gate::denies('update-tag',$tag)) {
-            return redirect()->route('admin')->withErrors(['User does not have permission to edit this tag.']);
+        if (Gate::denies('contributor')) {
+            return redirect()->route('tag.index')->withErrors(['User does not have permission to edit this tag.']);
         }
 
         return view('admin.tag.edit',compact('tag'));
@@ -116,7 +116,7 @@ class TagController extends Controller
     {
         //use submitted data to update article in db
 
-        if (Gate::denies('update-tag',$tag)) {
+        if (Gate::denies('contributor')) {
             abort(403);
         }
 
@@ -139,7 +139,7 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
 
-        if (Gate::denies('update-tag',$tag)) {
+        if (Gate::denies('super')) {
             abort(403);
         }
 

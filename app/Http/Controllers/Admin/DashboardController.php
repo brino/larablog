@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Photo;
-use App\Article;
+use App\Category;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -23,28 +23,32 @@ class DashboardController extends Controller
     }
 
     /**
-     * @param Article $article
-     * @param Photo $photo
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param Category $category
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Article $article, Photo $photo)
+    public function index(Category $category)
     {
         $info = false;
+
         $user = Auth::user();
 
-        if($user->super) {
-            $articles = $article->latest('published_at')->paginate(20);
-            $photos = $photo->latest('published_at')->limit(20)->get();
-        } elseif($user->contributor) {
-            $articles = $user->articles()->latest('published_at')->paginate(20);
-            $photos = $user->photos()->latest('published_at')->limit(20)->get();
-        } else {
-            return redirect()->route('home');
-        }
+        $articles = $user->articles();
+
+        $photos = $user->photos();
+
+        $popular = $user->articles()->orderBy('views','desc')->limit('5')->get();
+
+        $categories = Cache::remember('user-categories-'.$user->id,'30', function () use($category,$user) {
+            return $category->orderBy('name','asc')->get()->mapWithKeys(function($category) use ($user){
+                $articleCount = $category->articles()->where('user_id','=',$user->id)->get()->count();
+                $categoryCount = $category->photos()->where('user_id','=',$user->id)->get()->count();
+                return [$category->name => $articleCount + $categoryCount];
+            });
+        });
         
         if(Session::has('info'))
             $info = Session::get('info');
 
-        return view('admin.dashboard',compact('articles','photos','user','info'));
+        return view('admin.dashboard',compact('articles','photos','user','popular','info','categories'));
     }
 }

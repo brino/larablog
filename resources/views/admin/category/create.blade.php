@@ -16,17 +16,17 @@
 
 
 @section('heading')
-    <span class="fa fa-pencil-square-o"></span> Create Article
+    <span class="icon is-medium"><i class="fa fa-pencil-square-o"></i></span> Create Article
 @stop
 
 
 @section('content')
-
     {!! Form::open(['id'=>'create-form','route' => 'category.store']) !!}
 
     @include('admin.category.form')
 
-    {!! Form::submit('Create',['class'=>'btn btn-primary btn-block btn-lg']) !!}
+    {!! Form::submit('Create',['class'=>'button is-primary is-large']) !!}
+    <a class="button is-large" href="{{ URL::previous() }}"> Back </a>
     {!! Form::close() !!}
 @endsection
 

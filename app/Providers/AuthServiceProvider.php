@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -34,67 +35,32 @@ class AuthServiceProvider extends ServiceProvider
             return null;
         });
 
-        Gate::define('create-article', function ($user) {
+        Gate::define('contributor', function ($user) {
 
             return (bool)$user->contributor;
-            
+
+        });
+
+        Gate::define('super', function ($user) {
+
+            return (bool)$user->super;
+
         });
 
         Gate::define('update-article', function ($user, $article) {
 
-            if(isset($article->user) && $user->id === $article->user->id && $user->contributor){
-                return true;
-            }
-
-            return false;
-        });
-
-        Gate::define('create-photo', function ($user) {
-
-            return (bool)$user->contributor;
-
+            return $user->id === $article->user->id && $user->contributor;
         });
 
         Gate::define('update-photo', function ($user, $photo) {
 
-            if(isset($photo->user) && $user->id === $photo->user->id && $user->contributor){
-                return true;
-            }
-
-            return false;
+            return $user->id === $photo->user->id && $user->contributor;
         });
 
-        Gate::define('create-category', function ($user) {
+        Gate::define('update-user', function ($self,$user) {
 
-            return (bool)$user->super;
+            return $user->id == $self->id;
 
-        });
-
-        Gate::define('update-category', function ($user) {
-
-            return (bool)$user->super;
-        });
-
-        Gate::define('create-tag', function ($user) {
-
-            return (bool)$user->super;
-
-        });
-
-        Gate::define('update-tag', function ($user) {
-
-            return (bool)$user->super;
-        });
-
-        Gate::define('create-user', function ($user) {
-
-            return (bool)$user->super;
-
-        });
-
-        Gate::define('update-user', function ($user) {
-
-            return (bool)$user->super;
         });
 
     }

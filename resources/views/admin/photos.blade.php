@@ -16,7 +16,10 @@
 
 
 @section('heading')
-    <i class="fa fa-list-alt"></i> Photos {{ link_to_route('photo.create','Create Photo',[],['class'=>'btn btn-primary pull-right']) }}
+    <span class="icon is-medium"><i class="fa fa-list-alt"></i></span> Photos
+    @can('contributor')
+        {{ link_to_route('photo.create','Create Photo',[],['class'=>'button is-primary pull-right']) }}
+    @endcan
 @stop
 
 
@@ -24,73 +27,62 @@
 
 
     @if($info)
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong><i class="fa fa-info"></i></strong> {{ $info }}
+        <div class="notification is-success">
+            {{--<button class="delete"></button>--}}
+            <span class="icon"><i class="fa fa-info"></i></span> {{ $info }}
         </div>
     @endif
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Photo</th>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        {{--<th>Url</th>--}}
-                        <th>Slug</th>
-                        <th>Views</th>
-                        <th>Created</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($photos as $photo)
-                        <tr>
-                            <td>
-                                {!! Form::model($photo, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\PhotoController@destroy',$photo]]) !!}
-                                {!! Form::submit('x',['class'=>'btn btn-danger btn-xs']) !!}
-                                {!! Form::close() !!}
-                            </td>
-                            <td style="width:100px;">
-                                <img src="{{ asset('storage/'.$photo->url) }}" class="img-responsive">
-                            </td>
-                            <td>
-                                {{ link_to_route('photo.edit',str_limit($photo->title,25),[$photo]) }}
-                            </td>
-                            <td>
-                                {{ $photo->category->name }}
-                            </td>
-                            <td>
-                                {{ $photo->description }}
-                            </td>
-                            {{--<td>--}}
-                                {{--{{ $photo->url }}--}}
-                            {{--</td>--}}
-                            <td>
-                                {{ str_limit($photo->slug,25) }}
-                            </td>
-                            <td>
-                                {{ number_format($photo->views) }}
-                            </td>
-                            <td>
-                                {{ $photo->created_at->toFormattedDateString() }}
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
+    <div class="columns">
+        <div class="column is-2">
+            @include('partials.admin-nav')
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="text-center">
-                {!! $photos->render() !!}
-            </div>
+        <div class="column">
+            <table class="table">
+                <thead>
+                    <th></th>
+                    <th>Photo</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Views</th>
+                    <th>Published</th>
+                    <th>Created</th>
+                </thead>
+                <tbody>
+                @foreach($photos as $photo)
+                    <tr>
+                        <td>
+                            {!! Form::model($photo, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\PhotoController@destroy',$photo]]) !!}
+                            {!! Form::button('',['type'=>'submit','class'=>'button is-danger is-small fa fa-remove']) !!}
+                            {!! Form::close() !!}
+                        </td>
+                        <td style="width:100px;">
+                            <img src="@if(str_contains($photo->url,'placehold.it')){{ $photo->url }}@else{{ asset('storage/'.$photo->url) }}@endif" class="img-responsive">
+                        </td>
+                        <td>
+                            {{ link_to_route('photo.edit',str_limit($photo->title,25),[$photo]) }}
+                        </td>
+                        <td>
+                            {{ $photo->category->name }}
+                        </td>
+                        <td>
+                            {{ $photo->description }}
+                        </td>
+                        <td>
+                            {{ number_format($photo->views) }}
+                        </td>
+                        <td>
+                            {{ $photo->published_at->diffForHumans() }}
+                        </td>
+                        <td>
+                            {{ $photo->created_at->toFormattedDateString() }}
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            {!! $photos->render() !!}
         </div>
     </div>
 

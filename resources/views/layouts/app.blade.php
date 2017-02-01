@@ -1,20 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/3/16
- * Time: 1:26 PM
- */
-?>
-
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 4/12/16
- * Time: 10:00 AM
- */
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,11 +7,21 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ str_replace('www.','',url()->current()) }}">
     <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('meta')
 
     <title>@yield('title') :: {{ env('APP_NAME') }}</title>
 
     @include('partials.head')
+
+    <!-- Scripts -->
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
+
     @if(App::environment('production'))
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -45,62 +38,42 @@
 </head>
 <body>
 
-@include('partials.nav')
-
-<div class="container">
-    <div class="page-heading">
-        <h1 class="page-header"> @yield('heading')</h1>
-    </div>
-</div>
-
-<div class="container" id="content-main">
-    @include('errors.list')
-    @yield('content')
-</div>
-
-<footer class="footer @if(env('APP_DARK',false)){{'dark'}}@endif">
-    <div class="container">
-            <ul class="list-inline text-center" id="social-icons">
-                <li>
-                    @if(env('APP_GIT',false))
-                        <a href="https://github.com/{{ env('APP_GIT') }}"><i class="fa fa-3x fa-github-alt" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_FACE',false))
-                        <a href="https://facebook.com/{{ env('APP_FACE') }}"><i class="fa fa-3x fa-facebook" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_TWIT',false))
-                        <a href="https://twitter.com/{{ env('APP_TWIT') }}"><i class="fa fa-3x fa-twitter" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_GPLUS',false))
-                        <a href="https://plus.google.com/+{{ env('APP_GPLUS') }}"><i class="fa fa-3x fa-google-plus" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_UTUBE',false))
-                        <a href="https://youtube.com/channel/{{ env('APP_UTUBE') }}"><i class="fa fa-3x fa-youtube" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-                <li>
-                    @if(env('APP_LINKEDIN',false))
-                        <a href="https://www.linkedin.com/in/{{ env('APP_LINKEDIN') }}"><i class="fa fa-3x fa-linkedin" aria-hidden="true"></i></a>
-                    @endif
-                </li>
-            </ul>
-
-            <div class="row">
-                <p class="text-center">Copyright <span class="glyphicon glyphicon-copyright-mark"></span> {{ date('Y') }} {{ env('APP_COPY') }}</p>
+    <section class="hero is-medium is-primary">
+        <div class="hero-head">
+            <div class="container">
+                @include('partials.nav')
             </div>
-    </div>
-</footer>
-<div class="last">
-    <script src="{{ asset('js/app.js') }}"></script>
-    @yield('last')
-</div>
+        </div>
+    </section>
+
+    @if(Route::is('photos') || Route::is('articles') || Route::is('home'))
+    <nav class="nav has-shadow" style="z-index:0">
+        <div class="container">
+            <div class="nav-center">
+                <a href="{{ route('articles') }}" class="nav-item is-tab @if(Route::is('articles')){{'is-active'}}@endif">
+                    <span class="icon"><i class="fa fa-file-text-o"></i></span>
+                    <span class="is-hidden-mobile">Articles</span>
+                </a>
+                <a href="{{ route('photos') }}" class="nav-item is-tab @if(Route::is('photos')){{'is-active'}}@endif">
+                    <span class="icon"><i class="fa fa-file-photo-o"></i></span>
+                    <span class="is-hidden-mobile">Photos</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    @endif
+
+    <section class="section">
+        <div class="container">
+            @include('errors.list')
+            <h1 class="title"> @yield('heading')</h1>
+            @yield('content')
+        </div>
+    </section>
+
+    @include('partials.footer')
+
 </body>
+<script src="{{ mix('js/app.js') }}"></script>
+@yield('last')
 </html>

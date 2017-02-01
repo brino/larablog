@@ -25,35 +25,27 @@
 
 
 @section('heading')
-    <span class="fa fa-photo"></span> {{ $photo->title }}
+    <span class="icon is-medium"><i class="fa fa-photo"></i></span> {{ $photo->title }}
 @stop
 
 
 @section('content')
 
-    <div class="row">
-        <div class="col-sm-12">
-            <p class="text-muted">
+    <nav class="level">
+        <div class="level-left">
+            <small>
                 @include('partials.signature',['thing'=>$photo])
                 on {{ $photo->published_at->toFormattedDateString() }}
-            </p>
+            </small>
         </div>
+    </nav>
+    <div class="content">
+        <p>{{ $photo->description }}</p>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="row">
-                <div class="col-sm-12">
-                    <p>
-                        <img class="img-responsive img-rounded" src="{{ asset('storage/'.$photo->url) }}" />
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <p>{{ $photo->description }}</p>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <figure class="image is-4by3">
+            <img class="img-responsive img-rounded" src="@if(str_contains($photo->url,'placehold.it')){{ $photo->url }}@else{{ asset('storage/'.$photo->url) }}@endif" />
+        </figure>
     </div>
 
 @endsection

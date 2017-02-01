@@ -6,38 +6,34 @@
  * Time: 8:37 AM
  */
 ?>
-<div class="panel panel-default">
+<div class="panel panel-default @if($errors->has('body')){{ 'is-danger' }}@endif">
     <div class="panel-heading">
-        <div class="panel-title">
-            HTML
-        </div>
+        Body (HTML)
     </div>
-    <div class="panel-body">
-        <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-            {!! Form::textarea('body',null,['class'=>'form-control editor-html']) !!}
+    <div class="panel-block">
+        <p class="control">
+            {!! Form::textarea('body',null,['id'=>'article-body','class'=>'textarea editor-html']) !!}
             @if ($errors->has('body'))
-                <span class="help-block">
+                <span class="help is-danger">
                     <strong>{{ $errors->first('body') }}</strong>
                 </span>
             @endif
-        </div>
+        </p>
     </div>
 </div>
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="panel-title">
-            Script
-        </div>
+        Script
     </div>
-    <div class="panel-body">
-        <div class="form-group{{ $errors->has('script') ? ' has-error' : '' }}">
-            {!! Form::textarea('script',null,['class'=>'form-control editor-script']) !!}
+    <div class="panel-block">
+        <p class="control">
+            {!! Form::textarea('script',null,['id'=>'article-script','class'=>'textarea editor-script']) !!}
             @if ($errors->has('script'))
-                <span class="help-block">
+                <span class="help is-danger">
                     <strong>{{ $errors->first('script') }}</strong>
                 </span>
             @endif
-        </div>
+        </p>
     </div>
 </div>

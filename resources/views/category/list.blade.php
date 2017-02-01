@@ -6,18 +6,18 @@
  * Time: 6:23 AM
  */
 ?>
-<h3><span class="fa fa-filter"></span> Categories</h3>
-<div class="list-group">
-
+<nav class="panel">
+    <p class="panel-heading">
+        <span class="icon"><i class="fa fa-filter"></i></span>
+        Categories
+    </p>
     @foreach($categories as $category)
-
-        <a href="{{ route('articles',[$filterCategory->slug==$category->slug?null:$category->slug,'query'=>request('query')]) }}" class="category list-group-item @if(isset($filterCategory)) @if($category->slug == $filterCategory->slug){{'active'}}@endif @endif">
-
+        <a href="{!! route('articles',[$filterCategory->slug==$category->slug?null:$category->slug,'query'=>request('query'),'tags'=>request('tags')]) !!}" class="panel-block @if($category->slug == $filterCategory->slug){{'is-active'}}@endif">
+            @if($filterCategory->slug==$category->slug)
+                <span class="delete is-small"></span>
+            @endif
             {{ $category->name }}
-
-            <span class="badge">{{ $category->count }}</span>
-
+            <span class="tag pull-right">{{ $category->articles->count() }}</span>
         </a>
-
     @endforeach
-</div>
+</nav>

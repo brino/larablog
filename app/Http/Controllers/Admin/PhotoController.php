@@ -39,6 +39,11 @@ class PhotoController extends Controller
      */
     public function index()
     {
+
+        if (Gate::denies('contributor')) {
+            return redirect()->route('admin')->withErrors(['User does not have permission to view photos.']);
+        }
+
         //show list of articles (to edit)
 
         $info = false;
@@ -47,7 +52,7 @@ class PhotoController extends Controller
             $info = Session::get('info');
 
         //show list of categories
-        $photos = Photo::orderBy('created_at','asc')->paginate();
+        $photos = Auth::user()->photos()->orderBy('created_at','asc')->paginate();
 
         return view('admin.photos',compact('photos','info'));
 
@@ -69,8 +74,8 @@ class PhotoController extends Controller
      */
     public function create(Photo $photo)
     {
-        if (Gate::denies('create-photo')) {
-            return redirect()->route('admin')->withErrors(['User does not have permission to create articles.']);
+        if (Gate::denies('contributor')) {
+            return redirect()->route('photo.index')->withErrors(['User does not have permission to create photos.']);
         }
 
         //shows create form
@@ -87,13 +92,13 @@ class PhotoController extends Controller
     public function store(PhotoRequest $request)
     {
 
-        if (Gate::denies('create-photo')) {
+        if (Gate::denies('contributor')) {
             abort(403);
         }
 
         if($photo = Photo::create(array_merge($request->all(),['user_id'=>Auth::user()->id]))){
 
-            return redirect()->route('admin')->with('info','Photo Created');
+            return redirect()->route('photo.index')->with('info','Photo Created');
 
         }
 

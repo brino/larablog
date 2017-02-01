@@ -26,21 +26,25 @@
 
     Route::get('/photo/{photoSlug}', 'PhotoController@show')->name('photo');
 
-    Route::get('/about', 'AboutController@index')->name('about');
+//    Route::get('/about', 'AboutController@index')->name('about');
+
+    Route::get('/profile/token', 'ProfileController@requestApiToken')->name('profile.token');
+
+    Route::get('/profile/{user?}', 'ProfileController@show')->name('profile');
 
     Route::group(['namespace' => 'Admin'], function () {
 
         Route::get('/admin', 'DashboardController@index')->name('admin');
 
-        Route::resource('admin/article', 'ArticleController');
+        Route::resource('/admin/article', 'ArticleController');
 
-        Route::resource('admin/photo', 'PhotoController');
+        Route::resource('/admin/photo', 'PhotoController');
 
-        Route::resource('admin/category', 'CategoryController');
+        Route::resource('/admin/category', 'CategoryController');
 
-        Route::resource('admin/tag', 'TagController');
+        Route::resource('/admin/tag', 'TagController');
 
-        Route::resource('admin/user', 'UserController');
+        Route::resource('/admin/user', 'UserController');
 
     });
 

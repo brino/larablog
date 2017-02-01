@@ -15,11 +15,8 @@ class UserRequest extends Request
      */
     public function authorize()
     {
-        if(Gate::allows('create-user') || Gate::allows('edit-user')){
-            return true;
-        }
-        
-        return false;
+        //potentially, any user can update themselves
+        return true;
     }
 
     /**
@@ -32,6 +29,7 @@ class UserRequest extends Request
         return [
             'name' => 'required',
             'email' => 'required',
+//            'bio' => 'text',
 //            'password' => 'required'
         ];
     }

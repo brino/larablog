@@ -8,21 +8,21 @@
 ?>
 
 @if(get_class($thing) == 'App\Article')
-@can('update-article',$article)<a href="{{ route('article.edit',[$article]) }}">@endcan<i class="fa fa-pencil"></i>@can('update-article',$article)</a>@endcan
+    @can('update-article',$article)<a href="{{ route('article.edit',[$article]) }}">@endcan<span class="icon is-small"><i class="fa fa-pencil"></i></span>@can('update-article',$article)</a>@endcan
 @endif
 
 @if(get_class($thing) == 'App\Photo')
-@can('update-photo',$photo)<a href="{{ route('photo.edit',[$photo]) }}">@endcan<i class="fa fa-camera"></i>@can('update-photo',$photo)</a>@endcan
+    @can('update-photo',$photo)<a href="{{ route('photo.edit',[$photo]) }}">@endcan<span class="icon is-small"><i class="fa fa-camera"></i></span>@can('update-photo',$photo)</a>@endcan
 @endif
 
-<a href="{{ route('articles',[null,'query'=>$thing->user->name]) }}">{{ $thing->user->name }}</a>
-
+{{--<a href="{{ route('articles',[null,'query'=>$thing->user->name]) }}">{{ $thing->user->name }}</a>--}}
+<a href="{{ route('profile',$thing->user) }}">{{ $thing->user->name }}</a>
 @if(isset($thing->published_at))
     <span
     @if($thing->published_at->gt(\Carbon\Carbon::now()) && Route::is('admin'))
-        class="text-danger"
+        class="is-danger"
     @elseif(Route::is('admin'))
-        class="text-success"
+        class="is-success"
     @endif
     >
         {{ $thing->published_at->diffForHumans() }}
@@ -30,12 +30,10 @@
     </span>
 in
 @endif
-<a href="{{ route('articles',[$thing->category->slug]) }}">
+<a href="{{ route('articles',[$thing->category->slug,'query'=>request('query'),'tags'=>request('tags')]) }}">
     {{ $thing->category->name }}
 </a>
 
 @if($thing->views)
-<span class="text-muted">
-    <i class="fa fa-eye"></i> {{ number_format($thing->views) }}
-</span>
+    <span class="icon is-small"><i class="fa fa-eye"></i></span> {{ number_format($thing->views) }}
 @endif

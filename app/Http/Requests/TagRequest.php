@@ -14,11 +14,7 @@ class TagRequest extends Request
      */
     public function authorize()
     {
-        if(Gate::allows('create-tag') || Gate::allows('edit-tag')){
-            return true;
-        }
-
-        return false;
+        return Gate::allows('contributor');
     }
 
     /**

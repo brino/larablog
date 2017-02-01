@@ -4,10 +4,10 @@
 /public/img/me-bwca.png
 /public/js
 /public/css
+/public/fonts
 Homestead.yaml
 Homestead.json
 .env
 .idea
-composer.lock
 _ide_helper.php
 /workbench
