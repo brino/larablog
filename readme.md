@@ -4,9 +4,11 @@ LaraBlog is a simple blog application for posting articles and photos! It can be
 It uses the Filesystem/Cloud storage layer in laravel to store the images and photos. Laravel Scout with Elasticsearch 5.x Engine is used for searching articles. D3 is bundled in with VueJS Bulma and 
 other js libs with Mix. Also includes an xml sitemap generator.
 
+
 ## License
 
 Larablog is released under the MIT Open Source License, <https://opensource.org/licenses/MIT>.
+
 
 ## Installation
 
@@ -16,9 +18,11 @@ Larablog is released under the MIT Open Source License, <https://opensource.org/
 3. run npm `npm install` to install js packages
 4. compile assets `npm run dev` to build assets for dev ... run `npm run production` for production
 
+
 ## Registration
 
 Set `APP_REGISTER=true` in your **.env** file to enable user registration.
+
 
 ## Filesystem Cloud Storage Symlink
 
