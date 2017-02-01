@@ -7,11 +7,21 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ str_replace('www.','',url()->current()) }}">
     <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('meta')
 
     <title>@yield('title') :: {{ env('APP_NAME') }}</title>
 
     @include('partials.head')
+
+    <!-- Scripts -->
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
+
     @if(App::environment('production'))
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -41,7 +51,7 @@
         <div class="container">
             <div class="nav-center">
                 <a href="{{ route('articles') }}" class="nav-item is-tab @if(Route::is('articles')){{'is-active'}}@endif">
-                    <span class="icon"><i class="fa fa-file-text"></i></span>
+                    <span class="icon"><i class="fa fa-file-text-o"></i></span>
                     <span class="is-hidden-mobile">Articles</span>
                 </a>
                 <a href="{{ route('photos') }}" class="nav-item is-tab @if(Route::is('photos')){{'is-active'}}@endif">
@@ -64,6 +74,6 @@
     @include('partials.footer')
 
 </body>
-<script src="{{ elixir('js/app.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
 @yield('last')
 </html>

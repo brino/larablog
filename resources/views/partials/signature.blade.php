@@ -30,7 +30,7 @@
     </span>
 in
 @endif
-<a href="{{ route('articles',[$thing->category->slug]) }}">
+<a href="{{ route('articles',[$thing->category->slug,'query'=>request('query'),'tags'=>request('tags')]) }}">
     {{ $thing->category->name }}
 </a>
 

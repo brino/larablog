@@ -86,7 +86,7 @@ class Article extends Model
      */
     public function getBannerAttribute($banner)
     {
-        if(!empty($banner)) $banner= 'banners/'.$banner;
+        if(!empty($banner) && !str_contains($banner,'placehold.it')) $banner= 'banners/'.$banner;
         return $banner;
     }
 
@@ -96,7 +96,7 @@ class Article extends Model
      */
     public function getThumbnailAttribute($thumbnail)
     {
-        if(!empty($thumbnail)) $thumbnail = 'thumbnails/'.$thumbnail;
+        if(!empty($thumbnail) && !str_contains($thumbnail,'placehold.it')) $thumbnail = 'thumbnails/'.$thumbnail;
         return $thumbnail;
     }
 

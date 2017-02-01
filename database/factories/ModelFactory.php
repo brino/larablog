@@ -33,10 +33,9 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
 
     $category = App\Category::orderBy(\DB::raw('RAND()'))->first();
 
-    $days = rand(2,10);
 
     $created = $faker->dateTimeThisMonth();
-    $published = \Carbon\Carbon::instance($created)->timezone('America/Chicago')->addDays($days);
+    $published = \Carbon\Carbon::instance($created)->timezone('America/Chicago')->addDays(rand(2,10));
 
 
     return [
@@ -45,23 +44,30 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
         'category_id' => $category->id,
         'body' => implode('',$body),
         'summary' => $body[0],
-        'banner' => 'banner.jpg',
-        'thumbnail' => 'thumbnail.jpg',
+        'banner' => 'http://placehold.it/1024x250?text='.urlencode($faker->words(5,true)),
+        'thumbnail' => 'http://placehold.it/300?text='.urlencode($faker->words(2,true)),
         'slug' => str_replace(' ','-',strtolower($faker->words(5,true))),
         'published_at' => $published,
         'created_at' => $created
     ];
 });
 
-//$factory->define(App\Photo::class, function (Faker\Generator $faker) {
-//    return [
-//        'title' => $faker->name,
-//        'slug' => $faker->safeEmail,
-//        'description' => false,
-//        'url' => rand(0,1),
-//        'user_id' => bcrypt(str_random(10)),
-//        'cagtegory_id' => bcrypt(str_random(10)),
-//        'published_at' => bcrypt('temp4now'),
-//        'createde_at' => str_random(10),
-//    ];
-//});
+$factory->define(App\Photo::class, function (Faker\Generator $faker) {
+    $user = App\User::where('contributor',true)->orderBy(\DB::raw('RAND()'))->first();
+
+    $category = App\Category::orderBy(\DB::raw('RAND()'))->first();
+
+    $created = $faker->dateTimeThisMonth();
+    $published = \Carbon\Carbon::instance($created)->timezone('America/Chicago')->addDays(rand(2,10));
+
+    return [
+        'title' => $faker->sentence(),
+        'slug' => str_replace(' ','-',strtolower($faker->words(5,true))),
+        'description' => $faker->sentence(),
+        'url' => 'http://placehold.it/768?text='.urlencode($faker->words(5,true)),
+        'user_id' => $user->id,
+        'category_id' => $category->id,
+        'published_at' => $published,
+        'created_at' => $created,
+    ];
+});

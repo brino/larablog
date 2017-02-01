@@ -56,7 +56,7 @@
                             @can('super')
                             <td>
                                 {!! Form::model($category, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\CategoryController@destroy',$category]]) !!}
-                                {!! Form::submit('x',['class'=>'button is-danger is-small']) !!}
+                                {!! Form::button('',['type'=>'submit','class'=>'fa fa-remove button is-danger is-small']) !!}
                                 {!! Form::close() !!}
                             </td>
                             @endcan

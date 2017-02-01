@@ -51,7 +51,7 @@
     <div class="container">
        @unless(empty($article->banner))
         <figure class="image">
-            <img src="{{ asset('storage/'.$article->banner) }}" class="img-responsive img-rounded" id="img-article" />
+            <img src="@if(str_contains($article->banner,'placehold.it')){{ $article->banner }}@else{{ asset('storage/'.$article->banner) }}@endif" class="img-responsive img-rounded" id="img-article" />
         </figure>
         @endunless
         <div class="content" style="margin-top: 20px;margin-bottom:20px;">

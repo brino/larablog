@@ -14,7 +14,7 @@
         @unless(empty($article->banner))
             <div class="box">
                 <figure class="image">
-                    <img src="{{ asset('storage/'.$article->banner) }}" id="img-article" style="margin-bottom:10px;">
+                    <img src="@if(str_contains($article->banner,'placehold.it')){{ $article->banner }}@else{{ asset('storage/'.$article->banner) }}@endif" id="img-article" style="margin-bottom:10px;">
                     {!! Form::button('Delete',['name'=>'banner','class'=>'button is-danger is-small','type'=>'submit']) !!}
                 </figure>
             </div>
@@ -35,7 +35,7 @@
         @unless(empty($article->thumbnail))
             <div class="box">
                 <figure class="image">
-                    <img src="{{ asset('storage/'.$article->thumbnail) }}" align="center" style="margin-bottom:10px;">
+                    <img src="@if(str_contains($article->thumbnail,'placehold.it')){{ $article->thumbnail }}@else{{ asset('storage/'.$article->thumbnail) }}@endif" align="center" style="margin-bottom:10px;">
                     <div class="text-center">{!! Form::button('Delete',['name'=>'thumbnail','class'=>'button is-danger is-small','type'=>'submit']) !!}</div>
                 </figure>
             </div>

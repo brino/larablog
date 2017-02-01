@@ -45,8 +45,6 @@
                     <th>Title</th>
                     <th>Category</th>
                     <th>Description</th>
-                    {{--<th>Url</th>--}}
-                    {{--<th>Slug</th>--}}
                     <th>Views</th>
                     <th>Published</th>
                     <th>Created</th>
@@ -56,11 +54,11 @@
                     <tr>
                         <td>
                             {!! Form::model($photo, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\PhotoController@destroy',$photo]]) !!}
-                            {!! Form::submit('x',['class'=>'button is-danger is-small']) !!}
+                            {!! Form::button('',['type'=>'submit','class'=>'button is-danger is-small fa fa-remove']) !!}
                             {!! Form::close() !!}
                         </td>
                         <td style="width:100px;">
-                            <img src="{{ asset('storage/'.$photo->url) }}" class="img-responsive">
+                            <img src="@if(str_contains($photo->url,'placehold.it')){{ $photo->url }}@else{{ asset('storage/'.$photo->url) }}@endif" class="img-responsive">
                         </td>
                         <td>
                             {{ link_to_route('photo.edit',str_limit($photo->title,25),[$photo]) }}
@@ -71,12 +69,6 @@
                         <td>
                             {{ $photo->description }}
                         </td>
-                        {{--<td>--}}
-                            {{--{{ $photo->url }}--}}
-                        {{--</td>--}}
-                        {{--<td>--}}
-                            {{--{{ str_limit($photo->slug,25) }}--}}
-                        {{--</td>--}}
                         <td>
                             {{ number_format($photo->views) }}
                         </td>

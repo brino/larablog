@@ -17,7 +17,7 @@ class PhotoController extends Controller
      */
     public function index(Photo $photo)
     {
-        $photos = $photo->paginate();
+        $photos = $photo->paginate(16);
 
         return view('photos',compact('photos'));
     }

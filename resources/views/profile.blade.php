@@ -9,7 +9,7 @@
 @section('heading')
     <span class="icon is-medium"><i class="fa fa-user-circle-o"></i></span>
 
-    @if(!Auth::guest() && $user->name == Auth::user()->name)
+    @if(!Auth::guest() && $user->name == Auth::user())
         My
     @else
         {{ $user->name }}'s

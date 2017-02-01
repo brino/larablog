@@ -11,6 +11,7 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Notifications\NewUserSignup;
 use App\User;
+use Illuminate\Support\Facades\App;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -35,17 +36,19 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         User::created(function($user){
+            if(strtolower(App::environment()) == 'production') {
+                $supers = User::where('super','=',1)->get();
 
-            $supers = User::where('super','=',1)->get();
-
-            Notification::send($supers,new NewUserSignup($user));
-
+                Notification::send($supers,new NewUserSignup($user));
+            }
         });
 
         Article::created(function($article){
-            $supers = User::where('super','=',1)->get();
+            if(strtolower(App::environment()) == 'production') {
+                $supers = User::where('super', '=', 1)->get();
 
-            Notification::send($supers,new ContributorCreatedNewArticle($article));
+                Notification::send($supers, new ContributorCreatedNewArticle($article));
+            }
         });
 
         Article::deleted(function($article){

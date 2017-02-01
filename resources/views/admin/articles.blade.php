@@ -47,18 +47,16 @@
                     @endcan
                     <th>Category</th>
                     <th>Tags</th>
-                    {{--<th>Slug</th>--}}
                     <th>Views</th>
                     <th>Published</th>
                     <th>Created</th>
-                    {{--<th>Updated</th>--}}
                 </thead>
                 <tbody>
                 @foreach($articles as $article)
                     <tr>
                         <td>
                             {!! Form::model($article, ['id'=>'delete-form','method' => 'DELETE', 'action' => ['Admin\ArticleController@destroy',$article]]) !!}
-                            {!! Form::submit('x',['class'=>'button is-danger is-small']) !!}
+                            {!! Form::button('',['type'=>'submit','class'=>'fa fa-remove button is-danger is-small']) !!}
                             {!! Form::close() !!}
                         </td>
                         <td>
@@ -82,9 +80,6 @@
                                 @endforeach
                             </p>
                         </td>
-                        {{--<td>--}}
-                            {{--{{ str_limit($article->slug,25) }}--}}
-                        {{--</td>--}}
                         <td class="text-right">
                             {{ number_format($article->views) }}
                         </td>
@@ -104,9 +99,6 @@
                         <td>
                             {{ $article->created_at->toFormattedDateString() }}
                         </td>
-                        {{--<td>--}}
-                            {{--{{ $article->updated_at->toFormattedDateString() }}--}}
-                        {{--</td>--}}
                     </tr>
                 @endforeach
                 </tbody>

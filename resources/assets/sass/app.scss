@@ -1,8 +1,7 @@
  // Variables
  @import "variables";
-
- @import "node_modules/bulma/bulma";
  @import "node_modules/font-awesome/css/font-awesome";
+ @import "node_modules/bulma/bulma";
  @import "node_modules/c3/c3";
  @import "node_modules/codemirror/lib/codemirror";
  @import "node_modules/codemirror-spell-checker/dist/spell-checker.min";
@@ -31,4 +30,8 @@
  a.panel-block.is-active {
   color: black;
   font-weight: bold;
+ }
+
+ .photo-signature {
+  height: 30px;
  }

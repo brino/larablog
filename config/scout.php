@@ -11,11 +11,11 @@ return [
     | using Laravel Scout. This connection is used when syncing all models
     | to the search service. You should adjust this based on your needs.
     |
-    | Supported: "algolia", "elasticsearch", "null"
+    | Supported: "algolia", "null", "elastic"
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', 'algolia'),
+    'driver' => env('SCOUT_DRIVER', 'elastic'),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,39 +45,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Algolia Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure your Algolia settings. Algolia is a cloud hosted
-    | search engine which works great with Scout out of the box. Just plug
-    | in your application ID and admin API key to get started searching.
-    |
-    */
-
-    'algolia' => [
-        'id' => env('ALGOLIA_APP_ID', ''),
-        'secret' => env('ALGOLIA_SECRET', ''),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Elasticsearch Configuration
     |--------------------------------------------------------------------------
     |
-    | Here you may configure your settings for Elasticsearch, which is a
-    | distributed, open source search and analytics engine. Feel free
-    | to add as many Elasticsearch servers as required by your app.
+    | Here you may configure your Elasticsearch settings.
     |
     */
 
-    'elasticsearch' => [
-        'index' => env('ELASTICSEARCH_INDEX', 'laravel'),
-
-        'config' => [
-            'hosts' => [
-                env('ELASTICSEARCH_HOST'),
-            ],
-        ],
+    'elastic' => [
+        'hosts' => explode(',',env('ELASTICSEARCH_HOST','localhost:9200'))
     ],
 
 ];

@@ -89,7 +89,7 @@ class Photo extends Model
      */
     public function getUrlAttribute($url)
     {
-        if(!empty($url)) $url = 'photos/'.$url;
+        if(!empty($url) && !str_contains($url,'placehold.it')) $url = 'photos/'.$url;
 
         return $url;
     }

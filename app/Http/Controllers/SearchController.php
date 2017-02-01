@@ -21,14 +21,17 @@ class SearchController extends Controller
      */
     public function index(Request $request,Article $article,Category $filterCategory)
     {
-
         //build query
         $builder = $article->search($request->input('query'))->where('published',1);
 
+        if($request->has('tags')) {
+            $tags = collect($request->input('tags'))->values()->toArray();
+            $builder->where('tags.slug',(Array) $tags);
+        }
+
         //set category filter
-        if($filterCategory->exists)
-        {
-            $builder->where('category_id',$filterCategory->id);
+        if($filterCategory->exists) {
+            $builder->where('category.id',$filterCategory->id);
         }
 
         //execute query
@@ -37,6 +40,5 @@ class SearchController extends Controller
         $categories = Category::all();
 
         return view('articles',compact('articles','categories','filterCategory'));
-
     }
 }

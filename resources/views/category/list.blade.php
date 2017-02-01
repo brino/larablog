@@ -12,7 +12,10 @@
         Categories
     </p>
     @foreach($categories as $category)
-        <a href="{{ route('articles',[$filterCategory->slug==$category->slug?null:$category->slug,'query'=>request('query')]) }}" class="panel-block @if($category->slug == $filterCategory->slug){{'is-active'}}@endif">
+        <a href="{!! route('articles',[$filterCategory->slug==$category->slug?null:$category->slug,'query'=>request('query'),'tags'=>request('tags')]) !!}" class="panel-block @if($category->slug == $filterCategory->slug){{'is-active'}}@endif">
+            @if($filterCategory->slug==$category->slug)
+                <span class="delete is-small"></span>
+            @endif
             {{ $category->name }}
             <span class="tag pull-right">{{ $category->articles->count() }}</span>
         </a>

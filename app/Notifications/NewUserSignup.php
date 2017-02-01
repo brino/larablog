@@ -44,8 +44,6 @@ class NewUserSignup extends Notification
     public function toMail($notifiable)
     {
 
-        Log::info($notifiable);
-
         return (new MailMessage)
                     ->line('A new user "'.$this->newUser->name.'" has signed up!')
                     ->action('Notification Action', 'https://laravel.com')

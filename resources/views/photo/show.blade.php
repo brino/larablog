@@ -44,7 +44,7 @@
     </div>
     <div class="container">
         <figure class="image is-4by3">
-            <img class="img-responsive img-rounded" src="{{ asset('storage/'.$photo->url) }}" />
+            <img class="img-responsive img-rounded" src="@if(str_contains($photo->url,'placehold.it')){{ $photo->url }}@else{{ asset('storage/'.$photo->url) }}@endif" />
         </figure>
     </div>
 
