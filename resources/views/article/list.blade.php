@@ -19,7 +19,7 @@
         @endunless
 
         <div class="media-content">
-            <div class="media-heading">
+            <div class="media-heading" style="margin-bottom: 5px;">
                 <div class="subtitle">
                     {{--<strong>--}}
                     <a href="{{ route('article',[$article->slug]) }}">{{ $article->title }}</a>

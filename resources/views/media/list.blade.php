@@ -8,14 +8,17 @@
             </figure>
         </div>
         <div class="card-content">
+            <h5 class="subtitle"><a href="{{ route('media',[$media->slug]) }}">{{ str_limit($media->title,25) }}</a></h5>
             <div class="content">
-                <h5 class="title"><a href="{{ route('media',[$media->slug]) }}">{{ str_limit($media->title,25) }}</a></h5>
+                <p>{{ $media->description }}</p>
             </div>
-            <nav class="level">
-                <div class="level-left media-signature">
+        </div>
+        <div class="card-footer">
+            <div class="card-footer-item">
+                <div>
                     <small>@include('partials.signature',['thing'=>$media])</small>
                 </div>
-            </nav>
+            </div>
         </div>
     </div>
 @endforeach

@@ -27,7 +27,9 @@ class HomeController extends Controller
 
         $medias = $media->latest('published_at')->published()->limit(5)->get();
 
-        $categories = Category::all();
+        $categories = Category::all()->filter(function($category) {
+            return $category->articles->count() > 0;
+        });
 
         return view('home',compact('latest','medias','popular','categories'));
 

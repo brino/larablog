@@ -1,8 +1,8 @@
 <a href="{{ route('profile',$thing->user) }}">
     @if(empty($thing->user->avatarUrl()))
-        <span class="icon is-small"><i class="fa fa-user-circle"></i></span>
+        <span class="icon"><i class="fa fa-user-circle"></i></span>
     @else
-        <img class="avatar" src="{{ $thing->user->avatarUrl() }}">
+        <span class="icon"><img src="{{ $thing->user->avatarUrl() }}"></span>
     @endif
     {{ $thing->user->name }}
 </a>

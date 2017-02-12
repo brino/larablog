@@ -51,8 +51,12 @@ class MediaController extends Controller
         if(Session::has('info'))
             $info = Session::get('info');
 
-        //show list of categories
-        $medias = Auth::user()->media()->orderBy('created_at','asc')->paginate();
+        if(Auth::user()->super) {
+            $medias = Media::orderBy('created_at','asc')->paginate();
+        } else {
+            //show list of categories
+            $medias = Auth::user()->media()->orderBy('created_at','asc')->paginate();
+        }
 
         return view('admin.media',compact('medias','info'));
 

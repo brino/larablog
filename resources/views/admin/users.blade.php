@@ -1,29 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/20/16
- * Time: 5:57 PM
- */
-?>
-
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/20/16
- * Time: 11:31 AM
- */
-?>
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/20/16
- * Time: 7:33 AM
- */
-?>
-
 @extends('layouts.app')
 
 

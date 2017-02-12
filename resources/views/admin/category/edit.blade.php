@@ -40,9 +40,6 @@
         <a class="button is-large" href="{{ URL::previous() }}"> Back </a>
         {!! Form::close() !!}
 
-        {!! Form::model($category, ['id' => 'delete-thumb', 'method' => 'DELETE', 'action' => ['Admin\CategoryController@removeThumbnail', $category]]) !!}
-        {!! Form::close() !!}
-
     </div>
 
 @endsection

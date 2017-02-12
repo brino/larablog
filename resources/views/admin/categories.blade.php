@@ -39,8 +39,6 @@
                     <th></th>
                     @endcan
                     <th>Name</th>
-                    {{--<th>Slug</th>--}}
-                    <th>Thumbnail</th>
                     <th>Articles</th>
                     <th>Media</th>
                     <th>Created</th>
@@ -57,12 +55,6 @@
                             @endcan
                             <td>
                                 {{ link_to_route('category.edit',$category->name,[$category]) }}
-                            </td>
-                            {{--<td>--}}
-                                {{--{{ $category->slug }}--}}
-                            {{--</td>--}}
-                            <td>
-                                {{ $category->thumbnail }}
                             </td>
                             <td>
                                 {{ $category->articles->count() }}

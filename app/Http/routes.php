@@ -22,7 +22,7 @@
 
     Route::get('/article/{article}', 'ArticleController@show')->name('article');
 
-    Route::get('/media', 'MediaController@index')->name('medias');
+//    Route::get('/media', 'MediaController@index')->name('medias');
 
     Route::get('/media/{media}', 'MediaController@show')->name('media');
 

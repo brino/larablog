@@ -26,7 +26,7 @@ class MediaRequest extends Request
     {
         return [
             'title' => 'required|string',
-            'category_id' => 'required|number',
+            'category_id' => 'required|integer',
             'description' => 'required|string',
             'published_at' => 'required|date',
             'url' => 'required'

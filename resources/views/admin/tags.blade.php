@@ -1,20 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/20/16
- * Time: 11:31 AM
- */
-?>
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/20/16
- * Time: 7:33 AM
- */
-?>
-
 @extends('layouts.app')
 
 
@@ -36,7 +19,6 @@
 
     @if($info)
         <div class="notification is-success">
-            {{--<button class="delete"></button>--}}
             <span class="icon"><i class="fa fa-info"></i></span> {{ $info }}
         </div>
     @endif
@@ -53,7 +35,6 @@
                     <th></th>
                     @endcan
                     <th>Name</th>
-                    {{--<th>Slug</th>--}}
                     <th>Articles</th>
                     <th>Created</th>
                 </tr>
@@ -71,9 +52,6 @@
                         <td>
                             {{ link_to_route('tag.edit',$tag->name,[$tag]) }}
                         </td>
-                        {{--<td>--}}
-                            {{--{{ $tag->slug }}--}}
-                        {{--</td>--}}
                         <td>
                             {{ $tag->articles->count() }}
                         </td>

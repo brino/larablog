@@ -1,12 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/20/16
- * Time: 9:31 AM
- */
-?>
-
 @extends('layouts.app')
 
 
@@ -28,7 +19,6 @@
 
     @if($info)
         <div class="notification is-success">
-            {{--<button class="delete"></button>--}}
             <span class="icon"><i class="fa fa-info"></i></span> {{ $info }}
         </div>
     @endif
@@ -75,10 +65,18 @@
                             {{ number_format($media->views) }}
                         </td>
                         <td>
+                            <span
+                                @if($media->published_at->gt(\Carbon\Carbon::now()))
+                                class="help is-danger"
+                                @else
+                                class="help is-success"
+                                @endif
+                            >
                             {{ $media->published_at->diffForHumans() }}
+                            </span>
                         </td>
                         <td>
-                            {{ $media->created_at->toFormattedDateString() }}
+                            <span class="help">{{ $media->created_at->toFormattedDateString() }}</span>
                         </td>
                     </tr>
                 @endforeach

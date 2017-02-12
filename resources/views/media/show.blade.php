@@ -33,10 +33,12 @@
 
     <nav class="level">
         <div class="level-left">
-            <small>
-                @include('partials.signature',['thing'=>$media])
-                on {{ $media->published_at->toFormattedDateString() }}
-            </small>
+            <div>
+                <small>
+                    @include('partials.signature',['thing'=>$media])
+                    on {{ $media->published_at->toFormattedDateString() }}
+                </small>
+            </div>
         </div>
     </nav>
     <div class="content">

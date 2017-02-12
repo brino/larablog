@@ -76,12 +76,11 @@
                             {{ number_format($article->views) }}
                         </td>
                         <td>
-
                             <span
                                     @if($article->published_at->gt(\Carbon\Carbon::now()))
-                                    class="is-danger"
+                                    class="help is-danger"
                                     @else
-                                    class="is-success"
+                                    class="help is-success"
                                     @endif
                             >
                                 {{ $article->published_at->diffForHumans() }}
@@ -89,7 +88,7 @@
                             </span>
                         </td>
                         <td>
-                            {{ $article->created_at->toFormattedDateString() }}
+                            <span class="help">{{ $article->created_at->toFormattedDateString() }}</span>
                         </td>
                     </tr>
                 @endforeach

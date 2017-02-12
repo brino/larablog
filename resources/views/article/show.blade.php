@@ -32,9 +32,11 @@
 
     <nav class="level">
         <div class="level-left">
-            <small>
-                @include('partials.signature',['thing'=>$article])
-            </small>
+            <div>
+                <small>
+                    @include('partials.signature',['thing'=>$article])
+                </small>
+            </div>
         </div>
         <div class="level-right">
             <small>

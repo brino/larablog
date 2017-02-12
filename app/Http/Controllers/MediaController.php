@@ -19,7 +19,7 @@ class MediaController extends Controller
     {
         $medias = $media->paginate(12);
 
-        return view('medias',compact('medias'));
+        return view('media',compact('medias'));
     }
 
     /**

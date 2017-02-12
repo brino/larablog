@@ -1,11 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/20/16
- * Time: 7:47 AM
- */
-?>
 <div class="panel">
     <div class="panel-heading">
         Category
@@ -21,34 +13,12 @@
             @endif
         </p>
 
-        {{--{!! Form::label('slug','Slug',['class'=>'label']) !!}--}}
-        {{--<p class="control">--}}
-            {{--{!! Form::text('slug',null,['class'=>$errors->has('slug')?'input is-danger':'input','placeholder'=>'my-new-category']) !!}--}}
-            {{--@if ($errors->has('slug'))--}}
-                {{--<span class="help is-danger">--}}
-                    {{--{{ $errors->first('slug') }}--}}
-                {{--</span>--}}
-            {{--@endif--}}
-        {{--</p>--}}
-
-        @unless(empty($category->thumbnail))
-            <div class="box">
-                <figure class="image is-square">
-                    <img src="@if(str_contains($category->thumbnail,'placehold.it')){{ $category->thumbnail }}@else{{ asset('storage/'.$category->thumbnail) }}@endif" align="center" style="margin-bottom:10px;">
-                    <div class="text-center">
-                        {{--{!! Form::button('Delete',['name'=>'thumbnail','class'=>'button is-danger is-small','type'=>'submit']) !!}--}}
-                        <a href="#" onclick="document.getElementById('delete-thumb').submit()" class="button is-danger is-small">Delete</a>
-                    </div>
-                </figure>
-            </div>
-        @endunless
-
-        {!! Form::label('thumbnail','Thumbnail',['class'=>'label']) !!}
-        <p class="control has-icon">
-            <upload name="thumbnail"></upload>
-            @if ($errors->has('thumbnail'))
+        {!! Form::label('icon','Icon',['class'=>'label']) !!}
+        <p class="control">
+            {!! Form::text('icon',null,['class'=>$errors->has('icon')?'input is-danger':'input','placeholder'=>'fa-user']) !!}
+            @if ($errors->has('icon'))
                 <span class="help is-danger">
-                    {{ $errors->first('thumbnail') }}
+                    {{ $errors->first('icon') }}
                 </span>
             @endif
         </p>
