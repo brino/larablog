@@ -20,7 +20,7 @@
 
 @include('navs.content')
 
-<div class="container" id="app">
+<div class="container main" id="app">
     @yield('content')
 </div>
 

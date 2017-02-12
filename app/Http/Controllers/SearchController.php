@@ -45,7 +45,7 @@ class SearchController extends Controller
         }
 
         $categories = Category::all()->filter(function($category) {
-            return $category->articles->count() > 0;
+            return $category->articles->count();
         });
 
         return view('articles',compact('articles','categories','category'));

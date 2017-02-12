@@ -1,13 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bmix
- * Date: 5/15/16
- * Time: 3:19 PM
- */
-?>
-
-@extends('layouts.app')
+@extends('layouts.hero')
 
 @section('meta')
     <meta property="og:title" content="{{ $article->title }}">
@@ -24,32 +15,27 @@
 @stop
 
 @section('heading')
-    <span class="icon is-medium"><i class="fa fa-file-text-o"></i></span> {{ $article->title }}
+    <span class="icon is-medium"><i class="fa {{ $article->category->icon }}"></i></span> {{ $article->title }}
 @stop
 
+@section('subheading')
+    @include('partials.signature',['thing'=>$article])
+@endsection
 
 @section('content')
 
-    <nav class="level">
-        <div class="level-left">
-            <div>
-                <small>
-                    @include('partials.signature',['thing'=>$article])
-                </small>
-            </div>
-        </div>
-        <div class="level-right">
-            <small>
-                @component('tags.list',['tags'=>$article->tags])@endcomponent
-            </small>
-        </div>
-    </nav>
+
     <div class="container">
        @unless(empty($article->bannerUrl()))
-        <figure class="image">
+        <figure class="image" style="margin-bottom: 20px;">
             <img src="{{ $article->bannerUrl() }}" class="image">
         </figure>
         @endunless
+
+        <p>
+            <small>@component('tags.list',['tags'=>$article->tags])@endcomponent</small>
+        </p>
+
         <div class="content" style="margin-top: 20px;margin-bottom:20px;">
             {!! $article->body !!}
         </div>

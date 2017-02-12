@@ -9,26 +9,30 @@
     @include('partials.head')
 </head>
 <body>
+    @include('navs.header')
 
-    <section class="hero is-medium is-primary">
-        <div class="hero-head">
+    <section class="hero is-primary">
+        <div class="hero-body">
             <div class="container">
-                @include('navs.header')
+                <div class="is-vcentered">
+                    <h1 class="title">@yield('heading')</h1>
+                    <h2 class="subtitle" style="margin-left: 20px;">@yield('subheading')</h2>
+                </div>
             </div>
         </div>
     </section>
 
     @include('navs.content')
 
-    <div class="container main" id="app">
+    <div class="container" id="app">
         <section class="section">
             <div class="container">
                 {{--@include('errors.list')--}}
-                <div class="heading">
-                    <h1 class="title">@yield('heading')</h1>
-                    @yield('subheading')
-                </div>
-                <hr>
+                {{--<div class="heading">--}}
+                    {{--<h1 class="title">@yield('heading')</h1>--}}
+                    {{--@yield('subheading')--}}
+                {{--</div>--}}
+                {{--<hr>--}}
                 @yield('content')
             </div>
         </section>

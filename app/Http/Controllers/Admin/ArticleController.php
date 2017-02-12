@@ -94,14 +94,19 @@ class ArticleController extends Controller
 
     /**
      * @param ArticleRequest $request
+     * @param Article $article
      * @return $this|\Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
-    public function store(ArticleRequest $request)
+    public function store(ArticleRequest $request, Article $article)
     {
         if($article = Auth::user()->articles()->create($request->except('tag_list'))){
 
             $article->tags()->attach($request->input('tag_list'));
+
+            $article->load('user');
+            $article->load('category');
+            $article->load('tags');
+            $article->searchable(); //so that scout indexes the relations
 
             return redirect()->route('article.index')->with('info','Article Created');
 
@@ -142,6 +147,10 @@ class ArticleController extends Controller
     public function update(Article $article, ArticleRequest $request)
     {
 //        dd($request->file('banner'));
+
+//        $article->load('category');
+//        $article->load('user');
+//        $article->load('tags');
 
         if($article->update($request->all())){
 
