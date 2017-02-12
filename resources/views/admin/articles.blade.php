@@ -16,7 +16,7 @@
 
 
 @section('heading')
-    <span class="icon"><i class="fa fa-list-alt"></i></span> Articles
+    <span class="icon is-medium"><i class="fa fa-list-alt"></i></span> Articles
     @can('contributor')
         {{ link_to_route('article.create','Create Article',[],['class'=>'button is-primary pull-right']) }}
     @endcan
@@ -26,12 +26,7 @@
 @section('content')
 
 
-    @if($info)
-        <div class="notification is-success">
-            {{--<button class="delete"></button>--}}
-            <span class="icon"><i class="fa fa-info"></i></span> {{ $info }}
-        </div>
-    @endif
+    @include('partials.info')
 
     <div class="columns">
         <div class="column is-2">
@@ -56,7 +51,7 @@
                     <tr>
                         <td>
                             {!! Form::model($article, ['id'=>'delete-form','method' => 'DELETE', 'action' => ['Admin\ArticleController@destroy',$article]]) !!}
-                            {!! Form::button('',['type'=>'submit','class'=>'fa fa-remove button is-danger is-small']) !!}
+                            {!! Form::button('<i class="fa fa-remove"></i>',['type'=>'submit','class'=>'button is-danger is-small']) !!}
                             {!! Form::close() !!}
                         </td>
                         <td>
@@ -72,12 +67,9 @@
                         </td>
                         <td>
                             <p>
-                                @foreach($article->tags as $tag)
-                                    <a class="badge" href="{{ route('articles',[null,'query'=>$tag->slug]) }}">
-                                        <i class="fa fa-tag"></i>
-                                        {{ $tag->name }}
-                                    </a>
-                                @endforeach
+                                <small>
+                                    @component('tags.list',['tags' => $article->tags])@endcomponent
+                                </small>
                             </p>
                         </td>
                         <td class="text-right">

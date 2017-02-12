@@ -12,9 +12,9 @@
 @stop
 
 @section('content')
-<div class="container">
-    {{--<div class="row">--}}
+    <div class="container">
         <div class="column is-half is-offset-one-quarter">
+            @if(config('app.register'))
             <div class="panel">
                 <div class="panel-heading">Register</div>
                 <div class="panel-block">
@@ -28,7 +28,7 @@
 
                                 @if ($errors->has('name'))
                                     <span class="help is-danger">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        {{ $errors->first('name') }}
                                     </span>
                                 @endif
                             </p>
@@ -40,7 +40,7 @@
 
                                 @if ($errors->has('email'))
                                     <span class="help is-danger">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        {{ $errors->first('email') }}
                                     </span>
                                 @endif
                             </p>
@@ -52,7 +52,7 @@
 
                                 @if ($errors->has('password'))
                                     <span class="help is-danger">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        {{ $errors->first('password') }}
                                     </span>
                                 @endif
                             </p>
@@ -64,7 +64,7 @@
 
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help is-danger">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        {{ $errors->first('password_confirmation') }}
                                     </span>
                                 @endif
                             </p>
@@ -77,7 +77,17 @@
                     </form>
                 </div>
             </div>
+            @else
+                <div class="message is-danger">
+                    <div class="message-header">
+                        User Registration Disabled
+                    </div>
+                    <div class="message-body">
+                        User registration has been disabled at this time.
+                        Please contact the site administrator to find out when registration may, if ever, be enabled.
+                    </div>
+                </div>
+            @endif
         </div>
-    {{--</div>--}}
-</div>
+    </div>
 @endsection

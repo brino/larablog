@@ -24,10 +24,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Article::class, function (Faker\Generator $faker) {
-    $body = [];
-    foreach($faker->paragraphs(5) as $paragraph){
-        $body[] = "<p>".$paragraph."</p>";
-    }
+    $body = collect($faker->paragraphs(20))->map(function() use($faker) {
+        return '<p>'.$faker->paragraph(20).'</p>';
+    })->all();
 
     $user = App\User::where('contributor',true)->orderBy(\DB::raw('RAND()'))->first();
 
@@ -39,20 +38,19 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
 
 
     return [
-        'title' => $faker->sentence(),
+        'title' => $title = $faker->sentence(),
         'user_id' => $user->id,
         'category_id' => $category->id,
         'body' => implode('',$body),
-        'summary' => $body[0],
-        'banner' => 'http://placehold.it/1024x250?text='.urlencode($faker->words(5,true)),
-        'thumbnail' => 'http://placehold.it/300?text='.urlencode($faker->words(2,true)),
-        'slug' => str_replace(' ','-',strtolower($faker->words(5,true))),
+        'summary' => $faker->paragraph(5),
+        'slug' => str_slug(strtolower($title)),
         'published_at' => $published,
-        'created_at' => $created
+        'created_at' => $created,
+        'views' => $faker->randomNumber(3),
     ];
 });
 
-$factory->define(App\Photo::class, function (Faker\Generator $faker) {
+$factory->define(App\Media::class, function (Faker\Generator $faker) {
     $user = App\User::where('contributor',true)->orderBy(\DB::raw('RAND()'))->first();
 
     $category = App\Category::orderBy(\DB::raw('RAND()'))->first();
@@ -61,10 +59,9 @@ $factory->define(App\Photo::class, function (Faker\Generator $faker) {
     $published = \Carbon\Carbon::instance($created)->timezone('America/Chicago')->addDays(rand(2,10));
 
     return [
-        'title' => $faker->sentence(),
-        'slug' => str_replace(' ','-',strtolower($faker->words(5,true))),
+        'title' => $title = $faker->sentence(),
+        'slug' => str_slug(strtolower($title)),
         'description' => $faker->sentence(),
-        'url' => 'http://placehold.it/768?text='.urlencode($faker->words(5,true)),
         'user_id' => $user->id,
         'category_id' => $category->id,
         'published_at' => $published,

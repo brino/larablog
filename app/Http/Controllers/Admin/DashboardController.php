@@ -34,14 +34,14 @@ class DashboardController extends Controller
 
         $articles = $user->articles();
 
-        $photos = $user->photos();
+        $medias = $user->media();
 
         $popular = $user->articles()->orderBy('views','desc')->limit('5')->get();
 
         $categories = Cache::remember('user-categories-'.$user->id,'30', function () use($category,$user) {
             return $category->orderBy('name','asc')->get()->mapWithKeys(function($category) use ($user){
                 $articleCount = $category->articles()->where('user_id','=',$user->id)->get()->count();
-                $categoryCount = $category->photos()->where('user_id','=',$user->id)->get()->count();
+                $categoryCount = $category->media()->where('user_id','=',$user->id)->get()->count();
                 return [$category->name => $articleCount + $categoryCount];
             });
         });
@@ -49,6 +49,6 @@ class DashboardController extends Controller
         if(Session::has('info'))
             $info = Session::get('info');
 
-        return view('admin.dashboard',compact('articles','photos','user','popular','info','categories'));
+        return view('admin.dashboard',compact('articles','medias','user','popular','info','categories'));
     }
 }

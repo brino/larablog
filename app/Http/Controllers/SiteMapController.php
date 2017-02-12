@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\Photo;
+use App\Media;
 use Watson\Sitemap\Facades\Sitemap;
 
 /**
@@ -22,7 +22,7 @@ class SiteMapController extends Controller
         // You can use the route helpers too.
         Sitemap::addSitemap(route('sitemap.general'));
         Sitemap::addSitemap(route('sitemap.articles'));
-        Sitemap::addSitemap(route('sitemap.photos'));
+        Sitemap::addSitemap(route('sitemap.media'));
 
         // Return the sitemap to the client.
         return Sitemap::index()->header('Content-Type','application/xml');
@@ -47,12 +47,12 @@ class SiteMapController extends Controller
         return Sitemap::render();
     }
 
-    public function photos()
+    public function media()
     {
-        $photos = Photo::published()->get();
+        $medias = Media::published()->get();
 
-        foreach ($photos as $photo) {
-            Sitemap::addTag(route('photo', $photo->slug), $photo, 'never', '0.2');
+        foreach ($medias as $media) {
+            Sitemap::addTag(route('media', $media->slug), $media, 'never', '0.2');
         }
 
         return Sitemap::render();

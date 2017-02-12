@@ -59,21 +59,21 @@
                                 </div>
                             </article>
                             <article class="tile is-child notification">
-                                <p class="title">Photos</p>
-                                <p class="subtitle">Stats on my photos</p>
+                                <p class="title">Media</p>
+                                <p class="subtitle">Stats on my media</p>
                                 <div class="content">
                                     <div class="level">
                                         <div class="level-item has-text-centered">
                                             <p class="heading">Published</p>
-                                            <p class="title">{{ $photos->published()->count() }}</p>
+                                            <p class="title">{{ $medias->published()->count() }}</p>
                                         </div>
                                         <div class="level-item has-text-centered">
                                             <p class="heading">Unpublished</p>
-                                            <p class="title">{{ $photos->unpublished()->count() }}</p>
+                                            <p class="title">{{ $medias->unpublished()->count() }}</p>
                                         </div>
                                         <div class="level-item has-text-centered">
                                             <p class="heading">Views</p>
-                                            <p class="title">{{ Auth::user()->photos()->sum('views') }}</p>
+                                            <p class="title">{{ Auth::user()->media()->sum('views') }}</p>
                                         </div>
                                     </div>
                                 </div>

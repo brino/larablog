@@ -2,6 +2,11 @@
 
 
 @section('title')
+    @if(!Auth::guest() && $user->name == Auth::user())
+        My
+    @else
+        {{ $user->name }}'s
+    @endif
     Profile
 @stop
 
@@ -22,9 +27,7 @@
 
     @can('update-user',$user)
     <span class="pull-right">
-        {{--@if($user->name == Auth::user()->name)--}}
-            <a class="button is-primary" href="{{ route('user.edit',$user) }}">Edit</a>
-        {{--@endif--}}
+        <a class="button is-primary" href="{{ route('user.edit',$user) }}">Edit</a>
     </span>
     @endcan
 @stop

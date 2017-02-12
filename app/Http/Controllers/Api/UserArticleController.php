@@ -15,10 +15,16 @@ class UserArticleController extends Controller
 
         $articles = $article->search($request->input('query'))->where('user.id',$user->id)->where('published',1)->paginate();
 
+//        dd(config('app.url'));
         $articles->transform(function ($item) {
+            $item->link = config('app.url').'/article/'.$item->slug;
+
             unset($item->id);
             unset($item->user->id);
             unset($item->category->id);
+            unset($item->slug);
+            unset($item->tags);
+
             return $item;
         });
 

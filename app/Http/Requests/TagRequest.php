@@ -26,7 +26,7 @@ class TagRequest extends Request
     {
         return [
             'name' => 'required',
-            'slug' => 'required'
+//            'slug' => 'required'
         ];
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 //use Illuminate\Support\Facades\Storage;
 
-class CreatePhotosTable extends Migration
+class CreateMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreatePhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('photos', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('slug');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('category_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
             $table->string('url')->indexed();
@@ -25,10 +25,10 @@ class CreatePhotosTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('photo_tag', function (Blueprint $table) {
+        Schema::create('media_tag', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('photo_id')->unsigned()->index();
-            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
+            $table->integer('media_id')->unsigned()->index();
+            $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');
             $table->integer('tag_id')->unsigned()->index();
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
@@ -41,8 +41,8 @@ class CreatePhotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('photo_tag');
-        Schema::drop('photos');
-        Storage::disk('public')->deleteDirectory('photos');
+        Schema::dropIfExists('media_tag');
+        Schema::drop('media');
+        Storage::disk('public')->deleteDirectory('media');
     }
 }

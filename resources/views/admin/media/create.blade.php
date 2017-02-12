@@ -11,20 +11,20 @@
 
 
 @section('title')
-    Create Photo
+    Create Media
 @stop
 
 
 @section('heading')
-    <span class="icon is-medium"><i class="fa fa-camera-retro"></i></span> Create Photo
+    <span class="icon is-medium"><i class="fa fa-camera-retro"></i></span> Create Media
 @stop
 
 
 @section('content')
 
-    {!! Form::open(['id'=>'create-form','route' => 'photo.store','files' => true]/*['method' => 'POST', 'action' => ['DatalicensesController@store',$datalicense]]*/) !!}
+    {!! Form::open(['id'=>'create-form','route' => 'media.store','files' => true]) !!}
 
-    @include('admin.photo.form')
+    @include('admin.media.form')
 
     {!! Form::submit('Create',['class'=>'button is-primary is-large']) !!}
     <a class="button is-large" href="{{ URL::previous() }}"> Back </a>

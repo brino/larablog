@@ -28,6 +28,6 @@ Route::get('/sitemap','SiteMapController@index')->name('sitemap');
 
 Route::get('/sitemap/articles','SiteMapController@articles')->name('sitemap.articles');
 
-Route::get('/sitemap/photos','SiteMapController@photos')->name('sitemap.photos');
+Route::get('/sitemap/media','SiteMapController@media')->name('sitemap.media');
 
 Route::get('/sitemap/general','SiteMapController@general')->name('sitemap.general');

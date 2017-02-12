@@ -11,14 +11,14 @@
 
 
 @section('title')
-    Photos
+    Media
 @stop
 
 
 @section('heading')
-    <span class="icon is-medium"><i class="fa fa-list-alt"></i></span> Photos
+    <span class="icon is-medium"><i class="fa fa-list-alt"></i></span> Media
     @can('contributor')
-        {{ link_to_route('photo.create','Create Photo',[],['class'=>'button is-primary pull-right']) }}
+        {{ link_to_route('media.create','Create Media',[],['class'=>'button is-primary pull-right']) }}
     @endcan
 @stop
 
@@ -41,7 +41,7 @@
             <table class="table">
                 <thead>
                     <th></th>
-                    <th>Photo</th>
+                    <th>Media</th>
                     <th>Title</th>
                     <th>Category</th>
                     <th>Description</th>
@@ -50,39 +50,41 @@
                     <th>Created</th>
                 </thead>
                 <tbody>
-                @foreach($photos as $photo)
+                @foreach($medias as $media)
                     <tr>
                         <td>
-                            {!! Form::model($photo, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\PhotoController@destroy',$photo]]) !!}
-                            {!! Form::button('',['type'=>'submit','class'=>'button is-danger is-small fa fa-remove']) !!}
+                            {!! Form::model($media, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\MediaController@destroy',$media]]) !!}
+                            {!! Form::button('<i class="fa fa-remove"></i>',['type'=>'submit','class'=>'button is-danger is-small']) !!}
                             {!! Form::close() !!}
                         </td>
                         <td style="width:100px;">
-                            <img src="@if(str_contains($photo->url,'placehold.it')){{ $photo->url }}@else{{ asset('storage/'.$photo->url) }}@endif" class="img-responsive">
+                            <figure class="image is-3by2">
+                                <img src="{{ $media->url() }}" class="image">
+                            </figure>
                         </td>
                         <td>
-                            {{ link_to_route('photo.edit',str_limit($photo->title,25),[$photo]) }}
+                            {{ link_to_route('media.edit',str_limit($media->title,25),[$media]) }}
                         </td>
                         <td>
-                            {{ $photo->category->name }}
+                            {{ $media->category->name }}
                         </td>
                         <td>
-                            {{ $photo->description }}
+                            {{ $media->description }}
                         </td>
                         <td>
-                            {{ number_format($photo->views) }}
+                            {{ number_format($media->views) }}
                         </td>
                         <td>
-                            {{ $photo->published_at->diffForHumans() }}
+                            {{ $media->published_at->diffForHumans() }}
                         </td>
                         <td>
-                            {{ $photo->created_at->toFormattedDateString() }}
+                            {{ $media->created_at->toFormattedDateString() }}
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-            {!! $photos->render() !!}
+            {!! $medias->render() !!}
         </div>
     </div>
 

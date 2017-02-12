@@ -7,9 +7,9 @@
  */
 ?>
 
-    <div class="panel panel-default">
+    <div class="panel">
         <div class="panel-heading">
-            Photo
+            Media
         </div>
         <div class="panel-block">
             {!! Form::label('title','Title',['class'=>'label']) !!}
@@ -17,37 +17,37 @@
                 {!! Form::text('title',null,['class'=>$errors->has('title')?'input is-danger':'input']) !!}
                 @if ($errors->has('title'))
                     <span class="help is-danger">
-                        <strong>{{ $errors->first('title') }}</strong>
+                        {{ $errors->first('title') }}
                     </span>
                 @endif
             </p>
 
-            {!! Form::label('slug','Slug',['class'=>'label']) !!}
-            <p class="control">
-                {!! Form::text('slug',null,['class'=>$errors->has('slug')?'input is-danger':'input']) !!}
-                @if ($errors->has('slug'))
-                    <span class="help is-danger">
-                        <strong>{{ $errors->first('slug') }}</strong>
-                    </span>
-                @endif
-            </p>
+            {{--{!! Form::label('slug','Slug',['class'=>'label']) !!}--}}
+            {{--<p class="control">--}}
+                {{--{!! Form::text('slug',null,['class'=>$errors->has('slug')?'input is-danger':'input']) !!}--}}
+                {{--@if ($errors->has('slug'))--}}
+                    {{--<span class="help is-danger">--}}
+                        {{--{{ $errors->first('slug') }}--}}
+                    {{--</span>--}}
+                {{--@endif--}}
+            {{--</p>--}}
 
             {!! Form::label('description','Description',['class'=>'label']) !!}
             <p class="control">
-                {!! Form::textarea('description',null,['class'=>$errors->has('description')?'textarea editor-html is-danger':'textarea editor-html']) !!}
+                {!! Form::textarea('description',null,['class'=>$errors->has('description')?'textarea is-danger':'textarea']) !!}
                 @if ($errors->has('description'))
                     <span class="help is-danger">
-                        <strong>{{ $errors->first('description') }}</strong>
+                        {{ $errors->first('description') }}
                     </span>
                 @endif
             </p>
 
             {!! Form::label('published_at','Publish',['class'=>'label']) !!}
             <p class="control">
-                {!! Form::date('published_at',!empty($photo->published_at)?$photo->published_at:\Carbon\Carbon::now(),['class'=>$errors->has('published_at')?'input is-danger':'input']) !!}
+                {!! Form::date('published_at',!empty($media->published_at)?$media->published_at:\Carbon\Carbon::now(),['class'=>$errors->has('published_at')?'input is-danger':'input']) !!}
                 @if ($errors->has('published_at'))
                     <span class="help is-danger">
-                        <strong>{{ $errors->first('published_at') }}</strong>
+                        {{ $errors->first('published_at') }}
                     </span>
                 @endif
             </p>
@@ -59,32 +59,31 @@
                 </span>
                 @if ($errors->has('category_id'))
                     <span class="help is-danger">
-                        <strong>{{ $errors->first('category_id') }}</strong>
+                        {{ $errors->first('category_id') }}
                     </span>
                 @endif
             </p>
 
 
-            @if(!empty($photo->url))
+            @unless(empty($media->url))
                 <div class="box">
-                    <figure class="image">
-                        <img src="{{ asset('storage/'.$photo->url) }}" title="Image">
+                    <figure class="image is-3by2">
+                        <img src="{{ $media->url() }}" title="Image">
                     </figure>
+                    <div class="text-center">
+                        <a href="#" onclick="document.getElementById('delete-media').submit()" class="button is-danger is-small">Delete</a>
+                    </div>
                 </div>
-            @endif
+            @endunless
 
-            {!! Form::label('url','Photo',['class'=>'label']) !!}
-            <p class="control has-addons">
-                {{--{!! Form::text('url',null,['class'=>'input']) !!}--}}
-                {!! Form::file('url') !!}
-                @if(!empty($photo->url))
-                    {!! Form::hidden('url') !!}
-                @endif
-                <p class="help is-info">Photo must be a .jpg or .phg less than 2MB and will be re-sized to 1920 x 1200</p>
+            {!! Form::label('url','Media',['class'=>'label']) !!}
+            <p class="control has-icon">
+
+                <upload name="url"></upload>
 
                 @if ($errors->has('url'))
                     <span class="help is-danger">
-                        <strong>{{ $errors->first('url') }}</strong>
+                        {{ $errors->first('url') }}
                     </span>
                 @endif
             </p>

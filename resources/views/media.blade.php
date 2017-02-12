@@ -10,12 +10,12 @@
 
 
 @section('title')
-    Photos
+    Media
 @stop
 
 
 @section('heading')
-    <span class="icon is-medium"><i class="fa fa-list"></i></span> Photos
+    <span class="icon is-medium"><i class="fa fa-list"></i></span> Media
     @if(!empty($category))
         :: {{ $category->name }}
     @endif
@@ -24,12 +24,12 @@
 
 @section('content')
 
-    <div class="columns">
-        @include('photo.list')
-    </div>
+    @include('media.list')
 
-    <div class="container has-text-centered">
-        {!! $photos->render() !!}
+
+    <div style="clear:both;"></div>
+    <div class="container has-text-centered" style="margin-top:20px;">
+        {!! $media->render() !!}
     </div>
 
 @endsection

@@ -5,8 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Support\Facades\Gate;
 
-
-class UserRequest extends Request
+class MediaRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,8 +14,7 @@ class UserRequest extends Request
      */
     public function authorize()
     {
-        //potentially, any user can update themselves
-        return true;
+        return Gate::allows('contributor');
     }
 
     /**
@@ -27,10 +25,11 @@ class UserRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required',
-//            'bio' => 'text',
-//            'password' => 'required'
+            'title' => 'required|string',
+            'category_id' => 'required|number',
+            'description' => 'required|string',
+            'published_at' => 'required|date',
+            'url' => 'required'
         ];
     }
 }

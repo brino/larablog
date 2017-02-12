@@ -26,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('Elasticsearch\Client', function () {
+            return  \Elasticsearch\ClientBuilder::create()->setHosts(config('scout.elastic.hosts'))->build();
+        });
     }
 }

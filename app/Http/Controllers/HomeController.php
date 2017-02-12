@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\Photo;
+use App\Category;
+use App\Media;
 
 /**
  * Class HomeController
@@ -14,21 +15,21 @@ class HomeController extends Controller
 
     /**
      * @param Article $article
-     * @param Photo $photo
+     * @param Media $media
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Article $article,Photo $photo)
+    public function index(Article $article, Media $media)
     {
 
-        $articles = $article->latest('published_at')->published()->limit(7)->get();
+        $latest = $article->latest('published_at')->published()->limit(5)->get();
 
-        $photos = $photo->latest('published_at')->published()->limit(3)->get();
+        $popular = $article->popular()->published()->orderBy('views','desc')->limit(5)->get();
 
-        if($articles->count()){
-            return view('home',compact('articles','photos'));
-        }
+        $medias = $media->latest('published_at')->published()->limit(5)->get();
 
-        return view('about');
+        $categories = Category::all();
+
+        return view('home',compact('latest','medias','popular','categories'));
 
     }
 }

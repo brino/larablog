@@ -34,24 +34,18 @@
         <div class="level-left">
             <small>
                 @include('partials.signature',['thing'=>$article])
-                on {{ $article->published_at->toFormattedDateString() }}
             </small>
         </div>
         <div class="level-right">
             <small>
-                @foreach($article->tags as $tag)
-                    <a class="level-item" href="{{ route('articles',[null,'query'=>$tag->name]) }}">
-                        <span class="icon is-small"><i class="fa fa-tag"></i></span>
-                        {{ $tag->name }}
-                    </a>
-                @endforeach
+                @component('tags.list',['tags'=>$article->tags])@endcomponent
             </small>
         </div>
     </nav>
     <div class="container">
-       @unless(empty($article->banner))
+       @unless(empty($article->bannerUrl()))
         <figure class="image">
-            <img src="@if(str_contains($article->banner,'placehold.it')){{ $article->banner }}@else{{ asset('storage/'.$article->banner) }}@endif" class="img-responsive img-rounded" id="img-article" />
+            <img src="{{ $article->bannerUrl() }}" class="image">
         </figure>
         @endunless
         <div class="content" style="margin-top: 20px;margin-bottom:20px;">
@@ -87,6 +81,6 @@
 
 
 @section('last')
-    <script src="{{ elixir('js/article.js') }}"></script>
+    <script src="{{ mix('js/article.js') }}"></script>
     <script id="dsq-count-scr" src="//brianmix.disqus.com/count.js" async></script>
 @stop

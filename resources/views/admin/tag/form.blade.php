@@ -15,21 +15,21 @@
                 {!! Form::text('name',null,['class'=>$errors->has('name')?'input is-danger':'input','placeholder'=>'My New Tag']) !!}
                 @if ($errors->has('name'))
                     <span class="help is-danger">
-                        <strong>{{ $errors->first('name') }}</strong>
+                        {{ $errors->first('name') }}
                     </span>
                 @endif
             </p>
         </div>
-        <div class="container">
-            {!! Form::label('slug','Slug',['class'=>'label']) !!}
-            <p class="control">
-                {!! Form::text('slug',null,['class'=>$errors->has('slug')?'input is-danger':'input','placeholder'=>'my-new-tag']) !!}
-                @if ($errors->has('slug'))
-                    <span class="help is-danger">
-                        <strong>{{ $errors->first('slug') }}</strong>
-                    </span>
-                @endif
-            </p>
-        </div>
+        {{--<div class="container">--}}
+            {{--{!! Form::label('slug','Slug',['class'=>'label']) !!}--}}
+            {{--<p class="control">--}}
+                {{--{!! Form::text('slug',null,['class'=>$errors->has('slug')?'input is-danger':'input','placeholder'=>'my-new-tag']) !!}--}}
+                {{--@if ($errors->has('slug'))--}}
+                    {{--<span class="help is-danger">--}}
+                        {{--{{ $errors->first('slug') }}--}}
+                    {{--</span>--}}
+                {{--@endif--}}
+            {{--</p>--}}
+        {{--</div>--}}
     </div>
 </div>

@@ -29,8 +29,8 @@
             matching <strong>{{ request('query') }}</strong>
         @endunless
 
-        @if($filterCategory->exists)
-            within <strong>{{ $filterCategory->name }}</strong>
+        @if($category->exists)
+            within <strong>{{ $category->name }}</strong>
         @endif
     </small>
 </div>

@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
-use App\Photo;
+use App\Media;
 
-class PhotosTableSeeder extends Seeder
+class MediaTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class PhotosTableSeeder extends Seeder
     {
         if(strtolower(App::environment()) != 'production'){
 
-            factory(Photo::class, 50)->create();
+            factory(Media::class, 1)->create();
 
         }
     }

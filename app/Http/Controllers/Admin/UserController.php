@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Session;
 use App\User;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\CreateUserRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 
 /**
  * Class UserController
@@ -34,7 +34,7 @@ class UserController extends Controller
         //show list of tags
         $users = User::orderBy('created_at','asc')->paginate();
 
-        $users->load('articles','photos');
+        $users->load('articles','media');
 
         return view('admin.users',compact('users','info'));
     }
@@ -64,10 +64,10 @@ class UserController extends Controller
     }
 
     /**
-     * @param UserRequest $request
+     * @param CreateUserRequest $request
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request)
+    public function store(CreateUserRequest $request)
     {
 
         if (Gate::denies('super')) {
@@ -89,8 +89,6 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-//        dd($user);
-
         if (Gate::denies('update-user',$user)) {
             return redirect()->route('admin')->withErrors(['User does not have permission to edit this user.']);
         }
@@ -100,31 +98,17 @@ class UserController extends Controller
 
     /**
      * @param User $user
-     * @param UserRequest $request
+     * @param UpdateUserRequest $request
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function update(User $user, UserRequest $request)
+    public function update(User $user, UpdateUserRequest $request)
     {
-
-        if (Gate::denies('update-user',$user)) {
-            abort(403);
+        if($request->has('new_password')) {
+            $user->password = $request->input('new_password');
+            $user->save();
         }
 
-        if(Auth::user()->super) {
-            $requestVars = $request->except('password');
-        } else {
-            $requestVars = $request->except(['password','super','contributor']);
-        }
-
-
-
-//        if($request->has('password')){
-//            $requestVars = $request->all();
-//        } else {
-//            $requestVars = $request->except('password');
-//        }
-
-        if($user->update($requestVars)){
+        if($user->update($request->except('new_password'))) {
 
             $route = 'profile';
 

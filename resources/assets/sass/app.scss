@@ -10,6 +10,15 @@
  //  padding-top: 50px;
  //}
 
+ #app.container {
+  margin-top: 40px;
+ }
+
+ img.avatar {
+  width: 12px;
+  height: 12px;
+  margin-bottom: -2px;
+ }
  .CodeMirror {
   height: auto;
  }
@@ -19,11 +28,11 @@
   color: green;
  }
 
- .photo-list {
+ .media-list {
    margin-bottom: 25px;
  }
 
- .photo-list .icon {
+ .media-list .icon {
   line-height: 24px;
  }
 
@@ -32,6 +41,88 @@
   font-weight: bold;
  }
 
- .photo-signature {
+ .media-signature {
   height: 30px;
+ }
+
+ .nav-item #search {
+  width: 300px;
+ }
+
+ .panel.is-danger .panel-heading {
+  background-color: $danger;
+  color: white;
+ }
+
+ .panel.is-danger .panel-block {
+  background-color: $danger-invert;
+  color: $danger;
+ }
+
+ .control.has-icon .icon {
+  color: black;
+  pointer-events: none;
+  position: absolute;
+  top: 1.25rem;
+  z-index: 4;
+ }
+
+ .control.has-icon .input:focus + .icon {
+  color: #7a7a7a;
+ }
+
+ .control.has-icon .input.is-small + .icon {
+  top: 0.9375rem;
+ }
+
+ .control.has-icon .input.is-medium + .icon {
+  top: 1.5625rem;
+ }
+
+ .control.has-icon .input.is-large + .icon {
+  top: 1.875rem;
+ }
+
+ .control.has-icon:not(.has-icon-right) .icon {
+  left: 1.25rem;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+ }
+
+ .control.has-icon:not(.has-icon-right) .input {
+  padding-left: 2.5em;
+ }
+
+ .control.has-icon:not(.has-icon-right) .input.is-small + .icon {
+  left: 0.9375rem;
+ }
+
+ .control.has-icon:not(.has-icon-right) .input.is-medium + .icon {
+  left: 1.5625rem;
+ }
+
+ .control.has-icon:not(.has-icon-right) .input.is-large + .icon {
+  left: 1.875rem;
+ }
+
+ .control.has-icon.has-icon-right .icon {
+  right: 1.25rem;
+  -webkit-transform: translateX(50%) translateY(-50%);
+  transform: translateX(50%) translateY(-50%);
+ }
+
+ .control.has-icon.has-icon-right .input {
+  padding-right: 2.5em;
+ }
+
+ .control.has-icon.has-icon-right .input.is-small + .icon {
+  right: 0.9375rem;
+ }
+
+ .control.has-icon.has-icon-right .input.is-medium + .icon {
+  right: 1.5625rem;
+ }
+
+ .control.has-icon.has-icon-right .input.is-large + .icon {
+  right: 1.875rem;
  }

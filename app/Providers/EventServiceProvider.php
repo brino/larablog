@@ -4,14 +4,14 @@ namespace App\Providers;
 
 use App\Article;
 use App\Notifications\ContributorCreatedNewArticle;
-use App\Photo;
+use App\Media;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Notifications\NewUserSignup;
 use App\User;
 use Illuminate\Support\Facades\App;
+use App\Category;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -52,20 +52,20 @@ class EventServiceProvider extends ServiceProvider
         });
 
         Article::deleted(function($article){
-
-            if(Storage::disk('public')->exists($article->banner)){
+            if(!empty($article->banner) && Storage::disk('public')->exists($article->banner)){
                 Storage::disk('public')->delete($article->banner);
             }
-
-            if(Storage::disk('public')->exists($article->thumbnail)){
-                Storage::disk('public')->delete($article->thumbnail);
-            }
-
         });
 
-        Photo::deleted(function($photo){
-            if(Storage::disk('public')->exists($photo->url)){
-                Storage::disk('public')->delete($photo->url);
+        Category::deleted(function($category){
+            if(!empty($category->thumbnail) && Storage::disk('public')->exists($category->thumbnail)){
+                Storage::disk('public')->delete($category->thumbnail);
+            }
+        });
+
+        Media::deleted(function($media){
+            if(!empty($media->url) && Storage::disk('public')->exists($media->url)){
+                Storage::disk('public')->delete($media->url);
             }
         });
 

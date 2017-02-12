@@ -61,7 +61,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Articles</th>
-                    <th>Photos</th>
+                    <th>Media</th>
                     <th class="has-text-centered">Contributor</th>
                     <th class="has-text-centered">Super</th>
                     <th>Created</th>
@@ -71,7 +71,7 @@
                     <tr>
                         <td>
                             {!! Form::model($user, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\UserController@destroy',$user]]) !!}
-                            {!! Form::button('',['type'=>'submit','class'=>'fa fa-remove button is-danger is-small']) !!}
+                            {!! Form::button('<i class="fa fa-remove"></i>',['type'=>'submit','class'=>'button is-danger is-small']) !!}
                             {!! Form::close() !!}
                         </td>
                         <td>
@@ -84,7 +84,7 @@
                             {{ $user->articles->count() }}
                         </td>
                         <td>
-                            {{ $user->photos->count() }}
+                            {{ $user->media->count() }}
                         </td>
                         <td class="has-text-centered">
                             @if($user->contributor)

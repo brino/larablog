@@ -1,6 +1,10 @@
 require('./bootstrap');
 
-//Vue.component('example', require('./components/Example.vue'));
+Vue.component('example', require('./components/Example.vue'));
+Vue.component('autocomplete', require('./components/Autocomplete.vue'));
+Vue.component('upload', require('./components/FileUploadInput.vue'));
+Vue.component('html-editor', require('./components/HtmlEditor.vue'));
+Vue.component('js-editor', require('./components/JavascriptEditor.vue'));
 
 var d3 = window.d3 = require('d3');
 var c3 = window.c3 = require('c3');
@@ -15,6 +19,10 @@ const headerNav = new Vue({
             return this.isActive = !this.isActive;
         }
     }
+});
+
+const app = new Vue({
+    el: '#app'
 });
 
 

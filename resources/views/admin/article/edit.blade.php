@@ -45,10 +45,6 @@
 
 @endsection
 
-@section('last')
-    <script src="{{ elixir('js/article-editor.js') }}"></script>
-@endsection
-
 
 
 

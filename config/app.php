@@ -41,6 +41,9 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'media' => 'storage',
+
+    'register' => env('APP_REGISTER',false),
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

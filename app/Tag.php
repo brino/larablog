@@ -36,9 +36,9 @@ class Tag extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function photo()
+    public function media()
     {
-        return $this->belongsToMany(Photo::class);
+        return $this->belongsToMany(Media::class);
     }
 
     /**
@@ -57,5 +57,11 @@ class Tag extends Model
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = strtolower($name);
+        $this->slug = $name;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -48,9 +49,13 @@ class Handler extends ExceptionHandler
     {
         if (($e instanceof \ErrorException || $e instanceof \PDOException) && env('APP_DEBUG',false) == false && env('APP_ENV') == 'production') {
             return response()->view('errors.500', [], 500);
-        } else {
-            return parent::render($request, $e);
         }
+
+        if($e instanceof Missing404Exception) {
+            return response()->view('errors.404',[], 404);
+        }
+
+        return parent::render($request, $e);
     }
 
     /**

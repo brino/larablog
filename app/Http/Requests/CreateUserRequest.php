@@ -4,8 +4,10 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
-class CategoryRequest extends Request
+
+class CreateUserRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +16,7 @@ class CategoryRequest extends Request
      */
     public function authorize()
     {
-        return Gate::allows('super');
+        return Gate::allows('update-user',Auth::user());
     }
 
     /**
@@ -25,8 +27,12 @@ class CategoryRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-            'slug' => 'required'
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,'.request()->route('user')->id,
+            'bio' => 'string',
+            'password' => 'string',
+            'avatar' => 'image',
+            'old_password' => 'string',
         ];
     }
 }

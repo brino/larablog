@@ -26,13 +26,7 @@
 
 @section('content')
 
-
-    @if($info)
-        <div class="notification is-success">
-            {{--<button class="delete"></button>--}}
-            <span class="icon"><i class="fa fa-info"></i></span> {{ $info }}
-        </div>
-    @endif
+    @include('partials.info')
 
     <div class="columns">
         <div class="column is-2">
@@ -45,9 +39,10 @@
                     <th></th>
                     @endcan
                     <th>Name</th>
-                    <th>Slug</th>
+                    {{--<th>Slug</th>--}}
+                    <th>Thumbnail</th>
                     <th>Articles</th>
-                    <th>Photos</th>
+                    <th>Media</th>
                     <th>Created</th>
                 </thead>
                 <tbody>
@@ -56,21 +51,24 @@
                             @can('super')
                             <td>
                                 {!! Form::model($category, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\CategoryController@destroy',$category]]) !!}
-                                {!! Form::button('',['type'=>'submit','class'=>'fa fa-remove button is-danger is-small']) !!}
+                                {!! Form::button('<i class="fa fa-remove"></i>',['type'=>'submit','class'=>'button is-danger is-small']) !!}
                                 {!! Form::close() !!}
                             </td>
                             @endcan
                             <td>
                                 {{ link_to_route('category.edit',$category->name,[$category]) }}
                             </td>
+                            {{--<td>--}}
+                                {{--{{ $category->slug }}--}}
+                            {{--</td>--}}
                             <td>
-                                {{ $category->slug }}
+                                {{ $category->thumbnail }}
                             </td>
                             <td>
                                 {{ $category->articles->count() }}
                             </td>
                             <td>
-                                {{ $category->photos->count() }}
+                                {{ $category->media->count() }}
                             </td>
                             <td>
                                 {{ $category->created_at->toFormattedDateString() }}

@@ -45,14 +45,13 @@ class ArticleController extends Controller
      */
     public function index(Article $article)
     {
-
         $info = false;
         $user = Auth::user();
 
         if(Session::has('info'))
             $info = Session::get('info');
 
-        if($user->super && false) {
+        if($user->super) {
             $articles = $article->latest('created_at')->paginate();
         } elseif($user->contributor) {
             $articles = $user->articles()->latest('created_at')->paginate();
@@ -81,7 +80,6 @@ class ArticleController extends Controller
      */
     public function create(Article $article)
     {
-
         if (Gate::denies('contributor')) {
             return redirect()->route('admin')->withErrors(['User does not have permission to create articles.']);
         }
@@ -101,11 +99,6 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-
-        if (Gate::denies('contributor')) {
-            abort(403);
-        }
-        
         if($article = Auth::user()->articles()->create($request->except('tag_list'))){
 
             $article->tags()->attach($request->input('tag_list'));
@@ -115,8 +108,6 @@ class ArticleController extends Controller
         }
 
         return back()->withErrors(['Failed to Create Article']);
-
-    
     }
 
     /**
@@ -150,12 +141,8 @@ class ArticleController extends Controller
      */
     public function update(Article $article, ArticleRequest $request)
     {
-        //use submitted data to update article in db
+//        dd($request->file('banner'));
 
-        if (Gate::denies('update-article',$article)) {
-            abort(403);
-        }
-        
         if($article->update($request->all())){
 
             return redirect()->route('article.index')->with('info','Saved Article Successfully!');
@@ -174,7 +161,6 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-
         if (Gate::denies('update-article',$article)) {
             abort(403);
         }
@@ -183,6 +169,49 @@ class ArticleController extends Controller
 
         return redirect()->route('article.index')->with('info','Article Deleted!');
     }
+
+//    /**
+//     * @param Article $article
+//     * @return \Illuminate\Http\RedirectResponse
+//     */
+//    public function removeThumbnail(Article $article)
+//    {
+//        $article->destroyThumbnail();
+//
+//        return back()->with('info','Thumbnail Removed');
+//    }
+
+    /**
+     * @param Article $article
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeBanner(Article $article)
+    {
+        $article->destroyBanner();
+
+        return back()->with('info','Banner Removed');
+    }
+
+    /**
+     * @param Article $article
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function removeThumbnail(Article $article)
+    {
+        if(!empty($article->thumbnail))
+        {
+            $article->destroyThumbnail();
+            $article->thumbnail = null;
+
+            if ($article->save())
+            {
+                return back()->with('info', 'Thumbnail Removed');
+            }
+        }
+
+        return back()->withErrors(['thubnail'=>'Failed to remove thumbnail']);
+    }
+
 
 
 }

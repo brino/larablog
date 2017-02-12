@@ -52,9 +52,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id === $article->user->id && $user->contributor;
         });
 
-        Gate::define('update-photo', function ($user, $photo) {
+        Gate::define('update-media', function ($user, $media) {
 
-            return $user->id === $photo->user->id && $user->contributor;
+            return $user->id === $media->user->id && $user->contributor;
         });
 
         Gate::define('update-user', function ($self,$user) {

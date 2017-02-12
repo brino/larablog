@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
-use App\Http\Requests\CategoryRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 
@@ -36,7 +37,7 @@ class CategoryController extends Controller
         //show list of categories
         $categories = Category::orderBy('created_at','asc')->paginate();
 
-        $categories->load('articles','photos');
+        $categories->load('articles','media');
 
         return view('admin.categories',compact('categories','info'));
     }
@@ -68,21 +69,14 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param CategoryRequest $request
+     * @param CreateCategoryRequest $request
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function store(CategoryRequest $request)
+    public function store(CreateCategoryRequest $request)
     {
         //process the create form ... and store in db
-
-        if (Gate::denies('super')) {
-            abort(403);
-        }
-
         if($article = Category::create($request->all())){
-
             return redirect()->route('category.index')->with('info','Category Created');
-
         }
 
         return back()->withErrors(['Failed to Create Article']);
@@ -94,12 +88,14 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-
         if (Gate::denies('super')) {
             return redirect()->route('category.index')->withErrors(['User does not have permission to edit categories.']);
         }
 
         $info = false;
+
+        if(Session::has('info'))
+            $info = Session::get('info');
 
         //show edit form and post to update()
         return view('admin.category.edit',compact('info','category'));
@@ -107,27 +103,22 @@ class CategoryController extends Controller
 
     /**
      * @param Category $category
-     * @param CategoryRequest $request
+     * @param UpdateCategoryRequest $request
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function update(Category $category, CategoryRequest $request)
+    public function update(Category $category, UpdateCategoryRequest $request)
     {
+        if($request->hasFile('thumbnail') && !empty($category->thumbnail)) {
+            //must delete old image
+            $category->destroyThumbnail();
+        }
+
         //process edit form ... and update db
-
-        if (Gate::denies('super')) {
-            abort(403);
-        }
-
         if($category->update($request->all())){
-
             return redirect()->route('category.index')->with('info','Saved Category Successfully!');
-
         } else {
-
             return back()->withErrors(['Save Failed!']);
-
         }
-
     }
 
     /**
@@ -144,6 +135,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('category.index')->with('info','Category Deleted!');
+        return redirect()->route('category.index')->with('message','Category Deleted!');
     }
 }

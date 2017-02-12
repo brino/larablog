@@ -5,15 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
+use App\Services\MediaStorageService;
 
 /**
- * Class Photo
+ * Class Media
  * @package App
  */
-class Photo extends Model
+class Media extends Model
 {
     /**
      * @var array
@@ -33,6 +31,21 @@ class Photo extends Model
     protected $dates = [
         'published_at'
     ];
+
+    /**
+     * @var mediaStorageService
+     */
+    protected $mediaStore;
+
+    /**
+     * Media constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->mediaStore = new MediaStorageService;
+        parent::__construct($attributes);
+    }
 
     /**
      * @param $query
@@ -63,8 +76,17 @@ class Photo extends Model
      */
     public function setSlugAttribute($string)
     {
-        $this->attributes['slug'] = str_slug(strtolower($string)); // Replaces multiple hyphens with single one.
+        $this->attributes['slug'] = str_slug(strtolower($string));
 
+    }
+
+    /**
+     * @param $string
+     */
+    public function setTitleAttribute($string)
+    {
+        $this->attributes['title'] = $string;
+        $this->slug = $string;
     }
 
     /**
@@ -72,14 +94,12 @@ class Photo extends Model
      */
     public function setUrlAttribute($url)
     {
-
         if(Request::hasFile('url')){
             if(Request::file('url')->isValid()){
-                $url = $this->uploadImage(Request::file('url'));
+                $url = $this->mediaStore->upload(Request::file('url'),'media',960,640); //square
             }
         }
 
-        $url = str_replace('photos/','',$url);
         $this->attributes['url'] = $url;
     }
 
@@ -89,28 +109,29 @@ class Photo extends Model
      */
     public function getUrlAttribute($url)
     {
-        if(!empty($url) && !str_contains($url,'placehold.it')) $url = 'photos/'.$url;
+        if(!empty($url)) $url = '/media/'.$url;
 
         return $url;
     }
 
-    /**
-     * @param $image
-     * @param string $dir
-     * @param int $width
-     * @param int $height
-     * @return string
-     */
-    private function uploadImage($image,$dir='photos',$width=1920,$height=1200){
+    public function url()
+    {
+        $url = '';
 
-        $filename = time().str_random(25).'.'.$image->getClientOriginalExtension();
+        if(config('app.debug')) {
+            $url = 'http://placehold.it/960x640';
+        }
 
-        //manipulate the uploaded image ... resize and overwrite
-        Image::make($image->getRealPath())->fit($width,$height)->save($image->getRealPath());
+        if(!empty($this->url)) {
+            $url = '/'.config('app.media').$this->url;
+        }
 
-        Storage::disk('public')->put($dir.'/'.$filename,File::get($image));
+        return $url;
+    }
 
-        return $filename;
+    public function destroyFile()
+    {
+        $this->mediaStore->destroy($this->url);
     }
     
     /**
@@ -147,5 +168,10 @@ class Photo extends Model
 
         $this->save();
 
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

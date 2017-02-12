@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Support\Facades\Gate;
 
-class PhotoRequest extends Request
+class UpdateCategoryRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class PhotoRequest extends Request
      */
     public function authorize()
     {
-        return Gate::allows('contributor');
+        return Gate::allows('super');
     }
 
     /**
@@ -25,12 +25,10 @@ class PhotoRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required',
-            'category_id' => 'required',
-            'description' => 'required',
-            'slug' => 'required',
-            'published_at' => 'required',
-            'url' => 'required'
+            'name' => 'required|string',
+//            'slug' => 'required|string',
+            'description' => 'string|nullable',
+            'icon' => 'required|string'
         ];
     }
 }

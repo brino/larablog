@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,26 +10,27 @@
 |
 */
 
-
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/logout', 'Auth\LoginController@logout');
 
     Route::auth();
 
-    Route::get('/articles/{categorySlug?}', 'SearchController@index')->name('articles');
+    Route::get('/articles/autocomplete', 'SearchController@autocomplete')->name('articles.autocomplete');
 
-    Route::get('/article/{articleSlug}', 'ArticleController@show')->name('article');
+    Route::get('/articles/{category?}', 'SearchController@index')->name('articles');
 
-    Route::get('/photo', 'PhotoController@index')->name('photos');
+    Route::get('/article/{article}', 'ArticleController@show')->name('article');
 
-    Route::get('/photo/{photoSlug}', 'PhotoController@show')->name('photo');
+    Route::get('/media', 'MediaController@index')->name('medias');
 
-//    Route::get('/about', 'AboutController@index')->name('about');
+    Route::get('/media/{media}', 'MediaController@show')->name('media');
 
     Route::get('/profile/token', 'ProfileController@requestApiToken')->name('profile.token');
 
     Route::get('/profile/{user?}', 'ProfileController@show')->name('profile');
+
+    Route::get('/contributors', 'ContributorController@index')->name('contributors');
 
     Route::group(['namespace' => 'Admin'], function () {
 
@@ -38,7 +38,13 @@
 
         Route::resource('/admin/article', 'ArticleController');
 
-        Route::resource('/admin/photo', 'PhotoController');
+        Route::delete('/admin/article/thumbnail/{article}', 'ArticleController@removeThumbnail');
+
+        Route::delete('/admin/article/banner/{article}', 'ArticleController@removeBanner');
+
+        Route::resource('/admin/media', 'MediaController',['parameters' => ['media'=>'media']]);
+
+        Route::delete('/admin/media/url/{media}', 'MediaController@removeMedia');
 
         Route::resource('/admin/category', 'CategoryController');
 

@@ -14,7 +14,7 @@ class ArticlesTableSeeder extends Seeder
 
         if(strtolower(App::environment()) != 'production'){
             
-            factory(App\Article::class, 500)->create();
+            factory(App\Article::class, 2)->create();
 
         }
     }

@@ -2,13 +2,11 @@
 
 namespace App;
 
+use App\Services\MediaStorageService;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
-use Laravel\Scout\Searchable;
+use ElasticScout\Searchable;
 
 /**
  * Class Article
@@ -45,11 +43,48 @@ class Article extends Model
     ];
 
     /**
+     * @var MediaStorageService
+     */
+    protected $mediaStore;
+
+    /**
+     * Article constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->mediaStore = new MediaStorageService;
+        parent::__construct($attributes);
+    }
+
+    /**
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+//        $array['suggest'] = explode(' ',$array['title'].' '.strip_tags($array['summary']));
+//        $array['title'] = $array['title'];
+        $array['published'] = $this->published_at->isPast();
+
+        return $array;
+    }
+
+    /**
      * @param $query
      */
     public function scopePublished($query)
     {
         $query->where('published_at', '<=', Carbon::now());
+    }
+
+    /**
+     * @param $query
+     */
+    public function scopePopular($query)
+    {
+        $query->where('views','>',0);
     }
 
     /**
@@ -62,22 +97,20 @@ class Article extends Model
 
     /**
      * @param $string
+     */
+    public function setTitleAttribute($string)
+    {
+        $this->attributes['title'] = $string;
+        $this->slug = $string;
+    }
+
+    /**
+     * @param $string
      * @return string
      */
     public function setSlugAttribute($string)
     {
-
         $this->attributes['slug'] = str_slug(strtolower($string));
-        
-    }
-
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
-
-        $array['published'] = $this->published_at->isPast();
-
-        return $array;
     }
 
     /**
@@ -86,8 +119,48 @@ class Article extends Model
      */
     public function getBannerAttribute($banner)
     {
-        if(!empty($banner) && !str_contains($banner,'placehold.it')) $banner= 'banners/'.$banner;
+        if(!empty($banner)) $banner= '/banners/'.$banner;
         return $banner;
+    }
+
+    /**
+     * @return string
+     */
+    public function bannerUrl()
+    {
+        $url = '';
+
+        if(config('app.debug')) {
+            $url = 'http://placehold.it/1024x250';
+        }
+
+        if(!empty($this->banner)) {
+            $url = '/'.config('app.media').$this->banner;
+        }
+
+        return $url;
+    }
+
+    /**
+     * @param $banner
+     */
+    public function setBannerAttribute($banner)
+    {
+        if(Request::hasFile('banner')){
+            if(Request::file('banner')->isValid()){
+                $banner = $this->mediaStore->upload(Request::file('banner'),'banners'); //square
+            }
+        }
+
+        $this->attributes['banner'] = $banner;
+    }
+
+    /**
+     *
+     */
+    public function destroyBanner()
+    {
+        $this->mediaStore->destroy($this->banner,'banners');
     }
 
     /**
@@ -96,25 +169,23 @@ class Article extends Model
      */
     public function getThumbnailAttribute($thumbnail)
     {
-        if(!empty($thumbnail) && !str_contains($thumbnail,'placehold.it')) $thumbnail = 'thumbnails/'.$thumbnail;
+        if(!empty($thumbnail)) $thumbnail = '/thumbnails/'.$thumbnail;
         return $thumbnail;
     }
 
-    /**
-     * @param $banner
-     */
-    public function setBannerAttribute($banner)
+    public function thumbnailUrl()
     {
+        $url = '';
 
-        if(Request::hasFile('banner')){
-            if(Request::file('banner')->isValid()){
-                $banner = $this->uploadImage(Request::file('banner'));
-            }
+        if(config('app.debug')) {
+            $url = 'http://placehold.it/128';
         }
 
-        $banner = str_replace('banners/','',$banner);
+        if(!empty($this->thumbnail)) {
+            $url = '/'.config('app.media').$this->thumbnail;
+        }
 
-        $this->attributes['banner'] = $banner;
+        return $url;
     }
 
     /**
@@ -122,38 +193,21 @@ class Article extends Model
      */
     public function setThumbnailAttribute($thumbnail)
     {
-
         if(Request::hasFile('thumbnail')){
             if(Request::file('thumbnail')->isValid()){
-                $thumbnail = $this->uploadImage(Request::file('thumbnail'),'thumbnails',250,150);
+                $thumbnail = $this->mediaStore->upload(Request::file('thumbnail'),'thumbnails',256,256); //square
             }
         }
-        $thumbnail = str_replace('thumbnails/','',$thumbnail);
+
         $this->attributes['thumbnail'] = $thumbnail;
     }
 
-    public function setCategoryIdAttribute($id)
-    {
-        $this->attributes['category_id'] = (Int) $id;
-    }
-
     /**
-     * @param $image
-     * @param string $dir
-     * @param int $width
-     * @param int $height
-     * @return string
+     *
      */
-    private function uploadImage($image,$dir='banners',$width=1024,$height=250){
-        
-            $filename = time().str_random(25).'.'.$image->getClientOriginalExtension();
-
-            //manipulate the uploaded image ... resize and overwrite
-            Image::make($image->getRealPath())->fit($width,$height)->save($image->getRealPath());
-
-            Storage::disk('public')->put($dir.'/'.$filename,File::get($image));
-
-        return $filename;
+    public function destroyThumbnail()
+    {
+        $this->mediaStore->destroy($this->thumbnail);
     }
 
     /**
@@ -214,5 +268,12 @@ class Article extends Model
         $this->save();
 
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+
 
 }

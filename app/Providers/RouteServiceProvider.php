@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
+use App\Media;
 use App\Article;
-use App\Category;
-use App\Photo;
-use App\Tag;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -31,21 +29,27 @@ class RouteServiceProvider extends ServiceProvider
 
         parent::boot();
 
-        Route::bind('articleSlug', function($value) {
-            return Article::where('slug',$value)->first();
-        });
+        Route::model('media', Media::class);
 
-        Route::bind('photoSlug', function($value) {
-            return Photo::where('slug',$value)->first();
-        });
+//        Route::bind('article', function ($value) {
+//            return Article::where('title', $value)->first();
+//        });
 
-        Route::bind('categorySlug', function($value) {
-            return Category::where('slug',$value)->first();
-        });
-
-        Route::bind('tagSlug', function($value) {
-            return Tag::where('slug',$value)->first();
-        });
+//        Route::bind('articleSlug', function($value) {
+//            return Article::where('slug',$value)->first();
+//        });
+//
+//        Route::bind('mediaSlug', function($value) {
+//            return Media::where('slug',$value)->first();
+//        });
+//
+//        Route::bind('categorySlug', function($value) {
+//            return Category::where('slug',$value)->first();
+//        });
+//
+//        Route::bind('tagSlug', function($value) {
+//            return Tag::where('slug',$value)->first();
+//        });
         
     }
 

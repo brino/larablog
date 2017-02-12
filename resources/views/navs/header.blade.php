@@ -41,11 +41,25 @@
             </a>
         @endif
 
-        <div class="nav-item">
+        <div class="nav-item search">
             {!! Form::open(['route'=>'articles','method'=>'GET']) !!}
-            {{--{{ csrf_field() }}--}}
             <p class="control has-addons">
-                {!! Form::text('query',request('query'),['class'=>'input','placeholder'=>'Find articles','id'=>'search']) !!}
+{{--                {!! Form::text('query',request('query'),['class'=>'input','placeholder'=>'Find articles','id'=>'search']) !!}--}}
+
+                <autocomplete
+                        url="/articles/autocomplete"
+                        placeholder="Find Articles"
+                        anchor="title"
+                        label="summary"
+                        :on-select="getData"
+                        id="search"
+                        init-value="{{ request('query') }}"
+                        class-name="input"
+                        validate-name="{{ $errors->has('query')?'invalid':'validate' }}"
+                        name="query"
+                        >
+                </autocomplete>
+
                 {!! Form::submit('Search',['class'=>'button']) !!}
                 {{--<a class="button is-info">--}}
                     {{--Search--}}

@@ -53,7 +53,7 @@
                     <th></th>
                     @endcan
                     <th>Name</th>
-                    <th>Slug</th>
+                    {{--<th>Slug</th>--}}
                     <th>Articles</th>
                     <th>Created</th>
                 </tr>
@@ -64,16 +64,16 @@
                         @can('super')
                         <td>
                             {!! Form::model($tag, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\TagController@destroy',$tag]]) !!}
-                            {!! Form::button('',['type'=>'submit','class'=>'fa fa-remove button is-danger is-small']) !!}
+                            {!! Form::button('<i class="fa fa-remove"></i>',['type'=>'submit','class'=>'button is-danger is-small']) !!}
                             {!! Form::close() !!}
                         </td>
                         @endcan
                         <td>
                             {{ link_to_route('tag.edit',$tag->name,[$tag]) }}
                         </td>
-                        <td>
-                            {{ $tag->slug }}
-                        </td>
+                        {{--<td>--}}
+                            {{--{{ $tag->slug }}--}}
+                        {{--</td>--}}
                         <td>
                             {{ $tag->articles->count() }}
                         </td>

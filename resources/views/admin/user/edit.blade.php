@@ -18,7 +18,7 @@
 @section('heading')
     <span class="icon"><i class="fa fa-pencil-square-o"></i></span> Edit User
     <span class="pull-right">
-        {!! Form::model($user, ['id'=>'delete-form','method' => 'DELETE', 'files' => true, 'action' => ['Admin\UserController@destroy',$user]]) !!}
+        {!! Form::model($user, ['id'=>'delete-form','method' => 'DELETE','action' => ['Admin\UserController@destroy',$user]]) !!}
         {!! Form::submit('Delete',['class'=>'button is-danger']) !!}
         {!! Form::close() !!}
     </span>

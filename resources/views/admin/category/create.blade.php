@@ -21,7 +21,7 @@
 
 
 @section('content')
-    {!! Form::open(['id'=>'create-form','route' => 'category.store']) !!}
+    {!! Form::open(['id'=>'create-form','route' => 'category.store' ,'files' => true]) !!}
 
     @include('admin.category.form')
 
