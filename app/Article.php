@@ -6,7 +6,7 @@ use App\Services\MediaStorageService;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
-use ElasticScout\Searchable;
+use Laravel\Scout\Searchable;
 
 /**
  * Class Article

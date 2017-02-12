@@ -12,7 +12,7 @@
         "intervention/image": "^2.0",
         "predis/predis": "~1.0",
         "watson/sitemap": "^2.0.0",
-        "brokerexchange/elasticscout": "0.*"
+        "brokerexchange/elasticscout": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
