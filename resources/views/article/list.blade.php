@@ -68,7 +68,7 @@
                     @if($article->views)
                         <div class="level-item">
                             <a href="{{ route('article',[$article]) }}">
-                                {{--<span class="icon is-small"><i class="fa fa-eye"></i></span>--}}
+                                <span class="icon is-small"><i class="fa fa-eye"></i></span>
                                 {{ number_format($article->views) }}
                             </a>
                         </div>

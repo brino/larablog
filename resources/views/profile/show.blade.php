@@ -16,26 +16,6 @@
 </div>
 
 <div class="columns">
-    <div class="column is-2">
-        <img src="{{ $user->avatarUrl() }}" title="{{ $user->name }}">
-    </div>
-    <div class="column">
-        <div class="content">
-            <p class="heading">Name:</p>
-            <p class="title">{{$user->name}}</p>
-        </div>
-    </div>
-    <div class="column">
-        <div class="content">
-            <p class="heading">Bio:</p>
-            {{ $user->bio }}
-        </div>
-    </div>
-</div>
-
-<hr>
-
-<div class="columns">
     <div class="column">
         <p class="title"><a href="{{ route('articles',[null,'query'=>$user->name]) }}">Latest Articles</a></p>
         <table class="table">
