@@ -9,6 +9,14 @@ other js libs with Mix. Also includes an xml sitemap generator.
 
 Larablog is released under the MIT Open Source License, <https://opensource.org/licenses/MIT>.
 
+## Requirements
+
+* php-gd
+* php-dom
+* php-mbstring
+* php-mysql
+* php-curl
+* apache mod-rewrite
 
 ## Installation
 
