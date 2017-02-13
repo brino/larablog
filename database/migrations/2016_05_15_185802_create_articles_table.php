@@ -28,9 +28,7 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
         });
 
-        $client =  \Elasticsearch\ClientBuilder::create()->setHosts(config('scout.elastic.hosts',['localhost:9200']))->build();
-
-        $client->indices()->putTemplate([
+        app('Elasticsearch\Client')->indices()->putTemplate([
             'name' => 'articles',
             'order' => 1,
             'body' => [
@@ -96,16 +94,14 @@ class CreateArticlesTable extends Migration
         Storage::disk('public')->deleteDirectory('banners');
         Storage::disk('public')->deleteDirectory('thumbnails');
 
-        $client =  \Elasticsearch\ClientBuilder::create()->setHosts(config('elasticsearch.hosts',['localhost:9200']))->build();
-
         try {
-            $client->indices()->deleteTemplate([
+            app('Elasticsearch\Client')->indices()->deleteTemplate([
                 'name' => 'articles'
             ]);
         } catch (\Exception $e) {}
 
         try {
-            $client->indices()->delete([
+            app('Elasticsearch\Client')->indices()->delete([
                 'index' => 'articles'
             ]);
         } catch (\Exception $e) {}
