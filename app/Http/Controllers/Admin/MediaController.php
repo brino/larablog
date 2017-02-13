@@ -6,7 +6,7 @@ use App\Media;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
-use App\Http\Requests\mediaRequest;
+use App\Http\Requests\MediaRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
