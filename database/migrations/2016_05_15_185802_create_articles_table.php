@@ -28,7 +28,7 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
         });
 
-        $client =  \Elasticsearch\ClientBuilder::create()->setHosts(config('elasticsearch.hosts',['localhost:9200']))->build();
+        $client =  \Elasticsearch\ClientBuilder::create()->setHosts(config('scout.elastic.hosts',['localhost:9200']))->build();
 
         $client->indices()->putTemplate([
             'name' => 'articles',
