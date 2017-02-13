@@ -118,13 +118,11 @@ class MediaController extends Controller
     {
         //show filled form for editing existing article
         //submits to update
-
         if (Gate::denies('update-media',$media)) {
             return redirect()->route('admin')->withErrors(['User does not have permission to edit this media.']);
         }
 
         $categories = $this->categories;
-
         return view('admin.media.edit',compact('media','categories'));
     }
 
