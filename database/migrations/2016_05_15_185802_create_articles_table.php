@@ -49,6 +49,10 @@ class CreateArticlesTable extends Migration
                                     ],
                                 ],
                             ],
+                            'published_at' => [
+                                'type' => 'date',
+                                'format' => 'yyyy-MM-dd HH:mm:ss',
+                            ]
                         ],
                     ],
                 ],
@@ -93,18 +97,13 @@ class CreateArticlesTable extends Migration
         Schema::dropIfExists('articles');
         Storage::disk('public')->deleteDirectory('banners');
         Storage::disk('public')->deleteDirectory('thumbnails');
+        app('Elasticsearch\Client')->indices()->deleteTemplate([
+            'name' => 'articles'
+        ]);
 
-        try {
-            app('Elasticsearch\Client')->indices()->deleteTemplate([
-                'name' => 'articles'
-            ]);
-        } catch (\Exception $e) {}
-
-        try {
-            app('Elasticsearch\Client')->indices()->delete([
-                'index' => 'articles'
-            ]);
-        } catch (\Exception $e) {}
+        app('Elasticsearch\Client')->indices()->delete([
+            'index' => 'articles'
+        ]);
 
     }
 }

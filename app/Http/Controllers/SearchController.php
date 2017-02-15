@@ -25,7 +25,7 @@ class SearchController extends Controller
         try
         {
             //build query
-            $builder = $article->search($request->input('query'))->where('published', 1);
+            $builder = $article->search($request->input('query'))->where('published', 1)->orderBy('published_at','desc');
 
             if($request->has('tags')) {
                 $tags = collect($request->input('tags'))->values()->toArray();

@@ -165,7 +165,7 @@ return [
 //        App\Providers\BroadcastServiceProvider::class,
         Watson\Sitemap\SitemapServiceProvider::class,
         ElasticScout\ElasticScoutServiceProvider::class,
-
+        Laravel\Tinker\TinkerServiceProvider::class,
     ],
 
     /*

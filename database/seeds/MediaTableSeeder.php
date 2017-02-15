@@ -13,10 +13,12 @@ class MediaTableSeeder extends Seeder
      */
     public function run()
     {
-        if(strtolower(App::environment()) != 'production'){
+        if(strtolower(App::environment()) == 'production'){
 
             factory(Media::class, 1)->create();
 
+        } else {
+            factory(Media::class, 50)->create();
         }
     }
 }

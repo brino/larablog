@@ -20,6 +20,11 @@
 
 @section('subheading')
     @include('partials.signature',['thing'=>$article])
+    @can('update-article',$article)
+        <a href="{{ route('article.edit',[$article]) }}">
+            <span class="icon"><i class="fa fa-pencil"></i></span>
+        </a>
+    @endcan
 @endsection
 
 @section('content')
@@ -28,7 +33,7 @@
     <div class="container">
        @unless(empty($article->bannerUrl()))
         <figure class="image" style="margin-bottom: 20px;">
-            <img src="{{ $article->bannerUrl() }}" class="image">
+            <img src="{{ $article->bannerUrl() }}">
         </figure>
         @endunless
 
