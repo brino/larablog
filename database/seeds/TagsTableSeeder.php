@@ -24,13 +24,16 @@ class TagsTableSeeder extends Seeder
         DB::table('tags')->insert([['name' => 'visualization', 'slug' => 'visualization', 'created_at' => date('Y-m-d H:i:s')]]);
         DB::table('tags')->insert([['name' => 'info-graphic', 'slug' => 'info-graphic', 'created_at' => date('Y-m-d H:i:s')]]);
 
+        if(strtolower(App::environment()) != 'production')
+        {
+            $tags = App\Tag::pluck('id', 'id');
 
-        $tags = App\Tag::pluck('id','id');
+            App\Article::all()->each(function ($item) use ($tags)
+            {
+                $item->tags()->attach($tags->random(rand(1, 4))->all());
+            });
 
-        App\Article::all()->each(function($item) use($tags) {
-            $item->tags()->attach($tags->random(rand(1,4))->all());
-        });
-
-        Artisan::call('scout:import',['model'=>'App\Article']);
+            Artisan::call('scout:import', ['model' => 'App\Article']);
+        }
     }
 }
