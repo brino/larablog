@@ -4,7 +4,7 @@
     @include('partials.meta')
     @yield('meta')
 
-    <title>@yield('title') :: {{ env('APP_NAME') }}</title>
+    <title>@yield('title') :: {{ config('app.name') }}</title>
 
     @include('partials.head')
 </head>
