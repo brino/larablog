@@ -41,6 +41,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'name' => env('APP_NAME', 'sitename'),
+
     'media' => 'storage',
 
     'register' => env('APP_REGISTER',false),
