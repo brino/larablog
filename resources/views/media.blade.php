@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 
-@section('title')
-    Media
-@stop
+{{--@section('title')--}}
+    {{--Media--}}
+{{--@stop--}}
 
 
 @section('heading')

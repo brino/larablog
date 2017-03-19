@@ -40,7 +40,9 @@ class TagController extends Controller
 
         $tags->load('articles');
 
-        return view('admin.tags',compact('tags','info'));
+        $title = 'tags';
+
+        return view('admin.tags',compact('title','tags','info'));
 
     }
 
@@ -67,7 +69,9 @@ class TagController extends Controller
         //shows create form
         //submits to store
 
-        return view('admin.tag.create',compact('tag'));
+        $title = 'Create Tag';
+
+        return view('admin.tag.create',compact('title','tag'));
     }
 
     /**
@@ -104,7 +108,9 @@ class TagController extends Controller
             return redirect()->route('tag.index')->withErrors(['User does not have permission to edit this tag.']);
         }
 
-        return view('admin.tag.edit',compact('tag'));
+        $title = 'Edit Tag';
+
+        return view('admin.tag.edit',compact('title','tag'));
     }
 
     /**

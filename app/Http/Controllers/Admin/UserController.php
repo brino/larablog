@@ -36,7 +36,9 @@ class UserController extends Controller
 
         $users->load('articles','media');
 
-        return view('admin.users',compact('users','info'));
+        $title = 'Users';
+
+        return view('admin.users',compact('title','users','info'));
     }
 
     /**
@@ -59,7 +61,9 @@ class UserController extends Controller
             return redirect()->route('admin')->withErrors(['User does not have permission to create users.']);
         }
 
-        return view('admin.user.create',compact('user'));
+        $title = 'Create User';
+
+        return view('admin.user.create',compact('title','user'));
         
     }
 
@@ -93,7 +97,9 @@ class UserController extends Controller
             return redirect()->route('admin')->withErrors(['User does not have permission to edit this user.']);
         }
 
-        return view('admin.user.edit',compact('user'));
+        $title = 'Edit User';
+
+        return view('admin.user.edit',compact('title','user'));
     }
 
     /**

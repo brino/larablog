@@ -25,8 +25,9 @@ class ContributorController extends Controller
 
         $contributors->load('media');
         $contributors->load('articles');
+        $title = 'Contributors';
 
-        return view('contributors',compact('contributors','categories'));
+        return view('contributors',compact('title','contributors','categories'));
     }
 
 }

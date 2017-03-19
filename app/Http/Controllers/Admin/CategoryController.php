@@ -39,7 +39,9 @@ class CategoryController extends Controller
 
         $categories->load('articles','media');
 
-        return view('admin.categories',compact('categories','info'));
+        $title = 'Categories';
+
+        return view('admin.categories',compact('title','categories','info'));
     }
 
     /**
@@ -64,8 +66,10 @@ class CategoryController extends Controller
         //show the creation form and post to store()
         
         $info = false;
-        
-        return view('admin.category.create',compact('info'));
+
+        $title = 'Create Category';
+
+        return view('admin.category.create',compact('title','info'));
     }
 
     /**
@@ -97,8 +101,10 @@ class CategoryController extends Controller
         if(Session::has('info'))
             $info = Session::get('info');
 
+        $title = 'Edit Category';
+
         //show edit form and post to update()
-        return view('admin.category.edit',compact('info','category'));
+        return view('admin.category.edit',compact('title','info','category'));
     }
 
     /**

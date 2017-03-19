@@ -49,6 +49,8 @@ class DashboardController extends Controller
         if(Session::has('info'))
             $info = Session::get('info');
 
-        return view('admin.dashboard',compact('articles','medias','user','popular','info','categories'));
+        $title = 'Dashboard';
+
+        return view('admin.dashboard',compact('title','articles','medias','user','popular','info','categories'));
     }
 }

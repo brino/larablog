@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 
-@section('title')
-    Articles {{ $category->name or '' }} {{ request('query') }}
-@stop
+{{--@section('title')--}}
+    {{--Articles {{ $category->name or '' }} {{ request('query') }}--}}
+{{--@stop--}}
 
 
 @section('heading')

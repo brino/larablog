@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 
-@section('title')
-    Tag {{ $tag->name }}
-@stop
+{{--@section('title')--}}
+    {{--Tag {{ $tag->name }}--}}
+{{--@stop--}}
 
 
 @section('heading')

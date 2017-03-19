@@ -1,9 +1,9 @@
 @extends('layouts.basic')
 
 
-@section('title')
-    Latest
-@stop
+{{--@section('title')--}}
+    {{--Latest--}}
+{{--@stop--}}
 
 @section('meta')
     <meta property="og:title" content="Latest Articles">

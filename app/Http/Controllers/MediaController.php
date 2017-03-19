@@ -19,7 +19,9 @@ class MediaController extends Controller
     {
         $medias = $media->paginate(12);
 
-        return view('media',compact('medias'));
+        $title = 'Media';
+
+        return view('media',compact('title','medias'));
     }
 
     /**

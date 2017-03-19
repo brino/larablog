@@ -59,7 +59,9 @@ class ArticleController extends Controller
             return redirect()->route('admin')->withErrors(['User does not have permission to view articles']);
         }
 
-        return view('admin.articles',compact('articles','info'));
+        $title = 'Articles';
+
+        return view('admin.articles',compact('title','articles','info'));
 
     }
 
@@ -89,7 +91,9 @@ class ArticleController extends Controller
         $categories = $this->categories;
         $tags = $this->tags;
 
-        return view('admin.article.create',compact('article','categories','tags'));
+        $title = 'Create Article';
+
+        return view('admin.article.create',compact('title','article','categories','tags'));
     }
 
     /**
@@ -135,7 +139,9 @@ class ArticleController extends Controller
         $categories = $this->categories;
         $tags = $this->tags;
 
-        return view('admin.article.edit',compact('article','categories','tags'));
+        $title = 'Edit Article';
+
+        return view('admin.article.edit',compact('title','article','categories','tags'));
     }
 
     /**

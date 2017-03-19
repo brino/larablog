@@ -5,6 +5,7 @@ Vue.component('autocomplete', require('./components/Autocomplete.vue'));
 Vue.component('upload', require('./components/FileUploadInput.vue'));
 Vue.component('html-editor', require('./components/HtmlEditor.vue'));
 Vue.component('js-editor', require('./components/JavascriptEditor.vue'));
+// Vue.component('file-upload',require('./components/FileUpload.vue'));
 
 var d3 = window.d3 = require('d3');
 var c3 = window.c3 = require('c3');

@@ -1,13 +1,13 @@
 @extends('layouts.hero')
 
 
-@section('title')
-    @if(!Auth::guest() && $user->name == Auth::user())
-        My
-    @else
-        {{ $user->name }}
-    @endif
-@stop
+{{--@section('title')--}}
+    {{--@if(!Auth::guest() && $user->name == Auth::user())--}}
+        {{--My--}}
+    {{--@else--}}
+        {{--{{ $user->name }}--}}
+    {{--@endif--}}
+{{--@stop--}}
 
 
 @section('heading')

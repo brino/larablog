@@ -21,7 +21,9 @@ class ArticleController extends Controller
 
         $article->viewed();
 
-        return view('article.show',compact('article'));
+        $title = $article->title;
+
+        return view('article.show',compact('title','article'));
 
     }
 }

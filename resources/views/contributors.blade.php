@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 
-@section('title')
-    Contributors
-@stop
+{{--@section('title')--}}
+    {{--Contributors--}}
+{{--@stop--}}
 
 
 @section('heading')

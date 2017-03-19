@@ -28,63 +28,67 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
         });
 
-        app('Elasticsearch\Client')->indices()->putTemplate([
-            'name' => 'articles',
-            'order' => 1,
-            'body' => [
-                'template' => 'articles',
-                'mappings' => [
-                    'doc' => [
-                        'properties' => [
-                            'title' => [
-                                'type' => 'text',
-                                'fields' => [
-                                    'keyword' => [
-                                        'type' => 'keyword',
-                                    ],
-                                    'autocomplete' => [
-                                        'type' => 'text',
-                                        'analyzer' => 'autocomplete',
-                                        'search_analyzer' => 'autocomplete_search',
+        try {
+            app('Elasticsearch\Client')->indices()->putTemplate([
+                'name' => 'articles',
+                'order' => 1,
+                'body' => [
+                    'template' => 'articles',
+                    'mappings' => [
+                        'doc' => [
+                            'properties' => [
+                                'title' => [
+                                    'type' => 'text',
+                                    'fields' => [
+                                        'keyword' => [
+                                            'type' => 'keyword',
+                                        ],
+                                        'autocomplete' => [
+                                            'type' => 'text',
+                                            'analyzer' => 'autocomplete',
+                                            'search_analyzer' => 'autocomplete_search',
+                                        ],
                                     ],
                                 ],
+                                'published_at' => [
+                                    'type' => 'date',
+                                    'format' => 'yyyy-MM-dd HH:mm:ss',
+                                ]
                             ],
-                            'published_at' => [
-                                'type' => 'date',
-                                'format' => 'yyyy-MM-dd HH:mm:ss',
-                            ]
                         ],
                     ],
-                ],
-                'settings' =>[
-                    'index' => [
-                        'analysis' => [
-                            'analyzer' => [
-                                'autocomplete' => [
-                                    'tokenizer' => 'autocomplete',
-                                    'filter' => [
-                                        'lowercase',
+                    'settings' =>[
+                        'index' => [
+                            'analysis' => [
+                                'analyzer' => [
+                                    'autocomplete' => [
+                                        'tokenizer' => 'autocomplete',
+                                        'filter' => [
+                                            'lowercase',
+                                        ],
+                                    ],
+                                    'autocomplete_search' => [
+                                        'tokenizer' => 'lowercase',
                                     ],
                                 ],
-                                'autocomplete_search' => [
-                                    'tokenizer' => 'lowercase',
-                                ],
-                            ],
-                            'tokenizer' => [
-                                'autocomplete' => [
-                                    'type' => 'edge_ngram',
-                                    'min_gram' => 1,
-                                    'max_gram' => 15,
-                                    'token_chars' => [
-                                        'letter'
+                                'tokenizer' => [
+                                    'autocomplete' => [
+                                        'type' => 'edge_ngram',
+                                        'min_gram' => 1,
+                                        'max_gram' => 15,
+                                        'token_chars' => [
+                                            'letter'
+                                        ]
                                     ]
                                 ]
-                            ]
+                            ],
                         ],
                     ],
                 ],
-            ],
-        ]);
+            ]);
+        } catch(\Exception $e) {
+
+        }
     }
 
     /**
@@ -97,13 +101,18 @@ class CreateArticlesTable extends Migration
         Schema::dropIfExists('articles');
         Storage::disk('public')->deleteDirectory('banners');
         Storage::disk('public')->deleteDirectory('thumbnails');
-        app('Elasticsearch\Client')->indices()->deleteTemplate([
-            'name' => 'articles'
-        ]);
 
-        app('Elasticsearch\Client')->indices()->delete([
-            'index' => 'articles'
-        ]);
+        try {
+            app('Elasticsearch\Client')->indices()->deleteTemplate([
+                'name' => 'articles'
+            ]);
+
+            app('Elasticsearch\Client')->indices()->delete([
+                'index' => 'articles'
+            ]);
+        } catch(\Exception $e) {
+
+        }
 
     }
 }

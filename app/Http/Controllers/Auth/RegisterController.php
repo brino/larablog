@@ -44,6 +44,17 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        $title = 'Register';
+        return view('auth.register',compact('title'));
+    }
+
+    /**
      * @param array $data
      * @return mixed
      * @throws \Exception

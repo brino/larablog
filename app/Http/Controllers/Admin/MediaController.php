@@ -58,7 +58,9 @@ class MediaController extends Controller
             $medias = Auth::user()->media()->orderBy('created_at','asc')->paginate();
         }
 
-        return view('admin.media',compact('medias','info'));
+        $title = 'Media';
+
+        return view('admin.media',compact('title','medias','info'));
 
     }
 
@@ -86,7 +88,9 @@ class MediaController extends Controller
         //submits to store
         $categories = $this->categories;
 
-        return view('admin.media.create',compact('media','categories'));
+        $title = 'Create Media';
+
+        return view('admin.media.create',compact('title','media','categories'));
     }
 
     /**
@@ -122,8 +126,10 @@ class MediaController extends Controller
             return redirect()->route('admin')->withErrors(['User does not have permission to edit this media.']);
         }
 
+        $title = 'Edit Media';
+
         $categories = $this->categories;
-        return view('admin.media.edit',compact('media','categories'));
+        return view('admin.media.edit',compact('title','media','categories'));
     }
 
     /**

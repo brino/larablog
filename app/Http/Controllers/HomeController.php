@@ -31,7 +31,9 @@ class HomeController extends Controller
             return $category->articles->count();
         });
 
-        return view('home',compact('latest','medias','popular','categories'));
+        $title = 'Latest';
+
+        return view('home',compact('title','latest','medias','popular','categories'));
 
     }
 }

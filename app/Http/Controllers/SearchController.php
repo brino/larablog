@@ -48,7 +48,9 @@ class SearchController extends Controller
             return $category->articles->count();
         });
 
-        return view('articles',compact('articles','categories','category'));
+        $title = "Articles $category->name ".request('query');
+
+        return view('articles',compact('title','articles','categories','category'));
     }
 
     public function autocomplete(Request $request,Article $article)
