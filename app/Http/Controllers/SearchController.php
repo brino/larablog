@@ -53,9 +53,13 @@ class SearchController extends Controller
         return view('articles',compact('title','articles','categories','category'));
     }
 
+    /**
+     * @param Request $request
+     * @param Article $article
+     * @return array|\Illuminate\Http\JsonResponse|static
+     */
     public function autocomplete(Request $request,Article $article)
     {
-
         if($request->has('q'))
         {
             try

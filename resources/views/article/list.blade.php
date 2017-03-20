@@ -21,9 +21,7 @@
         <div class="media-content">
             <div class="media-heading" style="margin-bottom: 5px;">
                 <div class="subtitle">
-                    {{--<strong>--}}
                     <a href="{{ route('article',[$article->slug]) }}">{{ $article->title }}</a>
-                    {{--</strong>--}}
                 </div>
             </div>
             <p class="is-hidden-desktop">
@@ -76,7 +74,7 @@
                 </div>
                 <div class="level-right has-text-right">
                     <small>
-                        @component('tags.list',['tags' => $article->tags])@endcomponent
+                        @include('tags.list',['tags' => $article->tags])
                     </small>
                 </div>
             </nav>
