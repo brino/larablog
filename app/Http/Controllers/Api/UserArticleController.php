@@ -15,7 +15,6 @@ class UserArticleController extends Controller
 
         $articles = $article->search($request->input('query'))->where('user.id',$user->id)->where('published',1)->paginate();
 
-//        dd(config('app.url'));
         $articles->transform(function ($item) {
             $item->link = config('app.url').'/article/'.$item->slug;
 
@@ -24,6 +23,7 @@ class UserArticleController extends Controller
             unset($item->category->id);
             unset($item->slug);
             unset($item->tags);
+            $item->thumbnail = config('app.url').'/'.config('app.media').$item->thumbnail;
 
             return $item;
         });
