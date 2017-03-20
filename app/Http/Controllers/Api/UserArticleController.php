@@ -17,13 +17,18 @@ class UserArticleController extends Controller
 
         $articles->transform(function ($item) {
             $item->link = config('app.url').'/article/'.$item->slug;
+            if(!is_null($item->thumbnail)) {
+                $item->thumb = config('app.url').$item->thumbnailURL(true);
+            }
 
             unset($item->id);
             unset($item->user->id);
             unset($item->category->id);
             unset($item->slug);
             unset($item->tags);
-            $item->thumbnail = config('app.url').'/'.config('app.media').$item->thumbnail;
+            unset($item->banner);
+            unset($item->body);
+            unset($item->thumbnail);
 
             return $item;
         });
