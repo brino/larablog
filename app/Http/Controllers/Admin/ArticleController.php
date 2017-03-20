@@ -148,25 +148,25 @@ class ArticleController extends Controller
      * @param Article $article
      * @param ArticleRequest $request
      * @return $this|\Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
     public function update(Article $article, ArticleRequest $request)
     {
-//        dd($request->file('banner'));
 
-//        $article->load('category');
-//        $article->load('user');
-//        $article->load('tags');
+        try {
+            $article->update($request->all());
+            $article->tags()->sync($request->input('tag_list'));
 
-        if($article->update($request->all())){
+            $article->load('user');
+            $article->load('category');
+            $article->load('tags');
+            $article->searchable(); //so that scout indexes the relations
 
-            return redirect()->route('article.index')->with('info','Saved Article Successfully!');
 
-        } else {
-
+        } catch (\Exception $e) {
             return back()->withErrors(['Save Failed!']);
-
         }
+
+        return redirect()->route('article.index')->with('info','Saved Article Successfully!');
     }
 
     /**
@@ -184,17 +184,6 @@ class ArticleController extends Controller
 
         return redirect()->route('article.index')->with('info','Article Deleted!');
     }
-
-//    /**
-//     * @param Article $article
-//     * @return \Illuminate\Http\RedirectResponse
-//     */
-//    public function removeThumbnail(Article $article)
-//    {
-//        $article->destroyThumbnail();
-//
-//        return back()->with('info','Thumbnail Removed');
-//    }
 
     /**
      * @param Article $article
@@ -226,7 +215,4 @@ class ArticleController extends Controller
 
         return back()->withErrors(['thubnail'=>'Failed to remove thumbnail']);
     }
-
-
-
 }
