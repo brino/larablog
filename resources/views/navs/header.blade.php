@@ -47,9 +47,8 @@
 
             <div class="nav-item search">
                 {!! Form::open(['route'=>'articles','method'=>'GET']) !!}
-                <p class="control has-addons">
-                    {{--                {!! Form::text('query',request('query'),['class'=>'input','placeholder'=>'Find articles','id'=>'search']) !!}--}}
 
+                <p class="control has-addons">
                     <autocomplete
                             url="/articles/autocomplete"
                             placeholder="Find Articles"
@@ -63,12 +62,9 @@
                             name="query"
                     >
                     </autocomplete>
-
                     {!! Form::submit('Search',['class'=>'button']) !!}
-                    {{--<a class="button is-info">--}}
-                    {{--Search--}}
-                    {{--</a>--}}
                 </p>
+
                 {!! Form::close() !!}
             </div>
         </div>

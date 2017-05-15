@@ -6,7 +6,7 @@ use App\Services\MediaStorageService;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
-use Laravel\Scout\Searchable;
+use ElasticScout\Searchable;
 
 /**
  * Class Article
@@ -63,9 +63,6 @@ class Article extends Model
     public function toSearchableArray()
     {
         $array = $this->toArray();
-
-//        $array['suggest'] = explode(' ',$array['title'].' '.strip_tags($array['summary']));
-//        $array['title'] = $array['title'];
         $array['published'] = $this->published_at->isPast();
 
         return $array;

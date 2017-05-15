@@ -32,6 +32,13 @@
         @if($category->exists)
             within <strong>{{ $category->name }}</strong>
         @endif
+
+        @if(request()->has('tags'))
+            matching tag(s):
+            @foreach(request('tags') as $tag)
+                <strong>{{ $tag }}</strong>
+            @endforeach
+        @endif
     </small>
 </div>
 

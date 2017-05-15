@@ -25,16 +25,22 @@ class SearchController extends Controller
         try
         {
             //build query
-            $builder = $article->search($request->input('query'))->where('published', 1)->orderBy('published_at','desc');
+            $builder = $article->search()
+                ->boolean()
+                ->should($article->match('title',$request->input('query'), 'and', 'boolean', 1, 2))
+                ->should($article->match('summary',$request->input('query')))
+                ->should($article->match('body',$request->input('query')))
+                ->filter($article->term('published', 1))
+//                ->aggregate($article->agg()->terms('categories', 'category.name.keyword'))
+            ;
 
             if($request->has('tags')) {
-                $tags = collect($request->input('tags'))->values()->toArray();
-                $builder->where('tags.slug',(Array) $tags);
+                $builder->filter($article->terms('tags.name.keyword', $request->input('tags')));
             }
 
             //set category filter
             if($category->exists) {
-                $builder->where('category.id',$category->id);
+                $builder->filter($article->term('category.id', $category->id));
             }
 
             //execute query
@@ -45,7 +51,7 @@ class SearchController extends Controller
         }
 
         $categories = Category::all()->filter(function($category) {
-            return $category->articles->count();
+            return $category->articles()->published()->get()->count();
         });
 
         $title = "Articles $category->name ".request('query');
@@ -64,29 +70,12 @@ class SearchController extends Controller
         {
             try
             {
-                $results = app('Elasticsearch\Client')->search([
-                    '_source' => ['title', 'slug', 'summary'],
-                    'index' => $article->searchableAs(),
-                    'type' => 'doc',
-                    'body' => [
-                        'query' => [
-                            'match' => [
-                                'title.autocomplete' => [
-                                    'query' => $request->input('q'),
-                                    'operator' => 'and',
-                                ]
-                            ]
-                        ]
-                    ],
-                    'size' => 5,
-                ]);
-
-                return collect($results['hits']['hits'])->map(function ($result)
-                {
+                return $article->search()->query($article->match('title.autocomplete',$request->input('q')))->take(5)->get()
+                    ->map(function ($article) {
                     return [
-                        'title' => $result['_source']['title'],
-                        'slug' => $result['_source']['slug'],
-                        'summary' => strip_tags($result['_source']['summary'])
+                        'title' => $article->title,
+                        'slug' => $article->slug,
+                        'summary' => $article->summary
                     ];
                 });
             } catch(\Exception $e) {

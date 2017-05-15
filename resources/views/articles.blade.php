@@ -8,7 +8,6 @@
 
 @section('heading')
 
-
     @if($category->exists)
         <span class="icon is-medium"><i class="fa {{ $category->icon }}"></i></span>
         {{ $category->name }}
